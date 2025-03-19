@@ -6,6 +6,13 @@ __pycache__/
 # C extensions
 *.so
 
+# files
+*.csv
+*.parquet
+*.ckpt
+*.json
+*.pkl
+
 # Distribution / packaging
 .Python
 build/
@@ -145,3 +152,5 @@ docs/bin
 sample_data/processed/*
 
 outputs
+pretrain/
+

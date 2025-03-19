@@ -458,6 +458,8 @@ class PytorchBatch:
         out_batch = {}
 
         for k, v in self.items():
+            # print("printing k: ", k)
+            # print("printing v: ", v)
             match v:
                 case dict():
                     out_batch[k] = {kk: vv.index_select(0, expanded_return_idx) for kk, vv in v.items()}

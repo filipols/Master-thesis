@@ -1,0 +1,27 @@
+defaults:
+  - finetune_config
+  - _self_
+
+experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_lookback_7_small
+  seq_padding_side: right
+  do_include_start_time_min: True
+
+config:
+  cohort_name: eneryield_lookback_7_small
+
+save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_lookback_7_small
+task_df_name: task_df_eneryield_interruption_cls
+
+load_from_model_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_lookback_7_small
+
+# min_seq_len: 2
+# train_subset_size: FULL
+
+# task_specific_params:
+#   num_samples: 2
+#   max_new_events: 2
+
+# _target_: "EventStream.transformer.config.StructuredTransformerConfig"

@@ -87,7 +87,7 @@ def main(cfg: DictConfig):
     static_sources = defaultdict(dict)
     dynamic_sources = defaultdict(dict)
     measurement_configs = {}
-
+    print(1)
     if TemporalityType.FUNCTIONAL_TIME_DEPENDENT in measurements_by_temporality:
         time_dep_measurements = measurements_by_temporality.pop(TemporalityType.FUNCTIONAL_TIME_DEPENDENT)
     else:
@@ -103,6 +103,7 @@ def main(cfg: DictConfig):
 
                 if type(measurements) is str:
                     measurements = [measurements]
+
                 for m in measurements:
                     measurement_config_kwargs = {
                         "temporality": temporality,
@@ -137,6 +138,7 @@ def main(cfg: DictConfig):
                         case str(), DataModality.SINGLE_LABEL_CLASSIFICATION:
                             add_to_container(m, InputDataType.CATEGORICAL, data_schema)
                         case str(), DataModality.MULTI_LABEL_CLASSIFICATION:
+                       
                             add_to_container(m, InputDataType.CATEGORICAL, data_schema)
                         case _:
                             raise ValueError(f"{m}, {modality} invalid! Must be in {DataModality.values()}!")
@@ -149,7 +151,7 @@ def main(cfg: DictConfig):
                             )
                     else:
                         measurement_configs[m] = MeasurementConfig(**measurement_config_kwargs)
-
+    print(2)
     if len(static_sources) > 1:
         raise NotImplementedError(
             f"Currently, only 1 static source can be specified -- you have {static_sources}"
@@ -157,7 +159,7 @@ def main(cfg: DictConfig):
 
     static_key = list(static_sources.keys())[0]
     static_col_schema = static_sources[static_key]
-
+    
     for m, config in time_dep_measurements.items():
         if type(m) is not str:
             raise ValueError(f"{m} must be a string for time-dep measurement!")
@@ -189,7 +191,7 @@ def main(cfg: DictConfig):
                     f"{m} differs across input sources!\n{old}\nvs.\n{measurement_config_kwargs}"
                 )
         measurement_configs[m] = MeasurementConfig(**measurement_config_kwargs)
-
+    print(3)
     # 1. Build DatasetSchema
     connection_uri = cfg.pop("connection_uri", None)
     cfg.pop("raw_data_dir", None)
@@ -323,7 +325,7 @@ def main(cfg: DictConfig):
                 input_schema_kwargs["must_have"] = must_have
 
         return InputDFSchema(**input_schema_kwargs, **extra_kwargs)
-
+    print(4)
     inputs = cfg.pop("inputs")
     dataset_schema = DatasetSchema(
         static=build_schema(
@@ -361,11 +363,18 @@ def main(cfg: DictConfig):
     if config.save_dir is not None:
         dataset_schema.to_json_file(config.save_dir / "input_schema.json", do_overwrite=do_overwrite)
 
+    print(5)
     ESD = Dataset(config=config, input_schema=dataset_schema)
+    print(6)
     ESD.split(split, seed=seed)
+    print(7)
     ESD.preprocess()
+    print(8)
     ESD.save(do_overwrite=do_overwrite)
+    print(9)
     ESD.cache_deep_learning_representation(DL_chunk_size, do_overwrite=do_overwrite)
+
+    # print('vocabulary size: ', measurement_configs)
 
 
 if __name__ == "__main__":

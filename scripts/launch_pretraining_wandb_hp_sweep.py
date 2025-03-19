@@ -76,6 +76,7 @@ def collapse_cfg(k: str, v: dict[str, Any]) -> dict[str, Any]:
 @hydra.main(version_base=None, config_path="../configs", config_name="pretraining_hyperparameter_sweep_base")
 def main(cfg: DictConfig):
     cfg = hydra.utils.instantiate(cfg, _convert_="all")
+
     cfg["command"] = [
         "${env}",
         "${interpreter}",
@@ -86,12 +87,16 @@ def main(cfg: DictConfig):
     new_params = {}
     for k, v in cfg["parameters"].items():
         new_params.update(collapse_cfg(k, v))
-
+    # print(cfg)
+    # raise 
     cfg["parameters"] = new_params
-
+    cfg['program'] = 'scripts/pretrain.py'
+    
     if "cohort_name" in cfg:
         cfg.pop("cohort_name")
-
+    cfg['parameters'].pop('config.measurements_per_dep_graph_level')
+    cfg['parameters'].pop('config.hidden_size')
+    cfg['parameters'].pop('wandb_logger_kwargs.entity')
     sweep_kwargs = {}
     if "entity" in cfg:
         entity = cfg.pop("entity")
@@ -101,10 +106,19 @@ def main(cfg: DictConfig):
         project = cfg.pop("project")
         if project:
             sweep_kwargs["project"] = project
+    
+   
+    wandb.init(project=sweep_kwargs["project"])
 
-    sweep_id = wandb.sweep(sweep=cfg, **sweep_kwargs)
+    sweep_id = wandb.sweep(sweep=cfg, project=sweep_kwargs['project'])
+    wandb.agent(project=sweep_kwargs["project"], entity="marcus-student-chalmers-personal", sweep_id=sweep_id)
+    
     return sweep_id
 
 
 if __name__ == "__main__":
     main()
+  
+    
+
+

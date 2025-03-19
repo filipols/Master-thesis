@@ -1,0 +1,58 @@
+defaults:
+  - dataset_base
+  - _self_
+
+# So that it can be run multiple times without issue.
+do_overwrite: True
+
+cohort_name: "mimic"
+subject_id_col: "subject_id"
+raw_data_dir: "/home/filip-marcus/ESGPT_test/data"
+save_dir: "/home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/${cohort_name}"
+
+DL_chunk_size: null
+
+inputs:
+  subjects:
+    input_df: "${raw_data_dir}/subjects_mimic_demo.csv"
+  edstays:
+    input_df: "${raw_data_dir}/edstays_mimic_demo.csv"
+    start_ts_col: "intime"
+    end_ts_col: "outtime"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "edstays"
+  medrecon:
+    input_df: "${raw_data_dir}/medrecon_mimic_demo.csv"
+    ts_col: "charttime"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "medrecon"
+  pyxis:
+    input_df: "${raw_data_dir}/pyxis_mimic_demo.csv"
+    ts_col: "charttime"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "pyxis"
+  vitalsign:
+    input_df: "${raw_data_dir}/vitalsign_mimic_demo.csv"
+    ts_col: "charttime"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "vitalsign"
+
+measurements:
+  static:
+    single_label_classification:
+      subjects: ["dummy_static"]
+  dynamic:
+    multi_label_classification:
+      vitalsign: ["rhythm", "pain"]
+      medrecon: ["name"]
+      edstays: ["arrival_transport", "disposition"]
+    univariate_regression:
+      vitalsign: ["heartrate", "resprate", "o2sat", "sbp", "dbp", "temperature"]
+
+
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null

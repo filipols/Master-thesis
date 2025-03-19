@@ -39,6 +39,7 @@ from ..config import OptimizationConfig, StructuredTransformerConfig
 from ..fine_tuning_model import ESTForStreamClassification
 from ..model_output import StreamClassificationModelOutput
 from ..utils import str_summary
+from .generative_modeling import ESTForGenerativeSequenceModelingLM
 
 
 class ESTForStreamClassificationLM(L.LightningModule):
@@ -97,7 +98,8 @@ class ESTForStreamClassificationLM(L.LightningModule):
 
     def build_metrics(self):
         """Build the various torchmetrics we'll use to track performance."""
-
+        print(self.config.problem_type)
+        #self.config.problem_type = "multi_label_classification" ### FIXA HARDCODE!
         if (self.config.problem_type == "single_label_classification") and (self.config.num_labels > 2):
             metric_kwargs = {"num_classes": self.config.num_labels}
             if not self.do_debug_mode:
@@ -320,6 +322,7 @@ class FinetuneConfig:
             "task_df_name": "${task_df_name}",
             "train_subset_size": "FULL",
             "train_subset_seed": 1,
+            "save_dir": "test",
         }
     )
 
@@ -451,17 +454,18 @@ def train(cfg: FinetuneConfig):
     L.seed_everything(cfg.seed)
     if cfg.do_use_filesystem_sharing:
         torch.multiprocessing.set_sharing_strategy("file_system")
-
+    # print("CONFIG DEBUG", type(cfg.config))
     train_pyd = PytorchDataset(cfg.data_config, split="train")
     tuning_pyd = PytorchDataset(cfg.data_config, split="tuning")
 
     config = cfg.config
     data_config = cfg.data_config
     optimization_config = cfg.optimization_config
-
+    # print("DEBUG",type(data_config))
     config.set_to_dataset(train_pyd)
+    # print(type(optimization_config))
     optimization_config.set_to_dataset(train_pyd)
-
+    # print('GET IN!')
     if os.environ.get("LOCAL_RANK", "0") == "0":
         cfg.save_dir.mkdir(parents=True, exist_ok=True)
         print("Saving config files...")
@@ -479,11 +483,12 @@ def train(cfg: FinetuneConfig):
 
     # Model
     model_params = dict(config=config, optimization_config=optimization_config)
+    
     if cfg.pretrained_weights_fp is not None:
         model_params["pretrained_weights_fp"] = cfg.pretrained_weights_fp
 
     LM = ESTForStreamClassificationLM(**model_params)
-
+    #LM = ESTForGenerativeSequenceModelingLM(**model_params)
     # TODO(mmd): Get this working!
     # if cfg.compile:
     #     print("Compiling model!")

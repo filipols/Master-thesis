@@ -7,7 +7,7 @@ try:
     stackprinter.set_excepthook(style="darkbg2")
 except ImportError:
     pass  # no need to fail because of missing dev dependency
-
+import wandb
 import copy
 import os
 
@@ -15,7 +15,9 @@ import hydra
 import torch
 from omegaconf import OmegaConf
 
-from EventStream.transformer.lightning_modules.fine_tuning import FinetuneConfig, train
+from EventStream.transformer.lightning_modules.fine_tuning_dev import FinetuneConfig, train
+#from EventStream.transformer.lightning_modules.fine_tuning import FinetuneConfig, train
+from pathlib import Path
 
 torch.set_float32_matmul_precision("high")
 

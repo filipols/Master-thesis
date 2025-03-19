@@ -1,0 +1,23 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: false
+seed: 1
+load_from_model_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_lookback_7_small
+task_df_name: task_df_eneryield_interruption_cls_one_week_ahead
+pretrained_weights_fp: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_lookback_7_small/finetuning/task_df_eneryield_interruption_cls/subset_size_FULL/subset_seed_1/2025-03-04_15-26-00/eneryield_lookback_7_small/m9bjmbmw/checkpoints/epoch=21-val_loss=0.00-best_model.ckpt #/home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_lookback_7_small/pretrained_weights
+
+config:
+  max_length: 200
+
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_lookback_7_small
+  min_seq_len: 2
+  max_seq_len: 256
+  do_include_start_time_min: True
+
+optimization_config:
+  num_dataloader_workers: 5
+  max_epochs: 1
+  patience: 5

@@ -1,0 +1,12 @@
+defaults:
+  - pretrain_config
+  - _self_
+
+experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_combined
+
+config:
+  cohort_name: eneryield_combined
+

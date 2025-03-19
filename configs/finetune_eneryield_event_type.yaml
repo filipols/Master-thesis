@@ -1,0 +1,31 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: false
+seed: 1
+load_from_model_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_event_type
+task_df_name: task_df_eneryield_tti
+pretrained_weights_fp: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_event_type/pretrained_weights #/home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_lookback_7_small/pretrained_weights
+
+# config:
+#   max_length: 200
+
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_event_type
+  min_seq_len: 2
+  max_seq_len: 256
+  do_include_start_time_min: True
+  do_include_subsequence_indices: True
+
+optimization_config:
+  num_dataloader_workers: 5
+  max_epochs: 300
+  patience: null
+  init_lr: 0.05
+  end_lr: 0.000005
+  end_lr_frac_of_init_lr: null
+  batch_size: 32
+
+trainer_config:
+  log_every_n_steps: 1

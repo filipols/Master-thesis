@@ -64,7 +64,7 @@ class ESTForTrajectoryGeneration(L.LightningModule):
             )
         else:
             self.model = CIPPTForGenerativeSequenceModeling.from_pretrained(
-                pretrained_weights_fp, config=config
+                pretrained_weights_fp, config=config, ignore_mismatched_sizes=True
             )
 
     def predict_step(self, batch: PytorchBatch, batch_idx: int) -> list[PytorchBatch]:

@@ -230,7 +230,6 @@ class Dataset(DatasetBase[DF_T, INPUT_DF_T]):
                 raise TypeError(f"Input dataframe `df` is of invalid type {type(df)}!")
 
         col_exprs = []
-
         df = df.select(pl.all().shrink_dtype())
 
         if filter_on:
@@ -266,7 +265,18 @@ class Dataset(DatasetBase[DF_T, INPUT_DF_T]):
                     raise ValueError(f"Invalid out data type {out_dt}!")
 
         if subject_id_source_col is not None:
-            df = df.select(col_exprs).collect(streaming=cls.STREAMING)
+
+            # print('col exps:', col_exprs)
+            # print('internal_subj_key: ', internal_subj_key)
+
+
+            # chattis, ändra till expr obj 
+            # col_exprs = [pl.col(col) if isinstance(col, str) else col for col in col_exprs]     
+            
+            # HARDCODE streaming=False
+            df = df.select(col_exprs).collect(streaming=False)#cls.STREAMING)
+
+
 
             ID_map = {o: n for o, n in zip(df[subject_id_source_col], df[internal_subj_key])}
             df = df.with_columns(pl.col(internal_subj_key).alias("subject_id"))
@@ -391,7 +401,7 @@ class Dataset(DatasetBase[DF_T, INPUT_DF_T]):
     def _inc_df_col(cls, df: DF_T, col: str, inc_by: int) -> DF_T:
         """Increments the values in a column by a given amount and returns a dataframe with the incremented
         column."""
-        return df.with_columns(pl.col(col) + inc_by).collect(streaming=cls.STREAMING)
+        return df.with_columns(pl.col(col) + inc_by).collect(streaming=False)#cls.STREAMING)
 
     @classmethod
     def _concat_dfs(cls, dfs: list[DF_T]) -> DF_T:
@@ -727,7 +737,6 @@ class Dataset(DatasetBase[DF_T, INPUT_DF_T]):
                     filter_exprs.append(pl.col(col).is_null())
                 case _:
                     filter_exprs.append(pl.col(col).is_in(list(incl_targets)))
-
         return df.filter(pl.all_horizontal(filter_exprs))
 
     @TimeableMixin.TimeAs
@@ -1094,7 +1103,7 @@ class Dataset(DatasetBase[DF_T, INPUT_DF_T]):
             case _:
                 observations = source_df.get_column(measure)
 
-        # 1. Set the overall observation frequency for the column.
+
         observations = observations.drop_nulls()
         N = len(observations)
         if N == 0:
@@ -1324,7 +1333,7 @@ class Dataset(DatasetBase[DF_T, INPUT_DF_T]):
         for m in self.unified_measurements_vocab[1:]:
             temporality = self.measurement_configs[m].temporality
             match temporality:
-                case TemporalityType.STATIC:
+                case TemporalityType.STATIC: 
                     subject_measures.append(m)
                 case TemporalityType.FUNCTIONAL_TIME_DEPENDENT:
                     event_measures.append(m)

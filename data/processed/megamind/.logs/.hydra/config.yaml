@@ -1,0 +1,96 @@
+outlier_detector_config:
+  cls: stddev_cutoff
+  stddev_cutoff: 5.0
+normalizer_config:
+  cls: standard_scaler
+cohort_name: megamind
+save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/${cohort_name}
+subject_id_col: subject_id
+seed: 1
+split:
+- 0.8
+- 0.1
+do_overwrite: true
+DL_chunk_size: null
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 0
+agg_by_time_scale: null
+raw_data_dir: /home/filip-marcus/ESGPT_test/data/megamind/pretrain
+inputs:
+  subjects:
+    input_df: ${raw_data_dir}/subjects_megamind_small_vocab.csv
+  eneryield:
+    input_df: ${raw_data_dir}/eneryield_df.csv
+    ts_col: timestamp
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: eneryield
+  ecom_electronic:
+    input_df: ${raw_data_dir}/ecom_electronic_df_small_vocab.csv
+    ts_col: event_time
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: ecom_electronic
+  ecom_cosmetic:
+    input_df: ${raw_data_dir}/ecom_cosmetic_df_01_small_vocab.csv
+    ts_col: event_time
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: ecom_cosmetic
+  predictive_maintenance:
+    input_df: ${raw_data_dir}/predictive_maintenance.csv
+    ts_col: date
+    ts_format: M/D/YYYY
+    event_type: predictive_maintenance
+  mimic_edstays:
+    input_df: ${raw_data_dir}/mimic_edstays_df_small_vocab.csv
+    start_ts_col: intime
+    end_ts_col: outtime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: mimic_edstays
+  mimic_medrecon:
+    input_df: ${raw_data_dir}/mimic_medrecon_df_small_vocab.csv
+    ts_col: charttime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: mimic_medrecon
+  mimic_pyxis:
+    input_df: ${raw_data_dir}/mimic_pyxis_df_small_vocab.csv
+    ts_col: charttime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: mimic_pyxis
+  mimic_vitalsign:
+    input_df: ${raw_data_dir}/mimic_vitalsign_df_small_vocab.csv
+    ts_col: charttime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: mimic_vitalsign
+measurements:
+  static:
+    single_label_classification:
+      subjects:
+      - dummy_static
+  dynamic:
+    multi_label_classification:
+      eneryield:
+      - event_label
+      ecom_electronic:
+      - event_label
+      ecom_cosmetic:
+      - event_label
+      vitalsign:
+      - rhythm
+      - pain
+      edstays:
+      - arrival_transport
+      - disposition
+    univariate_regression:
+      ecom_electronic:
+      - price
+      ecom_cosmetic:
+      - price
+      vitalsign:
+      - heartrate
+      - resprate
+      - o2sat
+      - sbp
+      - dbp
+      - temperature

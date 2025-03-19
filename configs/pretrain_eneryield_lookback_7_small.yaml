@@ -1,0 +1,61 @@
+defaults:
+  - pretrain_config
+  - _self_
+
+experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+do_overwrite: True
+
+# från wandb hp sweep:
+
+config:
+  TTE_generation_layer_type: log_normal_mixture
+  TTE_lognormal_generation_num_components: 13
+  attention_dropout: 0.4329114025325186
+  # categorical_embedding_dim: 40
+  categorical_embedding_weights: 0.15718200214610012
+  do_full_block_in_seq_attention: True
+  do_normalize_by_measurement_index: False
+  do_split_embeddings: False
+  do_use_learnable_sinusoidal_ATE: False
+  head_dim: 13
+  input_dropout: 0.48617215943581327
+  intermediate_size: 252
+  num_attention_heads: 15
+  num_hidden_layers: 12
+  numerical_embedding_dim: 67
+  resid_dropout: 0.3571070596194145
+  seq_attention_types: global
+  seq_window_size: 6
+  static_embedding_mode: drop
+  static_embedding_weight: 0.09481280754508514
+  structured_event_processing_mode: conditionally_independent
+  cohort_name: eneryield_lookback_7_small
+  max_seq_len: 500
+
+
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_lookback_7_small
+  max_seq_len: 91
+  min_seq_len: 16
+  train_subset_seed: 1
+  train_subset_size: FULL
+
+do_final_validation_on_metrics: True
+
+
+optimization_config:
+  num_dataloader_workers: 5
+  max_epochs: 300
+  batch_size: 13
+  end_lr: null
+  end_lr_frac_of_init_lr: 0.0005865355154688506
+  init_lr: 0.0014001756761146688
+  lr_decay_power: 3.183605692463184
+  lr_frac_warmup_steps: 0.15995841649529763
+  patience: null
+  weight_decay: 0.47856393851763945
+
+wandb_logger_kwargs:
+  project: eneryield_lookback_7_small
+
+  

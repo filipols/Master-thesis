@@ -493,6 +493,7 @@ class DataEmbeddingLayer(torch.nn.Module):
             AssertionError: If `indices.max()` is greater than or equal to `self.n_total_embeddings`.
             ValueError: If `self.embedding_mode` is not a valid `EmbeddingMode`.
         """
+        # print(indices.shape)
         torch._assert(
             indices.max() < self.n_total_embeddings,
             f"Invalid embedding! {indices.max()} >= {self.n_total_embeddings}",

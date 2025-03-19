@@ -66,6 +66,7 @@ class ESTForZeroShotClassificationLM(L.LightningModule):
         self.max_new_events = max_new_events
         self.labeling_function = labeling_function
 
+
         self.save_hyperparameters(
             {
                 "config": config.to_dict(),
@@ -82,7 +83,7 @@ class ESTForZeroShotClassificationLM(L.LightningModule):
             )
         else:
             self.model = CIPPTForGenerativeSequenceModeling.from_pretrained(
-                pretrained_weights_fp, config=config
+                pretrained_weights_fp, config=config, ignore_mismatched_sizes=True
             )
 
     def build_metrics(self):
@@ -228,6 +229,9 @@ class ESTForZeroShotClassificationLM(L.LightningModule):
             input_seq_len=batch.sequence_length,
         )
 
+        # print('PREDICTED: ', empirical_labels)
+        # print('Stream Labels', batch.stream_labels)
+
         # empirical_labels is of shape [batch_size * num_samples, num_labels], and stores a binary indicator
         # of a prediction for each generated sample.
         # labels_unpredicted is of shape [batch_size * num_samples], and stores a boolean indicator of whether
@@ -239,6 +243,13 @@ class ESTForZeroShotClassificationLM(L.LightningModule):
         # average over the num_samples dimension. We'll then take the weighted mean over the num_samples
         # dimension (weighted by whether or not the label was predicted) to get the empirical label for each
         # batch.
+
+
+        # print('emp shape: ',empirical_labels.shape)
+        # print('batch shape: ',batch.batch_size)
+        # print('num samples shape: ',self.num_samples)
+        # print('num labels shape: ',self.config.num_labels)
+
 
         empirical_labels = empirical_labels.reshape(
             batch.batch_size, self.num_samples, self.config.num_labels

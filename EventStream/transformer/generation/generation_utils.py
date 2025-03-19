@@ -274,15 +274,27 @@ class StructuredGenerationMixin:
                 generated_event_index,
                 **model_kwargs,
             )
+            # if return_dict_in_generate:
+            #     # We use the `scores` convention here as it is in the standard huggingface config.
+            #     if output_scores:
+            #         scores += (scores,)
+            #     if output_attentions:
+            #         decoder_attentions += (attentions,)
+            #     if output_hidden_states:
+            #         decoder_hidden_states += (hidden_states,)
 
+            # CHATTI TEST
             if return_dict_in_generate:
-                # We use the `scores` convention here as it is in the standard huggingface config.
                 if output_scores:
-                    scores += (scores,)
+                    scores = (scores,) + (scores,)  # Reassign the result of concatenation
                 if output_attentions:
-                    decoder_attentions += (attentions,)
+                    decoder_attentions = (decoder_attentions,) + (attentions,)
                 if output_hidden_states:
-                    decoder_hidden_states += (hidden_states,)
+                    decoder_hidden_states = (decoder_hidden_states,) + (hidden_states,)
+
+
+
+
 
             # if eos_token was found in one sentence, set sentence to finished
             # if eos_token_id is not None:

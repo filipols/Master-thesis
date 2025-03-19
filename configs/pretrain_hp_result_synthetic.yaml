@@ -1,0 +1,225 @@
+defaults:
+  - pretrain_config
+  - _self_
+
+do_overwrite: true
+
+experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/
+
+config:
+  TTE_generation_layer_type: log_normal_mixture
+  TTE_lognormal_generation_num_components: 11
+  attention_dropout: 0.12291798829147432
+  categorical_embedding_dim: 104
+  categorical_embedding_weight: 0.3870243986550167
+  do_full_block_in_dep_graph_attention: true
+  do_full_block_in_seq_attention: false
+  do_normalize_by_measurement_index: false
+  do_split_embeddings: false
+  do_use_learnable_sinusoidal_ATE: false
+  head_dim: 14
+  input_dropout: 0.3583565890705034
+  intermediate_size: 255
+  num_attention_heads: 16
+  num_hidden_layers: 4
+  numerical_embedding_dim: 122
+  resid_dropout: 0.12015579482743877
+  seq_attention_types: global
+  seq_window_size: 53
+  static_embedding_mode: drop
+  static_embedding_weight: 0.993750584419858
+  structured_event_processing_mode: conditionally_independent
+  cohort_name: synthetic
+  
+  event_types_idxmap:
+    simple: 1
+  measurement_configs:
+    dummy_static:
+      name: dummy_static
+      temporality: static
+      modality: single_label_classification
+      observation_rate_over_cases: 1.0
+      observation_rate_per_case: 1.0
+      functor: null
+      vocabulary:
+        vocabulary:
+        - UNK
+        - '1'
+        obs_frequencies:
+        - 0.0
+        - 1.0
+      values_column: null
+      _measurement_metadata: null
+      modifiers: null
+    event_label:
+      name: event_label
+      temporality: dynamic
+      modality: multi_label_classification
+      observation_rate_over_cases: 1.0
+      observation_rate_per_case: 1.0
+      functor: null
+      vocabulary:
+        vocabulary:
+        - UNK
+        - simple_event
+        obs_frequencies:
+        - 0.0
+        - 1.0
+      values_column: null
+      _measurement_metadata: null
+      modifiers: null
+ 
+  
+
+  dynamic_embedding_weight: 0.5
+ 
+  numerical_embedding_weight: 0.5
+ 
+
+
+
+  seq_attention_layers:
+  - global
+  - global
+  - global
+  - global
+  dep_graph_attention_types: null
+  dep_graph_attention_layers: null
+  
+  dep_graph_window_size: null
+  mean_log_inter_event_time_min: 4.002556554546221
+  std_log_inter_event_time_min: 0.29936712736790705
+  init_std: 0.02
+  max_seq_len: 143
+  vocab_sizes_by_measurement:
+    event_type: 1
+    dummy_static: 2
+    event_label: 2
+  vocab_offsets_by_measurement:
+    event_type: 1
+    dummy_static: 2
+    event_label: 4
+  measurements_idxmap:
+    event_type: 1
+    dummy_static: 2
+    event_label: 3
+  measurements_per_generative_mode:
+    single_label_classification:
+    - event_type
+    multi_label_classification:
+    - event_label
+    dropped: []
+    multivariate_regression: []
+    univariate_regression: []
+  measurements_per_dep_graph_level: null
+  vocab_size: 6
+
+  hidden_size: 224
+
+
+ 
+  layer_norm_epsilon: 1.0e-05
+  activation_function: gelu
+  
+  use_cache: true
+  return_dict: true
+  output_hidden_states: false
+  output_attentions: false
+  torchscript: false
+  torch_dtype: null
+  use_bfloat16: false
+  tf_legacy_loss: false
+  pruned_heads: {}
+  tie_word_embeddings: true
+  chunk_size_feed_forward: 0
+  is_encoder_decoder: false
+  is_decoder: false
+  cross_attention_hidden_size: null
+  add_cross_attention: false
+  tie_encoder_decoder: false
+  max_length: 20
+  min_length: 0
+  do_sample: false
+  early_stopping: false
+  num_beams: 1
+  num_beam_groups: 1
+  diversity_penalty: 0.0
+  temperature: 1.0
+  top_k: 50
+  top_p: 1.0
+  typical_p: 1.0
+  repetition_penalty: 1.0
+  length_penalty: 1.0
+  no_repeat_ngram_size: 0
+  encoder_no_repeat_ngram_size: 0
+  bad_words_ids: null
+  num_return_sequences: 1
+  output_scores: false
+  return_dict_in_generate: false
+  forced_bos_token_id: null
+  forced_eos_token_id: null
+  remove_invalid_values: false
+  exponential_decay_length_penalty: null
+  suppress_tokens: null
+  begin_suppress_tokens: null
+  architectures: null
+  finetuning_task: null
+  id2label:
+    '0': LABEL_0
+    '1': LABEL_1
+  label2id:
+    LABEL_0: 0
+    LABEL_1: 1
+  tokenizer_class: null
+  prefix: null
+  bos_token_id: null
+  pad_token_id: null
+  eos_token_id: null
+  sep_token_id: null
+  decoder_start_token_id: null
+  task_specific_params: null
+  problem_type: null
+  _name_or_path: ''
+  _attn_implementation_autoset: false
+  transformers_version: 4.48.3
+  model_type: ''
+
+
+optimization_config:
+  batch_size: 11
+  end_lr: null
+  end_lr_frac_of_init_lr: 0.0007012075379195921
+  init_lr: 0.005124397705159436
+  lr_decay_power: 4.991493394293274
+  lr_frac_warmup_steps: 0.0014058051472317491
+  max_epochs: 50
+  num_dataloader_workers: 5
+  patience: 10
+  weight_decay: 0.2894107176849362
+
+data_config:
+  max_seq_len: 143
+  min_seq_len: 12
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/synthetic
+  train_subset_seed: 1
+  train_subset_size: FULL
+
+do_final_validation_on_metrics: true
+
+final_validation_metrics_config:
+  do_skip_all_metrics: false
+  n_auc_thresholds: 25
+
+pretraining_metrics_config:
+  do_skip_all_metrics: false
+
+trainer_config:
+  detect_anomaly: false
+  log_every_n_steps: 20
+
+wandb_logger_kwargs:
+  do_log_graph: false
+  log_model: false
+  name: generative_event_stream_transformer
+  project: synthetic_test

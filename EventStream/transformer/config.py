@@ -251,6 +251,7 @@ class OptimizationConfig(JSONableMixin):
     weight_decay: float = 0.01
     patience: int | None = None
     gradient_accumulation: int | None = None
+    gradient_clip_val: int | None = None
 
     num_dataloader_workers: int = 0
 
@@ -891,6 +892,7 @@ class StructuredTransformerConfig(PretrainedConfig):
                             i: v for i, v in enumerate(dataset.task_vocabs[self.finetuning_task])
                         }
                         self.label2id = {v: i for i, v in self.id2label.items()}
+                        # print(self.label2id)
                         self.num_labels = len(self.id2label)
                         self.problem_type = "single_label_classification"
                     case "regression":
@@ -904,6 +906,7 @@ class StructuredTransformerConfig(PretrainedConfig):
             elif all(t == "regression" for t in dataset.task_types.values()):
                 self.num_labels = len(dataset.tasks)
                 self.problem_type = "regression"
+            # print("ELO FLIPOVIC")
 
     def __eq__(self, other):
         """Checks equality in a type sensitive manner to avoid pytorch lightning issues."""
@@ -923,9 +926,27 @@ class StructuredTransformerConfig(PretrainedConfig):
 
     @classmethod
     def from_dict(cls, *args, **kwargs) -> "StructuredTransformerConfig":
-        raw_from_dict = super().from_dict(*args, **kwargs)
-        if raw_from_dict.measurement_configs:
+        # raw_from_dict = super().from_dict(*args, **kwargs)
+        # if raw_from_dict.measurement_configs:
+        #     new_meas_configs = {}
+        #     for k, v in raw_from_dict.measurement_configs.items():
+        #         new_meas_configs[k] = MeasurementConfig.from_dict(v)
+        #     raw_from_dict.measurement_configs = new_meas_configs
+
+        # return cls(**kwargs)
+        raw_config, model_kwargs = super().from_dict(*args, **kwargs)  # Capture both values
+
+        config_data = raw_config.__dict__  # Get config data as a dictionary
+
+        # Update config_data with kwargs (overrides) - IMPORTANT: Overrides apply to the config, not model_kwargs.
+        config_data.update(kwargs)
+
+        config = cls(**config_data) # Create the config object
+
+        if config.measurement_configs: # Process measurement configs
             new_meas_configs = {}
-            for k, v in raw_from_dict.measurement_configs.items():
-                new_meas_configs[k] = MeasurementConfig.from_dict(v)
-            raw_from_dict.measurement_configs = new_meas_configs
+            for k, v in config.measurement_configs.items():
+                new_meas_configs[k] = v  # Or MeasurementConfig.from_dict(v) if needed
+            config.measurement_configs = new_meas_configs
+
+        return config, model_kwargs  # Return both config and model_kwargs

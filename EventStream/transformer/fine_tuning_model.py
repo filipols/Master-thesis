@@ -81,7 +81,7 @@ class ESTForStreamClassification(StructuredTransformerPreTrainedModel):
                 raise ValueError(f"{self.pooling_method} is not a supported pooling method.")
 
         logits = self.logit_layer(stream_encoded).squeeze(-1)
-        labels = batch["stream_labels"][self.task]
+        labels = batch["stream_labels"][self.task].float()
         loss = self.criteria(logits, labels)
 
         return StreamClassificationModelOutput(

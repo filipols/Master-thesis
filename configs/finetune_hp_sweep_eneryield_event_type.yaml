@@ -1,0 +1,37 @@
+defaults:
+  - parameters: finetuning
+  - _self_
+
+entity: marcus-student-chalmers-personal
+project: fintune_sweep_eneryield_event_type
+program: finetune.py
+method: bayes
+name: EST_FT_sweep_eneryield_event_type
+metric:
+  goal: minimize
+  name: train_loss
+early_terminate:
+  type: hyperband
+  min_iter: 1000
+# log_every_n_steps: 2
+
+parameters:
+  optimization_config:
+    num_dataloader_workers:
+      value: 5
+    max_epochs: 
+      value: 100
+    patience:
+      value: 15
+  task_df_name: 
+    value: task_df_eneryield_interruption_cls
+  load_from_model_dir: 
+    value: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_event_type
+  seed: 
+    value: 1
+  pretrained_weights_fp: 
+    value: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/eneryield_event_type/pretrained_weights
+
+  data_config:
+    save_dir: 
+      value: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_event_type

@@ -87,17 +87,17 @@ class DatasetBase(
     @classmethod
     def subjects_fp(cls, save_dir: Path) -> Path:
         """Returns the filepath for the ``subjects_df`` given `save_dir` and class parameters."""
-        return save_dir / f"{cls.SUBJECTS_FN}.{cls.DF_SAVE_FORMAT}"
+        return Path(save_dir) / f"{cls.SUBJECTS_FN}.{cls.DF_SAVE_FORMAT}"
 
     @classmethod
     def events_fp(cls, save_dir: Path) -> Path:
         """Returns the filepath for the ``events_df`` given `save_dir` and class parameters."""
-        return save_dir / f"{cls.EVENTS_FN}.{cls.DF_SAVE_FORMAT}"
+        return Path(save_dir) / f"{cls.EVENTS_FN}.{cls.DF_SAVE_FORMAT}"
 
     @classmethod
     def dynamic_measurements_fp(cls, save_dir: Path) -> Path:
         """Returns the filepath for the ``dynamic_measurements_df`` given `save_dir` and class parameters."""
-        return save_dir / f"{cls.DYNAMIC_MEASUREMENTS_FN}.{cls.DF_SAVE_FORMAT}"
+        return Path(save_dir) / f"{cls.DYNAMIC_MEASUREMENTS_FN}.{cls.DF_SAVE_FORMAT}"
 
     @classmethod
     @abc.abstractmethod
@@ -434,15 +434,15 @@ class DatasetBase(
             FileNotFoundError: If either the attributes file or config file do not exist.
         """
 
-        attrs_fp = load_dir / "E.pkl"
+        attrs_fp = Path(load_dir) / "E.pkl"
 
-        reloaded_config = DatasetConfig.from_json_file(load_dir / "config.json")
+        reloaded_config = DatasetConfig.from_json_file(Path(load_dir) / "config.json")
         if reloaded_config.save_dir != load_dir:
             print(f"Updating config.save_dir from {reloaded_config.save_dir} to {load_dir}")
             reloaded_config.save_dir = load_dir
 
         attrs_to_add = {"config": reloaded_config}
-        inferred_measurement_configs_fp = load_dir / "inferred_measurement_configs.json"
+        inferred_measurement_configs_fp = Path(load_dir) / "inferred_measurement_configs.json"
         if inferred_measurement_configs_fp.is_file():
             with open(inferred_measurement_configs_fp) as f:
                 attrs_to_add["inferred_measurement_configs"] = {
@@ -956,6 +956,7 @@ class DatasetBase(
                         updated_cols.append(f"{measure}_is_inlier")
 
                 if config.vocabulary is not None:
+                    print(source_df)
                     source_df = self._transform_categorical_measurement(measure, config, source_df)
 
             except BaseException as e:

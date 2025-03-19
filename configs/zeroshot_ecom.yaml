@@ -1,0 +1,21 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: false
+seed: 1
+load_from_model_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/test_ecom/
+task_df_name: task_df_ecom_cls_purchase
+pretrained_weights_fp: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/test_ecom/pretrained_weights
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/test_ecom
+  min_seq_len: 2
+  max_seq_len: 256
+
+config:
+  task_specific_params:
+    num_samples: 3
+  num_labels: 3
+
+# optimization_config:
+#    validation_batch_size: 32

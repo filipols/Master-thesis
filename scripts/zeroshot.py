@@ -12,6 +12,8 @@ except ImportError:
 import hydra
 import torch
 
+
+# VI HAR ÄNDRAT TILL DEV
 from EventStream.transformer.lightning_modules.zero_shot_evaluator import (
     FinetuneConfig,
     zero_shot_evaluation,
@@ -24,6 +26,12 @@ torch.set_float32_matmul_precision("high")
 def main(cfg: FinetuneConfig):
     if type(cfg) is not FinetuneConfig:
         cfg = hydra.utils.instantiate(cfg, _convert_="object")
+
+
+    # fix some configs
+    cfg.wandb_experiment_config_kwargs = False
+    cfg.data_config.do_include_start_time_min=True
+
     return zero_shot_evaluation(cfg)
 
 

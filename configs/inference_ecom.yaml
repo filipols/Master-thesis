@@ -1,0 +1,27 @@
+defaults:
+  - finetune_config
+  - _self_
+
+experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/test_ecom
+  seq_padding_side: RIGHT
+  do_include_start_time_min: True
+
+config:
+  cohort_name: test_ecom
+
+save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/test_ecom
+task_df_name: task_df_ecom_reg_test
+
+load_from_model_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/pretrain/test_ecom
+
+# min_seq_len: 2
+# train_subset_size: FULL
+
+# task_specific_params:
+#   num_samples: 2
+#   max_new_events: 2
+
+# _target_: "EventStream.transformer.config.StructuredTransformerConfig"

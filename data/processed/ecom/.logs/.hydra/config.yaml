@@ -1,0 +1,72 @@
+outlier_detector_config:
+  cls: stddev_cutoff
+  stddev_cutoff: 5.0
+normalizer_config:
+  cls: standard_scaler
+cohort_name: ecom
+save_dir: ./data/processed/${cohort_name}
+subject_id_col: user_id
+seed: 1
+split:
+- 0.8
+- 0.1
+do_overwrite: true
+DL_chunk_size: 20000
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null
+raw_data_dir: /home/filip-marcus/ESGPT_test/data/ecom_electronic/pretrain
+DL_chuck_size: null
+inputs:
+  subjects:
+    input_df: ${raw_data_dir}/subjects_ecom.csv
+  events_view:
+    input_df: ${raw_data_dir}/df_ecom_view.csv
+    ts_col: event_time
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: view
+  events_cart:
+    input_df: ${raw_data_dir}/df_ecom_cart.csv
+    ts_col: event_time
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: cart
+  events_purchase:
+    input_df: ${raw_data_dir}/df_ecom_purchase.csv
+    ts_col: event_time
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: purchase
+measurements:
+  static:
+    single_label_classification:
+      subjects:
+      - dummy_static
+  dynamic:
+    multi_label_classification:
+      events_view:
+      - event_label
+      - brand
+      - product_id
+      - category_id
+      - category_code
+      events_cart:
+      - event_label
+      - brand
+      - product_id
+      - category_id
+      - category_code
+      events_purchase:
+      - event_label
+      - brand
+      - product_id
+      - category_id
+      - category_code
+    univariate_regression:
+      events_view:
+      - price
+      events_cart:
+      - price
+      events_purchase:
+      - price

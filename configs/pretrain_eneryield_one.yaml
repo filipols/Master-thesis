@@ -1,0 +1,18 @@
+defaults:
+  - pretrain_config
+  - _self_
+
+experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+do_overwrite: True
+data_config:
+  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_one
+  # do_include_start_time_min: False
+
+optimization_config:
+  num_dataloader_workers: 5
+  max_epochs: 100
+
+config:
+  TTE_generation_layer_type: exponential
+  cohort_name: eneryield_one
+  # max_seq_len: 500

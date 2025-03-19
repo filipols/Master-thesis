@@ -1,0 +1,108 @@
+defaults:
+  - dataset_base
+  - _self_
+
+do_overwrite: True
+
+cohort_name: "eneryield_ecom_pred_event_type"
+subject_id_col: "sequence_id"
+raw_data_dir: "/home/filip-marcus/ESGPT_test/data/eneryield_ecom_pred/pretrain"
+save_dir: "./data/processed/${cohort_name}"
+
+DL_chuck_size: null
+
+inputs:
+  subjects:
+    input_df: "${raw_data_dir}/subjects.csv"
+  events_view:
+    input_df: "${raw_data_dir}/df_ecom_view.csv"
+    ts_col: "event_time"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "view"
+  events_cart:
+    input_df: "${raw_data_dir}/df_ecom_cart.csv"
+    ts_col: "event_time"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "cart"
+  events_purchase:
+    input_df: "${raw_data_dir}/df_ecom_purchase.csv"
+    ts_col: "event_time"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "purchase"
+  events_VD:
+    input_df: "${raw_data_dir}/eneryield_VD.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "VD"
+  events_transient:
+    input_df: "${raw_data_dir}/eneryield_transient.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "transient"
+  events_interruption:
+    input_df: "${raw_data_dir}/eneryield_interruption.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "interruption"
+  events_unbalance_u:
+    input_df: "${raw_data_dir}/eneryield_unbalance_u.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "unbalance_u"
+  events_current_deviation:
+    input_df: "${raw_data_dir}/eneryield_current_deviation.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "current_deviation"
+  events_harmonics_i:
+    input_df: "${raw_data_dir}/eneryield_harmonics_i.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "harmonics_i"
+  events_harmonics_u:
+    input_df: "${raw_data_dir}/eneryield_harmonics_u.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "harmonics_u"
+  events_unbalance_i:
+    input_df: "${raw_data_dir}/eneryield_unbalance_i.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "unblance_i"
+  events_failure:
+    input_df: "${raw_data_dir}/df_pred_1.csv"
+    ts_col: "date"
+    ts_format: "%m/%d/%Y"
+    event_type: "failure"
+  events_nofailure:
+    input_df: "${raw_data_dir}/df_pred_0.csv"
+    ts_col: "date"
+    ts_format: "%m/%d/%Y"
+    event_type: "nofailure"
+
+measurements:
+  static:
+    single_label_classification:
+      subjects: ["dummy_static"]
+  dynamic:
+    multi_label_classification:
+      events_view: ["event_label"]
+      events_cart: ["event_label"]
+      events_purchase: ["event_label"]
+      events_VD: ["event_label"]
+      events_transient: ["event_label"]
+      events_interruption: ["event_label"]
+      events_unbalance_u: ["event_label"]
+      events_unbalance_i: ["event_label"]
+      events_current_deviation: ["event_label"]
+      events_harmonics_i: ["event_label"]
+      events_harmonics_u: ["event_label"]
+      events_failure: ["event_label"]
+      events_nofailure: ["event_label"]
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null  
+

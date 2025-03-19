@@ -32,6 +32,7 @@ from .utils import (
     str_summary,
     weighted_loss,
 )
+from torchmetrics.classification import BinaryAUROC, MulticlassAUROC
 
 BERNOULLI_DIST_T = torch.distributions.Bernoulli
 CATEGORICAL_DIST_T = torch.distributions.Categorical
@@ -241,6 +242,9 @@ class GenerativeSequenceModelLosses(ModelOutput):
     classification: dict[str, torch.FloatTensor] | None = None
     regression: dict[str, torch.FloatTensor] | None = None
     time_to_event: torch.FloatTensor | None = None
+    task_loss: torch.FloatTensor | None = None
+    task_accuracy: float | None = None
+    task_AUROC: float | None = None
 
 
 @dataclass
@@ -1278,6 +1282,12 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         self.IsObservedLayer = torch.nn.Linear(config.hidden_size, len(config.measurements_idxmap))
         self.ClassificationLayer = torch.nn.Linear(config.hidden_size, config.vocab_size)
 
+        # self.TaskEncoderLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 2*config.max_seq_len)
+        self.TaskClassificationLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1)
+        # self.TaskLayer = torch.nn.Sequential(self.TaskEncoderLayer,
+        #                                     torch.nn.ReLU(),
+        #                                     self.TaskClassificationLayer)
+        self.TaskRegressionLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1)
         self.is_observed_criteria = torch.nn.BCEWithLogitsLoss(reduction="none")
 
         self.classification_criteria = {}
@@ -1308,8 +1318,104 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                 assert measurement not in self.classification_mode_per_measurement
                 self.classification_mode_per_measurement[measurement] = generative_mode
 
+
+
+    def get_task_outputs(
+        self, 
+        batch: PytorchBatch, 
+        encoded: torch.FloatTensor, 
+        is_generation: bool = False,
+        classification_out = None
+        ) -> tuple[torch.FloatTensor, torch.distributions.Distribution, torch.FloatTensor,]:
+        """
+        Type of proxy task is determined as:
+        1. CLASS DISTRIBUTION PROXY TASK: if classification_out is passed
+        2. CLASSIFICATION PROXY TASK: if stream labels in the batch are integers, which specific task is determined solely by the stream labels. This uses CLS head.
+        3. REGRESSION PROXY TASK: if stream labels in the batch are floats. This uses REG head.
+
+        Returns: loss, accuracy and auroc for the proxy task.
+        """
+        labels = batch.stream_labels['label']
+
+        torch._assert(~torch.isnan(encoded).any(), f"{torch.isnan(encoded).sum()} NaNs in encoded")
+        device = batch.device
+        taskLoss = None
+        accuracy = None
+        auroc_score = None
+
+
+        if classification_out: # class distribution proxy task
+            event_types = classification_out[2]["event_type"].to(device)
+            num_classes = classification_out[1]["event_type"][1].logits.shape[-1]
+            batch_size, seq_len = event_types.size()
+
+            target_distributions = torch.zeros(batch_size, num_classes).to(event_types.device)
+            for i in range(batch_size):
+                for j in range(seq_len):
+                    target_distributions[i, event_types[i, j]] += 1
+            target_distributions = target_distributions / seq_len
+
+            pred_event_labels_logits = classification_out[1]["event_type"][1].logits
+            pred_event_labels_probs = torch.softmax(pred_event_labels_logits, dim=2).mean(dim=1) # Average probabilities across sequence
+
+            loss_fn = torch.nn.MSELoss()
+            taskLoss = loss_fn(pred_event_labels_probs, target_distributions) * 1000
+
+            auroc_per_class = [BinaryAUROC()(pred_event_labels_probs[:, i], target_distributions[:, i]) for i in range(num_classes)]
+            class_weights = target_distributions.mean(dim=0)  # This will give the average probability for each class
+
+            # Step 3: Calculate the weighted per-class AUROC
+            auroc_per_class_tensor = torch.tensor(auroc_per_class)  # Convert AUROC scores to tensor
+            auroc_score = (class_weights.to(device) * auroc_per_class_tensor.to(device)).sum()
+
+        elif labels[0].dtype == torch.int:  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
+            cur_seq_len = encoded.shape[1]
+            if cur_seq_len < self.config.max_seq_len:
+                zeros_to_add = self.config.max_seq_len - cur_seq_len
+                padded = torch.zeros((encoded.shape[0], zeros_to_add, 256)).to(device)
+                encoded = torch.cat([encoded, padded],dim=1)
+
+            
+            # pass through classification layer
+            # taskClassificationLogits = self.TaskLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
+            taskClassificationLogits = self.TaskClassificationLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
+
+            # calculate BCE loss
+            loss_fn = torch.nn.BCEWithLogitsLoss()
+            taskLoss = loss_fn(taskClassificationLogits.squeeze(-1), labels.float())
+
+            # calculate accuracy and AUROC
+            taskClassificationProbs = torch.sigmoid(taskClassificationLogits)
+            pred_task_labels_binary = (taskClassificationProbs > 0.5).float()
+            accuracy = (pred_task_labels_binary == labels.float()).float().mean()
+
+            auroc = BinaryAUROC()
+            auroc_score = auroc(taskClassificationProbs, labels.float())
+
+
+        elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
+            cur_seq_len = encoded.shape[1]
+            if cur_seq_len < self.config.max_seq_len:
+                zeros_to_add = self.config.max_seq_len - cur_seq_len
+                padded = torch.zeros((encoded.shape[0], zeros_to_add, 256)).to(device)
+                encoded = torch.cat([encoded, padded],dim=1)
+
+            taskRegressionLogits = self.TaskRegressionLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
+
+            relu = torch.nn.ReLU()
+            preds = relu(taskRegressionLogits)
+
+            loss_fn = torch.nn.MSELoss()
+            taskLoss = loss_fn(preds.squeeze(-1), labels) * 1e-8
+
+        return taskLoss, accuracy, auroc_score
+
+
     def get_TTE_outputs(
-        self, batch: PytorchBatch, encoded: torch.FloatTensor, is_generation: bool = False
+        self,
+        batch: PytorchBatch, 
+        encoded: torch.FloatTensor, 
+        is_generation: bool = False
     ) -> tuple[torch.FloatTensor, torch.distributions.Distribution, torch.FloatTensor,]:
         """Produces time-to-event predictions and log likelihoods (**not NLLs!**) for the model.
 
@@ -1431,7 +1537,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                  `[batch_size, sequence_length]` containing label indices for each event with that task
                  observed, otherwise contains zeros.
         """
-
+ 
         if not valid_measurements:
             return {}, {}, {}
 
@@ -1445,7 +1551,6 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         )
 
         classification_scores = self.ClassificationLayer(encoded)
-
         classification_losses_by_measurement = {}
         classification_dists_by_measurement = {}
         classification_labels_by_measurement = {}
@@ -1486,7 +1591,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                     (dynamic_indices.long() * tensor_idx.long()).sum(dim=-1) - vocab_start
                 ) * events_with_label.long()
                 # labels is of shape [batch X seq]
-
+                # print(labels)
+                # raise TypeError
                 try:
                     loss_per_event = self.classification_criteria[measurement](scores.transpose(1, 2), labels)
                 except IndexError as e:

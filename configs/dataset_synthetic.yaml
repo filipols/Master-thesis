@@ -1,0 +1,36 @@
+defaults:
+  - dataset_base
+  - _self_
+
+do_overwrite: True
+
+cohort_name: "synthetic"
+subject_id_col: "sequence_id"
+raw_data_dir: "/home/filip-marcus/ESGPT_test/data/simple"
+save_dir: "./data/processed/${cohort_name}"
+
+DL_chuck_size: null
+
+inputs:
+  subjects:
+    input_df: "${raw_data_dir}/simple_subjects.csv"
+  event:
+    input_df: "${raw_data_dir}/simple_events_df.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "simple"
+    
+measurements:
+  static:
+    single_label_classification:
+      subjects: ["dummy_static"]
+  dynamic:
+    multi_label_classification:
+      event: ["event_label"]
+    
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 0
+agg_by_time_scale: null

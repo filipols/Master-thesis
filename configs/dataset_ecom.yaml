@@ -1,0 +1,53 @@
+defaults:
+  - dataset_base
+  - _self_
+
+do_overwrite: True
+
+cohort_name: "ecom"
+subject_id_col: "user_id"
+raw_data_dir: "/home/filip-marcus/ESGPT_test/data/ecom_electronic/pretrain"
+save_dir: "./data/processed/${cohort_name}"
+
+DL_chuck_size: null
+
+inputs:
+  subjects:
+    input_df: "${raw_data_dir}/subjects_ecom.csv"
+  events_view:
+    input_df: "${raw_data_dir}/df_ecom_view.csv"
+    ts_col: "event_time"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "view"
+  events_cart:
+    input_df: "${raw_data_dir}/df_ecom_cart.csv"
+    ts_col: "event_time"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "cart"
+  events_purchase:
+    input_df: "${raw_data_dir}/df_ecom_purchase.csv"
+    ts_col: "event_time"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "purchase"
+
+measurements:
+  static:
+    single_label_classification:
+      subjects: ["dummy_static"]
+  dynamic:
+    multi_label_classification:
+      events_view: ["event_label","brand","product_id","category_id","category_code"]
+      events_cart: ["event_label","brand","product_id","category_id","category_code"]
+      events_purchase: ["event_label","brand","product_id","category_id","category_code"]
+    univariate_regression:
+      events_view: ["price"]
+      events_cart: ["price"]
+      events_purchase: ["price"]
+
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null  
+

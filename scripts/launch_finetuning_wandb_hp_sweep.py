@@ -74,6 +74,7 @@ def collapse_cfg(k: str, v: dict[str, Any]) -> dict[str, Any]:
 @hydra.main(version_base=None, config_path="../configs", config_name="finetuning_hyperparameter_sweep_base")
 def main(cfg: DictConfig):
     cfg = hydra.utils.instantiate(cfg, _convert_="all")
+
     cfg["command"] = [
         "${env}",
         "${interpreter}",
@@ -86,6 +87,10 @@ def main(cfg: DictConfig):
         new_params.update(collapse_cfg(k, v))
 
     cfg["parameters"] = new_params
+    cfg['program'] = 'scripts/finetune.py'
+    # cfg['parameters'].pop('config.measurements_per_dep_graph_level')
+    # cfg['parameters'].pop('config.hidden_size')
+    cfg['parameters'].pop('wandb_logger_kwargs.entity')
 
     if "cohort_name" in cfg:
         cfg.pop("cohort_name")
@@ -100,7 +105,14 @@ def main(cfg: DictConfig):
         if project:
             sweep_kwargs["project"] = project
 
-    sweep_id = wandb.sweep(sweep=cfg, **sweep_kwargs)
+    # sweep_id = wandb.sweep(sweep=cfg, **sweep_kwargs)
+
+    #wandb.init(project=sweep_kwargs["project"])
+
+    sweep_id = wandb.sweep(sweep=cfg, project=sweep_kwargs['project'])
+    wandb.agent(project=sweep_kwargs["project"], entity="marcus-student-chalmers-personal", sweep_id=sweep_id)
+    
+
     return sweep_id
 
 

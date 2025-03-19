@@ -1,0 +1,65 @@
+outlier_detector_config:
+  cls: stddev_cutoff
+  stddev_cutoff: 1.5
+normalizer_config:
+  cls: standard_scaler
+cohort_name: mimic
+save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/mimic
+subject_id_col: subject_id
+seed: 1
+split:
+- 0.8
+- 0.1
+do_overwrite: true
+DL_chunk_size: null
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null
+raw_data_dir: /home/filip-marcus/ESGPT_test/data
+inputs:
+  subjects:
+    input_df: /home/filip-marcus/ESGPT_test/data/subjects_mimic_demo.csv
+  edstays:
+    input_df: /home/filip-marcus/ESGPT_test/data/edstays_mimic_demo.csv
+    start_ts_col: intime
+    end_ts_col: outtime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: edstays
+  medrecon:
+    input_df: /home/filip-marcus/ESGPT_test/data/medrecon_mimic_demo.csv
+    ts_col: charttime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+  pyxis:
+    input_df: /home/filip-marcus/ESGPT_test/data/pyxis_mimic_demo.csv
+    ts_col: charttime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+  vitalsign:
+    input_df: /home/filip-marcus/ESGPT_test/data/vitalsign_mimic_demo.csv
+    ts_col: charttime
+    ts_format: '%Y-%m-%d %H:%M:%S'
+measurements:
+  static:
+    single_label_classification:
+      subjects:
+      - dummy_static
+  dynamic:
+    multi_label_classification:
+      vitalsign:
+      - rhythm
+      - pain
+      medrecon:
+      - name
+      edstays:
+      - arrival_transport
+      - disposition
+    univariate_regression:
+      vitalsign:
+      - heartrate
+      - resprate
+      - o2sat
+      - sbp
+      - dbp
+      - temperature

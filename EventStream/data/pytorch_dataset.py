@@ -119,8 +119,14 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
         Raises:
             TypeError: If the task labels are not of a supported type.
         """
+        # print(dtype)
+        # if isinstance(dtype, list):
+        #     print(f"Stream labels are of dtype {dtype}!")
+        #     return col
+
         for task_type, checkers in cls.TYPE_CHECKERS.items():
             for valid_dtypes, normalize_fn in checkers:
+
                 if dtype in valid_dtypes:
                     return task_type, (col if normalize_fn is None else normalize_fn(col))
 
@@ -134,10 +140,10 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
         self.task_vocabs = {}
 
         self.vocabulary_config = VocabularyConfig.from_json_file(
-            self.config.save_dir / "vocabulary_config.json"
+            Path(self.config.save_dir) / "vocabulary_config.json"
         )
 
-        inferred_measurement_config_fp = self.config.save_dir / "inferred_measurement_configs.json"
+        inferred_measurement_config_fp = Path(self.config.save_dir) / "inferred_measurement_configs.json"
         with open(inferred_measurement_config_fp) as f:
             inferred_measurement_configs = {
                 k: MeasurementConfig.from_dict(v) for k, v in json.load(f).items()
@@ -147,9 +153,9 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
         self.split = split
 
         if self.config.task_df_name is not None:
-            task_dir = self.config.save_dir / "DL_reps" / "for_task" / config.task_df_name
-            raw_task_df_fp = self.config.save_dir / "task_dfs" / f"{self.config.task_df_name}.parquet"
-            task_info_fp = task_dir / "task_info.json"
+            task_dir = Path(self.config.save_dir) / "DL_reps" / "for_task" / config.task_df_name
+            raw_task_df_fp = Path(self.config.save_dir) / "task_dfs" / f"{self.config.task_df_name}.parquet"
+            task_info_fp = Path(task_dir) / "task_info.json"
 
             self.has_task = True
 
@@ -211,7 +217,7 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
 
                 if self.split != "train":
                     print(f"WARNING: Constructing task-specific dataset on non-train split {self.split}!")
-                for cached_data_fp in Path(self.config.save_dir / "DL_reps").glob(f"{split}*.parquet"):
+                for cached_data_fp in Path(Path(self.config.save_dir) / "DL_reps").glob(f"{split}*.parquet"):
                     task_df_fp = task_dir / cached_data_fp.name
                     if task_df_fp.is_file():
                         continue
@@ -254,7 +260,6 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
                 )
                 .alias("time_delta"),
             ).drop("time")
-
         stats = (
             self.cached_data.select(pl.col("time_delta").explode().drop_nulls().alias("inter_event_time"))
             .select(
@@ -478,7 +483,7 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
         This function is automatically seeded for robustness. See `__getitem__` for a description of the
         output format.
         """
-
+        
         full_subj_data = {c: v for c, v in zip(self.columns, self.cached_data[idx])}
         for k in ["static_indices", "static_measurement_indices"]:
             if full_subj_data[k] is None:
@@ -665,12 +670,14 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
         self._register_start("collate_task_labels")
         out_labels = {}
 
+
         for task in self.tasks:
             task_type = self.task_types[task]
-
             out_labels[task] = []
             for e in batch:
                 out_labels[task].append(e[task])
+                # value = e[task] if e[task] is not None else 0.0
+                # out_labels[task].append(value)
 
             match task_type:
                 case "multi_class_classification":
