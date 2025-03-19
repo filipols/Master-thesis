@@ -1331,7 +1331,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         Type of proxy task is determined as:
         1. CLASS DISTRIBUTION PROXY TASK: if classification_out is passed
         2. CLASSIFICATION PROXY TASK: if stream labels in the batch are integers, which specific task is determined solely by the stream labels. This uses CLS head.
-        3. REGRESSION PROXY TASK: if stream labels in the batch are floats. This uses REG head.
+        3. REGRESSION PROXY TASK: if stream labels in the batch are floats, currently only time-to-interruption. This uses REG head.
 
         Returns: loss, accuracy and auroc for the proxy task.
         """
