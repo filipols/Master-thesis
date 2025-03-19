@@ -305,11 +305,16 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             is_generation=is_generation,
         )
 
-        task_loss, accuracy, auroc_score = self.get_task_outputs(
-            batch,
-            for_event_contents_prediction,
-            classification_out = classification_out
-        )
+        if batch.stream_labels:
+            task_loss, accuracy, auroc_score = self.get_task_outputs(
+                batch,
+                for_event_contents_prediction,
+                classification_out = classification_out
+            )
+        else:
+            task_loss = 0
+            accuracy = 0
+            auroc_score = 0
 
 
 

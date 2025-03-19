@@ -18,7 +18,7 @@ min_true_float_frequency: 0.1
 min_unique_numerical_observations: 49
 min_events_per_subject: 0
 agg_by_time_scale: null
-raw_data_dir: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain
+raw_data_dir: /home/filip-marcus/preprocessed_data/eneryield/pretrain
 DL_chuck_size: null
 inputs:
   subjects:

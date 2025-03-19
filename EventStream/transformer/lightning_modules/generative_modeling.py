@@ -807,6 +807,7 @@ class PretrainConfig:
             "detect_anomaly": False,
             "default_root_dir": "${save_dir}/model_checkpoints",
             "log_every_n_steps": 10,
+            "strategy": "ddp_find_unused_parameters_true"
             # "precision" : 16
         }
     )

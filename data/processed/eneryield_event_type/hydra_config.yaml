@@ -18,48 +18,48 @@ min_true_float_frequency: 0.1
 min_unique_numerical_observations: 49
 min_events_per_subject: 0
 agg_by_time_scale: null
-raw_data_dir: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain
+raw_data_dir: /home/filip-marcus/preprocessed_data/eneryield/pretrain
 DL_chuck_size: null
 inputs:
   subjects:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/subjects_eneryield.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/subjects_eneryield.csv
   events_VD:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_VD.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_VD.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: VD
   events_transient:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_transient.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_transient.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: transient
   events_interruption:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_interruption.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_interruption.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: interruption
   events_unbalance_u:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_unbalance_u.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_unbalance_u.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: unbalance_u
   events_current_deviation:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_current_deviation.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_current_deviation.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: current_deviation
   events_harmonics_i:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_harmonics_i.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_harmonics_i.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: harmonics_i
   events_harmonics_u:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_harmonics_u.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_harmonics_u.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: harmonics_u
   events_unbalance_i:
-    input_df: /home/filip-marcus/ESGPT_test/data/eneryield/pretrain/df_unbalance_i.csv
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/df_unbalance_i.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: unbalance_i

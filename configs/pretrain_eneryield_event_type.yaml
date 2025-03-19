@@ -2,13 +2,15 @@ defaults:
   - pretrain_config
   - _self_
 do_overwrite: true
-experiment_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT
+experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT
 
 data_config:
-  save_dir: /home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/eneryield_event_type
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield_event_type
 
 config:
   cohort_name: eneryield_event_type
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield_event_type
 
 optimization_config:
   batch_size: 32
+  max_epochs: 2

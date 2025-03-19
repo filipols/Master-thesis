@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 """Fine-tunes a model on a user-specified downstream task."""
+import sys
+import os
+
+sys.path.append(os.path.abspath("/home/filip-marcus/ESGPT_new/EventStreamGPT"))
+
 
 try:
     import stackprinter
@@ -16,7 +21,7 @@ import torch
 from omegaconf import OmegaConf
 
 from EventStream.transformer.lightning_modules.fine_tuning_dev import FinetuneConfig, train
-#from EventStream.transformer.lightning_modules.fine_tuning import FinetuneConfig, train
+# from EventStream.transformer.lightning_modules.fine_tuning import FinetuneConfig, train
 from pathlib import Path
 
 torch.set_float32_matmul_precision("high")
