@@ -1,0 +1,55 @@
+defaults:
+  - dataset_base
+  - _self_
+
+do_overwrite: True
+
+cohort_name: "synthetic_mega"
+subject_id_col: "sequence_id"
+raw_data_dir: "/home/filip-marcus/preprocessed_data/synthetic/pretrain"
+save_dir: "./data/processed/${cohort_name}"
+
+DL_chuck_size: null
+
+inputs:
+  subjects:
+    input_df: "${raw_data_dir}/synthetic_subjects.csv"
+  event_synthetic_1:
+    input_df: "${raw_data_dir}/synthetic_dataset_1.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "disturbance"
+  event_synthetic_2:
+    input_df: "${raw_data_dir}/synthetic_dataset_2.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "disturbance"
+  event_synthetic_3:
+    input_df: "${raw_data_dir}/synthetic_dataset_3.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "disturbance"
+    
+measurements:
+  static:
+    single_label_classification:
+      subjects: ["dummy_static"]
+  dynamic:
+    multi_label_classification:
+      event_synthetic_1: ["event_label"]
+      event_synthetic_2: ["event_label"]
+      event_synthetic_3: ["event_label"]
+    univariate_regression:
+      event_synthetic_1: ["feature_vector"]
+      event_synthetic_2: ["feature_vector"]
+      event_synthetic_3: ["feature_1", "feature_2", "feature_3", "feature_4", "feature_5"]
+     
+     
+
+    
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null
