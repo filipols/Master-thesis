@@ -1282,11 +1282,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         self.IsObservedLayer = torch.nn.Linear(config.hidden_size, len(config.measurements_idxmap))
         self.ClassificationLayer = torch.nn.Linear(config.hidden_size, config.vocab_size)
 
-        # self.TaskEncoderLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 2*config.max_seq_len)
         self.TaskClassificationLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1)
-        # self.TaskLayer = torch.nn.Sequential(self.TaskEncoderLayer,
-        #                                     torch.nn.ReLU(),
-        #                                     self.TaskClassificationLayer)
         self.TaskRegressionLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1)
         self.is_observed_criteria = torch.nn.BCEWithLogitsLoss(reduction="none")
 
@@ -1397,7 +1393,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             cur_seq_len = encoded.shape[1]
             if cur_seq_len < self.config.max_seq_len:
                 zeros_to_add = self.config.max_seq_len - cur_seq_len
-                padded = torch.zeros((encoded.shape[0], zeros_to_add, 256)).to(device)
+                padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
                 encoded = torch.cat([encoded, padded],dim=1)
 
             taskRegressionLogits = self.TaskRegressionLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))

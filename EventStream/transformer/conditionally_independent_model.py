@@ -309,7 +309,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             task_loss, accuracy, auroc_score = self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
-                classification_out = classification_out
+                # classification_out = classification_out       # ENDAST FÖR CLASS DISTRIBUTION PROXY TASK!
             )
         else:
             task_loss = 0
