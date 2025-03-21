@@ -6,53 +6,53 @@ defaults:
 do_overwrite: True
 
 cohort_name: "megamind"
-subject_id_col: "subject_id"
-raw_data_dir: "/home/filip-marcus/ESGPT_test/data/megamind/pretrain"
-save_dir: "/home/filip-marcus/models/ESGPT_new/EventStreamGPT/data/processed/${cohort_name}"
+subject_id_col: "sequence_id"
+raw_data_dir: "/home/filip-marcus/preprocessed_data/eneryield_ecom_mimic_pred_ecom_cosm/pretrain"
+save_dir: "/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/${cohort_name}"
 
 DL_chunk_size: null
 
 inputs:
   subjects:
-    input_df: "${raw_data_dir}/subjects_megamind_small_vocab.csv"
+    input_df: "${raw_data_dir}/subjects.csv"
   eneryield:
-    input_df: "${raw_data_dir}/eneryield_df.csv"
+    input_df: "${raw_data_dir}/eneryield.csv"
     ts_col: "timestamp"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "eneryield"
   ecom_electronic:
-    input_df: "${raw_data_dir}/ecom_electronic_df_small_vocab.csv"
+    input_df: "${raw_data_dir}/ecom.csv"
     ts_col: "event_time"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "ecom_electronic"
   ecom_cosmetic:
-    input_df: "${raw_data_dir}/ecom_cosmetic_df_01_small_vocab.csv"
+    input_df: "${raw_data_dir}/ecom_cosm.csv"
     ts_col: "event_time"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "ecom_cosmetic"
   predictive_maintenance:
-    input_df: "${raw_data_dir}/predictive_maintenance.csv" # håll koll på stavning
+    input_df: "${raw_data_dir}/pred.csv" # håll koll på stavning
     ts_col: "date"
-    ts_format: "M/D/YYYY"
+    ts_format: "%m/%d/%Y"
     event_type: "predictive_maintenance"
   mimic_edstays:
-    input_df: "${raw_data_dir}/mimic_edstays_df_small_vocab.csv"
+    input_df: "${raw_data_dir}/df_mimic_edstays.csv"
     start_ts_col: "intime"
     end_ts_col: "outtime"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "mimic_edstays"
   mimic_medrecon:
-    input_df: "${raw_data_dir}/mimic_medrecon_df_small_vocab.csv"
+    input_df: "${raw_data_dir}/df_mimic_medrecon.csv"
     ts_col: "charttime"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "mimic_medrecon"
   mimic_pyxis:
-    input_df: "${raw_data_dir}/mimic_pyxis_df_small_vocab.csv"
+    input_df: "${raw_data_dir}/df_mimic_pyxis.csv"
     ts_col: "charttime"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "mimic_pyxis"
   mimic_vitalsign:
-    input_df: "${raw_data_dir}/mimic_vitalsign_df_small_vocab.csv"
+    input_df: "${raw_data_dir}/df_mimic_vitalsign.csv"
     ts_col: "charttime"
     ts_format: "%Y-%m-%d %H:%M:%S"
     event_type: "mimic_vitalsign"
