@@ -1,0 +1,72 @@
+optimization_config:
+  num_dataloader_workers: 5
+  batch_size: 128
+
+config:
+  head_dim: 18
+  hidden_size: 180
+  num_attention_heads: 10
+  intermediate_size: 128
+  structured_event_processing_mode: conditionally_independent
+  num_hidden_layers: 8
+  max_seq_length: 256
+
+
+  defaults:
+  - pretraining_hyperparameter_sweep_base # IMPORTANT: This defaults to the pre-defined repository config!
+  - _self_
+
+parameters:
+  experiment_dir:
+    value: /home/filip-marcus/ESGPT_new/EventStreamGPT
+  data_config:
+    save_dir:
+      value: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield_ecom_mimic_pred_ecom_cosm
+  config:
+    measurements_per_dep_graph_level:
+      values: null
+    head_dim:
+      max: 18
+      min: 2
+    structured_event_processing_mode:
+      values: ["conditionally_independent"]
+    intermediate_size:
+      max: 128
+      min: 32
+    num_attention_heads:
+      max: 10
+      min: 2
+    num_hidden_layers:
+      max: 8
+      min: 2
+    seq_attention_types:
+      values: ['global']
+    static_embedding_mode:
+      values: ['drop']
+    do_split_embeddings:
+      values: [False]    
+  optimization_config:
+    num_dataloader_workers:
+      value: 5
+    max_epochs:
+      value: 50
+    patience: 
+      value: 15
+   batch_size:
+      max: 128
+      min: 64
+  trainer_config:
+    log_every_n_steps:
+      value: 20
+
+    
+  
+  do_overwrite: 
+    value: True 
+
+entity: "marcus-student-chalmers"
+project: "Hyperparameter_sweep_ecom"
+run_cap: 30
+
+
+
