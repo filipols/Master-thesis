@@ -143,8 +143,11 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             numerical_weight=config.numerical_embedding_weight,)
        
 
-    def save_pretrained(self, model_dir: Path):
-        fp = model_dir / "pretrained_weights"
+    def save_pretrained(self, model_dir: Path, finetune=False):
+        if finetune:
+            fp = model_dir / "finetune_weigths"
+        else:
+            fp = model_dir / "pretrained_weights"
         self.model.save_pretrained(fp)
 
     def build_metrics(self):

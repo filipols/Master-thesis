@@ -342,6 +342,8 @@ def train(cfg: FinetuneConfig):
     trainer = L.Trainer(**trainer_kwargs)
     trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
 
+    LM.save_pretrained(cfg.save_dir,finetune=True)
+
     held_out_pyd = PytorchDataset(cfg.data_config, split="held_out")
     held_out_dataloader = torch.utils.data.DataLoader(
         held_out_pyd,
