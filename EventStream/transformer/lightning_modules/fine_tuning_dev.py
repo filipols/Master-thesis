@@ -54,10 +54,7 @@ class FinetuneConfig:
 
     pretrained_weights_fp: Path | str | None = "${load_from_model_dir}/pretrained_weights"
     save_dir: str | None = (
-        "${experiment_dir}/${task_df_name}/"
-        "subset_size_${data_config.train_subset_size}/"
-        "subset_seed_${data_config.train_subset_seed}/"
-        "${now:%Y-%m-%d_%H-%M-%S}"
+        "${experiment_dir}/${task_df_name}"
     )
 
     wandb_logger_kwargs: dict[str, Any] = dataclasses.field(
