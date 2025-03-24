@@ -23,11 +23,11 @@ DL_chuck_size: null
 inputs:
   subjects:
     input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_subjects_3.csv
-  event_synthetic_1:
+  event_synthetic_3:
     input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_dataset_3.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
-    event_type: disturbance
+    event_type: synthetic_3
 measurements:
   static:
     single_label_classification:
@@ -35,8 +35,12 @@ measurements:
       - dummy_static
   dynamic:
     multi_label_classification:
-      event_synthetic_1:
+      event_synthetic_3:
       - event_label
     univariate_regression:
-      event_synthetic_1:
-      - feature_vector
+      event_synthetic_3:
+      - feature_1
+      - feature_2
+      - feature_3
+      - feature_4
+      - feature_5
