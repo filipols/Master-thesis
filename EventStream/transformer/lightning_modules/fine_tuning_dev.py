@@ -51,7 +51,7 @@ class FinetuneConfig:
     experiment_dir: str | Path | None = "${load_from_model_dir}/finetuning"
     load_from_model_dir: str | Path | None = omegaconf.MISSING
     task_df_name: str | None = omegaconf.MISSING
-
+    strategy: str | None = None
     pretrained_weights_fp: Path | str | None = "${load_from_model_dir}/pretrained_weights"
     save_dir: str | None = (
         "${experiment_dir}/${task_df_name}"
@@ -339,7 +339,7 @@ def train(cfg: FinetuneConfig):
     trainer = L.Trainer(**trainer_kwargs)
     trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
 
-    LM.save_pretrained(cfg.save_dir,finetune=True)
+    LM.save_pretrained(cfg.save_dir,finetune=True,strategy=cfg.strategy)
 
     held_out_pyd = PytorchDataset(cfg.data_config, split="held_out")
     held_out_dataloader = torch.utils.data.DataLoader(

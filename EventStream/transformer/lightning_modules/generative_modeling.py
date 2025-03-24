@@ -143,8 +143,10 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             numerical_weight=config.numerical_embedding_weight,)
        
 
-    def save_pretrained(self, model_dir: Path, finetune=False):
-        if finetune:
+    def save_pretrained(self, model_dir: Path, finetune=False,strategy=None):
+        if finetune and strategy:
+            fp = model_dir / "finetune_weigths" / str(strategy)
+        elif finetune:
             fp = model_dir / "finetune_weigths"
         else:
             fp = model_dir / "pretrained_weights"
