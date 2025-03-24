@@ -22,7 +22,7 @@ raw_data_dir: /home/filip-marcus/preprocessed_data/synthetic/pretrain
 DL_chuck_size: null
 inputs:
   subjects:
-    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_subjects.csv
+    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_subjects_1.csv
   event_synthetic_1:
     input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_dataset_1.csv
     ts_col: timestamp
