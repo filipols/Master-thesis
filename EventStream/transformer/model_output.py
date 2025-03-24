@@ -1364,11 +1364,11 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             auroc_per_class_tensor = torch.tensor(auroc_per_class)  # Convert AUROC scores to tensor
             auroc_score = (class_weights.to(device) * auroc_per_class_tensor.to(device)).sum()
 
-        elif labels[0].dtype == torch.int:  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
+        elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
             cur_seq_len = encoded.shape[1]
             if cur_seq_len < self.config.max_seq_len:
                 zeros_to_add = self.config.max_seq_len - cur_seq_len
-                padded = torch.zeros((encoded.shape[0], zeros_to_add, 256)).to(device)
+                padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
                 encoded = torch.cat([encoded, padded],dim=1)
 
             
