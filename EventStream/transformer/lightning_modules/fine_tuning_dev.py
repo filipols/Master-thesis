@@ -48,14 +48,20 @@ from .generative_modeling import ESTForGenerativeSequenceModelingLM
 
 @hydra_dataclass
 class FinetuneConfig:
-    experiment_dir: str | Path | None = "${load_from_model_dir}/finetuning"
+    
     load_from_model_dir: str | Path | None = omegaconf.MISSING
     task_df_name: str | None = omegaconf.MISSING
-    strategy: str | None = None
+    strategy: bool = False
     pretrained_weights_fp: Path | str | None = "${load_from_model_dir}/pretrained_weights"
+
+
+    experiment_dir: str | Path | None = "${load_from_model_dir}/finetuning"
+    
     save_dir: str | None = (
         "${experiment_dir}/${task_df_name}"
     )
+        
+
 
     wandb_logger_kwargs: dict[str, Any] = dataclasses.field(
         default_factory=lambda: {
@@ -113,6 +119,14 @@ class FinetuneConfig:
     do_use_filesystem_sharing: bool = True
 
     def __post_init__(self):
+
+        if self.strategy:
+            self.experiment_dir = Path(self.load_from_model_dir)
+        else:
+            self.experiment_dir = Path(self.load_from_model_dir) / "finetuning"
+
+        self.save_dir = Path(self.experiment_dir) / self.task_df_name
+        
         match self.save_dir:
             case str():
                 self.save_dir = Path(self.save_dir)
