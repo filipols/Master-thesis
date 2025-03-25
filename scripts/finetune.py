@@ -33,7 +33,7 @@ def main(cfg: FinetuneConfig):
         cfg = hydra.utils.instantiate(cfg, _convert_="object")
 
     if os.environ.get("LOCAL_RANK", "0") == "0":
-        cfg_fp = cfg.save_dir / "finetune_config.yaml"
+        cfg_fp = cfg.save_dir / "pretrain_config.yaml"
         cfg_fp.parent.mkdir(exist_ok=True, parents=True)
 
         cfg_dict = copy.deepcopy(cfg)
