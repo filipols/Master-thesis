@@ -126,7 +126,7 @@ class FinetuneConfig:
             self.experiment_dir = Path(self.load_from_model_dir) / "finetuning"
 
         self.save_dir = Path(self.experiment_dir) / self.task_df_name
-        
+
         match self.save_dir:
             case str():
                 self.save_dir = Path(self.save_dir)

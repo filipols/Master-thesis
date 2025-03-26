@@ -245,6 +245,7 @@ class GenerativeSequenceModelLosses(ModelOutput):
     task_loss: torch.FloatTensor | None = None
     task_accuracy: float | None = None
     task_AUROC: float | None = None
+    TTI_mse: float | None = None
 
 
 @dataclass
@@ -1338,14 +1339,15 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         taskLoss = None
         accuracy = None
         auroc_score = None
-
+        mse = None
+        predictions = {}
 
         if classification_out: # class distribution proxy task
             event_types = classification_out[2]["event_type"].to(device)
             num_classes = classification_out[1]["event_type"][1].logits.shape[-1]
             batch_size, seq_len = event_types.size()
 
-            target_distributions = torch.zeros(batch_size, num_classes).to(event_types.device)
+            target_distributions = torch.zeros(batch_size, num_classes).to(device)
             for i in range(batch_size):
                 for j in range(seq_len):
                     target_distributions[i, event_types[i, j]] += 1
@@ -1363,6 +1365,14 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             # Step 3: Calculate the weighted per-class AUROC
             auroc_per_class_tensor = torch.tensor(auroc_per_class)  # Convert AUROC scores to tensor
             auroc_score = (class_weights.to(device) * auroc_per_class_tensor.to(device)).sum()
+            
+            predictions={'class_dist_pred_event_label_logits' : pred_event_labels_logits,
+                         'class_dist_pred_event_label_probs' : pred_event_labels_probs,
+                         'cls_proxy_task_logits' : None,
+                         'cls_proxy_task_probs' : None,
+                         'reg_proxy_task_logits' : None,
+                         'reg_proxy_task_preds' : None
+                         }
 
         elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
             cur_seq_len = encoded.shape[1]
@@ -1388,6 +1398,14 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             auroc = BinaryAUROC()
             auroc_score = auroc(taskClassificationProbs, labels.float())
 
+            predictions={'class_dist_pred_event_label_logits' : None,
+                         'class_dist_pred_event_label_probs' : None,
+                         'cls_proxy_task_logits' : taskClassificationLogits,
+                         'cls_proxy_task_probs' : taskClassificationProbs,
+                         'reg_proxy_task_logits' : None,
+                         'reg_proxy_task_preds' : None
+                         }
+
 
         elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
             cur_seq_len = encoded.shape[1]
@@ -1403,8 +1421,19 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
             loss_fn = torch.nn.MSELoss()
             taskLoss = loss_fn(preds.squeeze(-1), labels) * 1e-8
+            mse = taskLoss*1e8
 
-        return taskLoss, accuracy, auroc_score
+            predictions={'class_dist_pred_event_label_logits' : None,
+                         'class_dist_pred_event_label_probs' : None,
+                         'cls_proxy_task_logits' : None,
+                         'cls_proxy_task_probs' : None,
+                         'reg_proxy_task_logits' : taskRegressionLogits,
+                         'reg_proxy_task_preds' : preds
+                         }
+        
+        
+
+        return taskLoss, accuracy, auroc_score,mse
 
 
     def get_TTE_outputs(

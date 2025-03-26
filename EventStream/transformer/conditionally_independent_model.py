@@ -306,7 +306,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         )
 
         if batch.stream_labels:
-            task_loss, accuracy, auroc_score = self.get_task_outputs(
+            task_loss, accuracy, auroc_score, mse = self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
                 # classification_out = classification_out       # ENDAST FÖR CLASS DISTRIBUTION PROXY TASK!
@@ -315,6 +315,8 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             task_loss = 0
             accuracy = 0
             auroc_score = 0
+            mse = 0
+            task_predictions = {}
 
 
 
@@ -355,7 +357,8 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
                         "time_to_event": None if is_generation else -TTE_LL_overall,
                         "task_loss": task_loss,
                         "task_accuracy": accuracy,
-                        "task_AUROC": auroc_score
+                        "task_AUROC": auroc_score,
+                        "TTI_mse" : mse
                     }
                 ),
                 "preds": GenerativeSequenceModelPredictions(
@@ -522,6 +525,7 @@ class CIPPTForGenerativeSequenceModeling(StructuredGenerationMixin, StructuredTr
         use_cache = kwargs.get("use_cache", False)
         output_attentions = kwargs.get("output_attentions", False)
         output_hidden_states = kwargs.get("output_hidden_states", False)
+        print(kwargs)
 
         encoded = self.encoder(batch, **kwargs)
         output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
