@@ -118,7 +118,7 @@ hydra:
     override_dirname: ''
     id: ???
     num: ???
-    config_name: dataset_synthetic_1
+    config_name: dataset
     env_set: {}
     env_copy: []
     config:
@@ -134,7 +134,7 @@ hydra:
     - path: hydra.conf
       schema: pkg
       provider: hydra
-    - path: /home/filip-marcus/ESGPT_new/EventStreamGPT/configs
+    - path: /home/filip-marcus/ESGPT_new/EventStreamGPT/configs/synthetic_1
       schema: file
       provider: main
     - path: ''

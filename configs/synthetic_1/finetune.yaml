@@ -4,7 +4,9 @@ defaults:
 
 do_overwrite: true
 seed: 1
-strategy: 1-3
+
+# Strategy: 1->3 (interruption in seq --> interruption in next week)
+strategy: true
 load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq
 task_df_name: task_df_synthetic_interruption_next_week
 pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/finetune_weights
@@ -12,6 +14,7 @@ pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synt
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
 # task_df_name: task_df_synthetic_interruption_in_seq
 # pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
+
 data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_1
   max_seq_len: 409
