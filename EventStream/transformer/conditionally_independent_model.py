@@ -525,7 +525,7 @@ class CIPPTForGenerativeSequenceModeling(StructuredGenerationMixin, StructuredTr
         use_cache = kwargs.get("use_cache", False)
         output_attentions = kwargs.get("output_attentions", False)
         output_hidden_states = kwargs.get("output_hidden_states", False)
-        print(kwargs)
+        
 
         encoded = self.encoder(batch, **kwargs)
         output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
