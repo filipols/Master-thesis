@@ -4,33 +4,131 @@ defaults:
 
 seed: 1
 
-# Strategy: 1->3 (interruption in seq --> interruption in next week)
-strategy: true
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq
-task_df_name: task_df_synthetic_tti
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/finetune_weights
 
+# Strategy: pretrain
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
-# task_df_name: task_df_synthetic_interruption_in_seq
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
+# task_df_name: task_df_synthetic_tti
+#pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
+
+# # Strategy: 1 (interruption in seq)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/finetune_weights
+
+# # Strategy: 1->2 (interruption in seq --> class distribution)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/finetune_weights
+
+# # Strategy: 1->3 (interruption in seq --> interruption in next week)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/finetune_weights
+
+
+# # Strategy: 1->2->3 (interruption in seq  --> class distribution --> interruption in next week)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/finetune_weights
+
+# Strategy: 1->3->2 (interruption in seq --> interruption in next week --> class distribution)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/finetune_weights
+
+# Strategy: 1->2->3->4 (interruption in seq  --> class distribution --> interruption in next week --> TTI)
+strategy: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_tti
+task_df_name: task_df_synthetic_tti
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_tti/finetune_weights
+
+# Strategy: 1->3->2->4 (interruption in seq --> interruption in next week --> class distribution --> TTI)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_tti
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_tti/finetune_weights
+
+
+# # Strategy: 2->1 (class distribution --> interruption in seq )
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_interruption_in_seq
+# task_df_name: task_df_synthetictti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_interruption_in_seq/finetune_weights
+
+# # Strategy: 2->3 (class distribution --> interruption next week )
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/finetune_weights
+
+# # Strategy: 2->1->3 (class distribution --> interruption in seq --> interruption next week )
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/finetune_weights
+
+# # Strategy: 2->3->1 (class distribution --> interruption next week --> interruption in seq)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/finetune_weights
+
+# # Strategy: 2->1->3->4 (class distribution --> interruption in seq --> interruption next week --> TTI )
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_tti
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_tti/finetune_weights
+
+# # Strategy: 2->3->1->4 (class distribution --> interruption next week --> interruption in seq --> TTI)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/task_df_synthetic_tti
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/task_df_synthetic_tti/finetune_weights
+
+
+# # Strategy: 3->1 (interruption next week --> interruption in seq )
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/finetune_weights
+
+# # Strategy: 3->2 (interruption next week --> class distribution )
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/finetune_weights
+
+# # Strategy: 3->1->2 (interruption next week --> interruption in seq --> class distrbution)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/finetune_weights
+
+# # Strategy: 3->2->1 (interruption next week --> class distribution --> interruption in seq)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/finetune_weights
+
+# # Strategy: 3->1->2->4 (interruption next week --> interruption in seq --> class distrbution --> TTI)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_tti
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_tti/finetune_weights
+
+# # Strategy: 3->2->1->4 (interruption next week --> class distribution --> interruption in seq --> TTI)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/task_df_synthetic_tti
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/task_df_synthetic_tti/finetune_weights
+
 data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_1
   max_seq_len: 409
   do_include_start_time_min: true
   seq_padding_side: left
-optimization_config:
-  init_lr: 0.0006398098082729676
-  end_lr: 8.05022482949952e-06
-  end_lr_frac_of_init_lr: 0.012582215410591178
-  max_epochs: 100
-  batch_size: 106
-  validation_batch_size: 32
-  lr_frac_warmup_steps: 6.821087018693635e-06
-  lr_num_warmup_steps: 0
-  max_training_steps: 700
-  lr_decay_power: 4.915424972614257
-  weight_decay: 0.927050268775883
-  patience: 15
-  gradient_accumulation: 1
-  gradient_clip_val: 1
-  num_dataloader_workers: 5

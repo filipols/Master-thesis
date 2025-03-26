@@ -33,23 +33,29 @@ def get_shapes(nested_tuple, depth=0):
     else:
         print("  " * depth + f"Unknown type: {type(nested_tuple)}")
 
-
+def check_pretrained(model):
+    for name, param in model.named_parameters():
+        # Check if the weights are all zeros or initialized
+        if param.abs().sum() > 0:  # Non-zero weight indicates initialization
+            print(f"Layer {name} has non-zero weights")
+        else:
+            print(f"Layer {name} has zero weights")
 
 def inference(cfg):
     # Instantiate model
     model = CIPPTForGenerativeSequenceModeling(
         config=cfg.config
     )
-
+    
     # Load pretrained weights
-    model.from_pretrained(
-        cfg.pretrained_weights_fp
-    )
+    # model.from_pretrained(
+    #     cfg.pretrained_weights_fp
+    # )
 
     held_out_pyd = PytorchDataset(config=cfg.data_config, split="held_out")    
 
     held_out_dataloader = DataLoader(
-        held_out_pyd, batch_size=5, collate_fn=held_out_pyd.collate, shuffle=True
+        held_out_pyd, batch_size=8, collate_fn=held_out_pyd.collate, shuffle=False
     )  
     
     mse = []
@@ -129,7 +135,7 @@ def inference(cfg):
         
 
 
-    print(f'Mead TTI MSE evaluated on HELD OUT set: {np.mean(mse)}')
+    print(f'Mean TTI MSE evaluated on HELD OUT set: {np.mean(mse)}')
     # plot distribution
 
     # num_samples = 1000
