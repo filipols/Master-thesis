@@ -36,10 +36,12 @@ def get_shapes(nested_tuple, depth=0):
 
 
 def inference(cfg):
-
+    # Instantiate model
     model = CIPPTForGenerativeSequenceModeling(
         config=cfg.config
     )
+
+    # Load pretrained weights
     model.from_pretrained(
         cfg.pretrained_weights_fp
     )
@@ -48,13 +50,8 @@ def inference(cfg):
 
     held_out_dataloader = DataLoader(
         held_out_pyd, batch_size=5, collate_fn=held_out_pyd.collate, shuffle=True
-    )
-    sample_batch = next(iter(held_out_dataloader))    
+    )  
     
-    
-
-    ttis = []
-    max_new_events = 0
     mse = []
 
     for batch in held_out_dataloader:
@@ -122,7 +119,9 @@ def inference(cfg):
                                   output_hidden_states=True,
                                   return_dict=True)
         
+        
         last_hidden_state = encoded.last_hidden_state
+        
         mse.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True).losses.TTI_mse.item())
     
 
@@ -130,7 +129,7 @@ def inference(cfg):
         
 
 
-    print(np.mean(mse))
+    print(f'Mead TTI MSE evaluated on HELD OUT set: {np.mean(mse)}')
     # plot distribution
 
     # num_samples = 1000
