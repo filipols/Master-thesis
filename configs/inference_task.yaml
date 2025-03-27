@@ -5,16 +5,29 @@ defaults:
 seed: 1
 
 
-# Strategy: pretrain
+# # Strategy: pretrain
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
 # task_df_name: task_df_synthetic_tti
-#pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
 
 # # Strategy: 1 (interruption in seq)
 # strategy: true
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq
 # task_df_name: task_df_synthetic_tti
 # pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/finetune_weights
+
+# # Strategy: 2 (class distribution)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/finetune_weights
+
+# # Strategy: 3 (interruption next week)
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week
+# task_df_name: task_df_synthetic_tti
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/finetune_weights
+
 
 # # Strategy: 1->2 (interruption in seq --> class distribution)
 # strategy: true
@@ -35,7 +48,7 @@ seed: 1
 # task_df_name: task_df_synthetic_tti
 # pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/finetune_weights
 
-# Strategy: 1->3->2 (interruption in seq --> interruption in next week --> class distribution)
+# # Strategy: 1->3->2 (interruption in seq --> interruption in next week --> class distribution)
 # strategy: true
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist
 # task_df_name: task_df_synthetic_tti
@@ -47,7 +60,7 @@ load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthe
 task_df_name: task_df_synthetic_tti
 pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/task_df_synthetic_tti/finetune_weights
 
-# Strategy: 1->3->2->4 (interruption in seq --> interruption in next week --> class distribution --> TTI)
+# # Strategy: 1->3->2->4 (interruption in seq --> interruption in next week --> class distribution --> TTI)
 # strategy: true
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_tti
 # task_df_name: task_df_synthetic_tti
@@ -57,7 +70,7 @@ pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synt
 # # Strategy: 2->1 (class distribution --> interruption in seq )
 # strategy: true
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_interruption_in_seq
-# task_df_name: task_df_synthetictti
+# task_df_name: task_df_synthetic_tti
 # pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_class_dist/task_df_interruption_in_seq/finetune_weights
 
 # # Strategy: 2->3 (class distribution --> interruption next week )
