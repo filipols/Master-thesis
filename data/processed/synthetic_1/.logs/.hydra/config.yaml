@@ -24,15 +24,10 @@ inputs:
   subjects:
     input_df: ${raw_data_dir}/synthetic_subjects_1.csv
   simple_event:
-    input_df: ${raw_data_dir}/synthetic_dataset_1_simple.csv
+    input_df: ${raw_data_dir}/synthetic_dataset_1v2.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: simple_event
-  interruption:
-    input_df: ${raw_data_dir}/synthetic_dataset_1_interruption.csv
-    ts_col: timestamp
-    ts_format: '%Y-%m-%d %H:%M:%S'
-    event_type: interruption
 measurements:
   static:
     single_label_classification:
@@ -42,10 +37,6 @@ measurements:
     multi_label_classification:
       simple_event:
       - event_label
-      interruption:
-      - event_label
     univariate_regression:
       simple_event:
-      - feature_vector
-      interruption:
       - feature_vector
