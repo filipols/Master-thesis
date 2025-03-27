@@ -148,7 +148,7 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             fp = model_dir / "finetune_weights"
         else:
             fp = model_dir / "pretrained_weights"
-
+        print(fp)
         self.model.save_pretrained(fp)
 
     def build_metrics(self):
