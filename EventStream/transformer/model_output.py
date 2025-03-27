@@ -1420,8 +1420,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             preds = relu(taskRegressionLogits)
 
             loss_fn = torch.nn.MSELoss()
-            taskLoss = loss_fn(preds.squeeze(-1), labels) * 1e-8
-            mse = taskLoss*1e8
+            taskLoss = loss_fn(preds.squeeze(-1), labels) * 1e-5
+            mse = taskLoss*1e5
 
             predictions={'class_dist_pred_event_label_logits' : None,
                          'class_dist_pred_event_label_probs' : None,
