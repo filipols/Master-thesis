@@ -7,6 +7,8 @@ import gc
 import importlib.util
 import wandb
 
+from safetensors.torch import load_file
+
 import lightning as L
 import omegaconf
 import torch
@@ -114,11 +116,14 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
                 raise ValueError(
                     f"Unsupported structured event processing mode: {config.structured_event_processing_mode}"
                 )
+       
 
         if pretrained_weights_fp is None:
             self.model = model_cls(config)
         else:
             self.model = model_cls.from_pretrained(pretrained_weights_fp, config=config, ignore_mismatched_sizes=True)
+           
+    
             # ###### TEST 1 ######
             # original_config = self.model.config
             # new_config = original_config
@@ -141,7 +146,7 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             dynamic_weight=config.dynamic_embedding_weight,
             categorical_weight=config.categorical_embedding_weight,
             numerical_weight=config.numerical_embedding_weight,)
-       
+        
 
     def save_pretrained(self, model_dir: Path, finetune=False,strategy=None):
         if finetune:

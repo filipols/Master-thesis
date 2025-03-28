@@ -33,6 +33,7 @@ from .utils import (
     weighted_loss,
 )
 from torchmetrics.classification import BinaryAUROC, MulticlassAUROC
+from torcheval.metrics.functional import binary_f1_score
 
 BERNOULLI_DIST_T = torch.distributions.Bernoulli
 CATEGORICAL_DIST_T = torch.distributions.Categorical
@@ -246,6 +247,7 @@ class GenerativeSequenceModelLosses(ModelOutput):
     task_accuracy: float | None = None
     task_AUROC: float | None = None
     TTI_mse: float | None = None
+    CLS_f1_score: float | None = None
 
 
 @dataclass
@@ -1340,11 +1342,12 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         accuracy = None
         auroc_score = None
         mse = None
+        f1_score = None
         predictions = {}
 
         if classification_out: # class distribution proxy task
-            event_types = classification_out[2]["event_type"].to(device)
-            num_classes = classification_out[1]["event_type"][1].logits.shape[-1]
+            event_types =torch.argmax(classification_out[2]["event_label"],dim=-1).to(device)
+            num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
             batch_size, seq_len = event_types.size()
 
             target_distributions = torch.zeros(batch_size, num_classes).to(device)
@@ -1353,18 +1356,25 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                     target_distributions[i, event_types[i, j]] += 1
             target_distributions = target_distributions / seq_len
 
-            pred_event_labels_logits = classification_out[1]["event_type"][1].logits
-            pred_event_labels_probs = torch.softmax(pred_event_labels_logits, dim=2).mean(dim=1) # Average probabilities across sequence
-
+            pred_event_labels_logits = classification_out[1]["event_label"][1].logits
+            pred_event_labels_probs = torch.nn.functional.softmax(pred_event_labels_logits, dim=-1)
+            class_distribution = pred_event_labels_probs.sum(dim=1) # Average probabilities across sequence
+            class_distribution = class_distribution / class_distribution.sum(dim=-1, keepdim=True)
             loss_fn = torch.nn.MSELoss()
-            taskLoss = loss_fn(pred_event_labels_probs, target_distributions) * 1000
+            taskLoss = loss_fn(class_distribution, target_distributions) * 10000
+            mse = taskLoss * 1e-4
 
-            auroc_per_class = [BinaryAUROC()(pred_event_labels_probs[:, i], target_distributions[:, i]) for i in range(num_classes)]
-            class_weights = target_distributions.mean(dim=0)  # This will give the average probability for each class
+            
+            
+            # auroc = BinaryAUROC()
+            # auroc_score = auroc(pred_event_labels_probs, target_distributions)
 
-            # Step 3: Calculate the weighted per-class AUROC
-            auroc_per_class_tensor = torch.tensor(auroc_per_class)  # Convert AUROC scores to tensor
-            auroc_score = (class_weights.to(device) * auroc_per_class_tensor.to(device)).sum()
+            # auroc_per_class = [BinaryAUROC()(pred_event_labels_probs[:, i], target_distributions[:, i]) for i in range(num_classes)]
+            # class_weights = target_distributions.mean(dim=0)  # This will give the average probability for each class
+
+            # # Step 3: Calculate the weighted per-class AUROC
+            # auroc_per_class_tensor = torch.tensor(auroc_per_class)  # Convert AUROC scores to tensor
+            # auroc_score = (class_weights.to(device) * auroc_per_class_tensor.to(device)).sum()
             
             predictions={'class_dist_pred_event_label_logits' : pred_event_labels_logits,
                          'class_dist_pred_event_label_probs' : pred_event_labels_probs,
@@ -1386,17 +1396,26 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             # taskClassificationLogits = self.TaskLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
             taskClassificationLogits = self.TaskClassificationLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
 
+            # num_pos = labels.sum().item()  # Count positive examples (label = 1)
+            # num_neg = (labels.shape[0] - num_pos)
+            # if num_pos == 0 or num_neg == 0:
+            #     pos_weight = torch.tensor(1.0).to(device)  # Default to 1.0 if perfectly balanced
+            # else:
+            #     pos_weight = torch.tensor(num_neg / num_pos).to(device)
+            pos_weight = torch.tensor(1.5).to(device)
+
             # calculate BCE loss
-            loss_fn = torch.nn.BCEWithLogitsLoss()
-            taskLoss = loss_fn(taskClassificationLogits.squeeze(-1), labels.float())
+            loss_fn = torch.nn.BCEWithLogitsLoss(pos_weight=pos_weight)
+            taskLoss = loss_fn(taskClassificationLogits.squeeze(-1), labels.float())*1000
 
             # calculate accuracy and AUROC
             taskClassificationProbs = torch.sigmoid(taskClassificationLogits)
             pred_task_labels_binary = (taskClassificationProbs > 0.5).float()
             accuracy = (pred_task_labels_binary == labels.float()).float().mean()
-
+           
             auroc = BinaryAUROC()
             auroc_score = auroc(taskClassificationProbs, labels.float())
+            f1_score = binary_f1_score(pred_task_labels_binary.squeeze(),labels.float(),threshold=0.9)
 
             predictions={'class_dist_pred_event_label_logits' : None,
                          'class_dist_pred_event_label_probs' : None,
@@ -1433,7 +1452,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         
         
 
-        return taskLoss, accuracy, auroc_score,mse
+        return taskLoss, accuracy, auroc_score, mse, f1_score
 
 
     def get_TTE_outputs(
