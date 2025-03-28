@@ -24,7 +24,7 @@ inputs:
   subjects:
     input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_subjects_1.csv
   simple_event:
-    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_dataset_1v2.csv
+    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_dataset_1.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: simple_event
