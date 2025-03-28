@@ -8,7 +8,7 @@ from EventStream.transformer.lightning_modules.generative_modeling import Pretra
 from EventStream.transformer.conditionally_independent_model import CIPPTForGenerativeSequenceModeling 
 from EventStream.transformer.lightning_modules.fine_tuning_dev import FinetuneConfig
 from EventStream.transformer.model_output import get_event_types
-
+from safetensors.torch import load_file
 import torch
 import hydra
 import numpy as np
@@ -47,10 +47,36 @@ def inference(cfg):
         config=cfg.config
     )
     
+
+    initial_weights = {name: param.clone() for name, param in model.named_parameters()}
+
+   
+    
     # Load pretrained weights
+    checkpoint = load_file(cfg.pretrained_weights_fp / 'model.safetensors')
+    model.load_state_dict(checkpoint)
     # model.from_pretrained(
     #     cfg.pretrained_weights_fp
     # )
+
+    # Compare parameters
+    total_params = 0
+    params_changed = 0
+    params_unchanged = 0
+    for name, param in model.named_parameters():
+        total_params+=1
+        if not torch.equal(initial_weights[name], param):
+            # print(f"{name} has been updated with pretrained weights.")
+            params_changed +=1
+        else:
+            params_unchanged+=1
+            # print(f"{name} remains unchanged!")
+
+    print(f"Total parameters: {total_params} | Updated params: {params_changed} | Unchanged params: {params_unchanged}")
+    model.eval()
+
+    for param in model.parameters():
+        param.requires_grad = False
 
     held_out_pyd = PytorchDataset(config=cfg.data_config, split="held_out")    
 
@@ -58,8 +84,10 @@ def inference(cfg):
         held_out_pyd, batch_size=8, collate_fn=held_out_pyd.collate, shuffle=False
     )  
     
-    mse = []
-
+    f1 = []
+    # print(model.training)  # False means the model is in eval mode
+    # for name, param in model.named_parameters():
+    #     print(f"{name}: requires_grad={param.requires_grad}")
     for batch in held_out_dataloader:
         # OLD STUFF!!!
             # generated = model.generate(
@@ -128,14 +156,14 @@ def inference(cfg):
         
         last_hidden_state = encoded.last_hidden_state
         
-        mse.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True).losses.TTI_mse.item())
+        f1.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True).losses.TTI_mse.item())
     
 
        
         
 
 
-    print(f'Mean TTI MSE evaluated on HELD OUT set: {np.mean(mse)}')
+    print(f'Mean F1 score evaluated on HELD OUT set: {np.mean(f1)}')
     # plot distribution
 
     # num_samples = 1000
