@@ -1324,7 +1324,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         batch: PytorchBatch, 
         encoded: torch.FloatTensor, 
         is_generation: bool = False,
-        classification_out = None
+        classification_out = None,
+        is_cls_dist = False,
         ) -> tuple[torch.FloatTensor, torch.distributions.Distribution, torch.FloatTensor,]:
         """
         Type of proxy task is determined as:
@@ -1345,7 +1346,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         f1_score = None
         predictions = {}
 
-        if classification_out: # class distribution proxy task
+        if is_cls_dist: # class distribution proxy task
             event_types =torch.argmax(classification_out[2]["event_label"],dim=-1).to(device)
             num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
             batch_size, seq_len = event_types.size()
@@ -1390,7 +1391,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                 zeros_to_add = self.config.max_seq_len - cur_seq_len
                 padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
                 encoded = torch.cat([encoded, padded],dim=1)
-
+            
             
             # pass through classification layer
             # taskClassificationLogits = self.TaskLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
@@ -1432,7 +1433,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                 zeros_to_add = self.config.max_seq_len - cur_seq_len
                 padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
                 encoded = torch.cat([encoded, padded],dim=1)
-
+            
             taskRegressionLogits = self.TaskRegressionLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
 
             relu = torch.nn.ReLU()

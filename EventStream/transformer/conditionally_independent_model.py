@@ -43,6 +43,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         super().__init__(config)
         if config.structured_event_processing_mode != StructuredEventProcessingMode.CONDITIONALLY_INDEPENDENT:
             raise ValueError(f"{config.structured_event_processing_mode} invalid!")
+        self.config = config
         
 
     def proxy_task(
@@ -309,7 +310,8 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             task_loss, accuracy, auroc_score, mse, f1_score = self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
-                classification_out = classification_out       # ENDAST FÖR CLASS DISTRIBUTION PROXY TASK!
+                classification_out = classification_out,       # ENDAST FÖR CLASS DISTRIBUTION PROXY TASK!
+                is_cls_dist = self.config.is_cls_dist
             )
             
         else:
