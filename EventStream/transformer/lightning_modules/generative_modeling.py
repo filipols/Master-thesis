@@ -135,17 +135,20 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             # self.model.encoder.input_layer = ConditionallyIndependentPointProcessInputLayer(new_config)
             ###### TEST 2 ######
             # print('generative_modeling.py line 128: HÄR SÄTTS n_total_embeddings HARDCODAT!!! just nu 17, ändra beroende på dataset')
-            self.model.encoder.input_layer.data_embedding_layer = DataEmbeddingLayer(n_total_embeddings=config.vocab_size, # Dataset/Task specific!!!,
-            out_dim=config.hidden_size,
-            categorical_embedding_dim=config.categorical_embedding_dim,
-            numerical_embedding_dim=config.numerical_embedding_dim,
-            static_embedding_mode=config.static_embedding_mode,
-            split_by_measurement_indices=None,
-            do_normalize_by_measurement_index=config.do_normalize_by_measurement_index,
-            static_weight=config.static_embedding_weight,
-            dynamic_weight=config.dynamic_embedding_weight,
-            categorical_weight=config.categorical_embedding_weight,
-            numerical_weight=config.numerical_embedding_weight,)
+            
+            
+            
+            # self.model.encoder.input_layer.data_embedding_layer = DataEmbeddingLayer(n_total_embeddings=config.vocab_size, # Dataset/Task specific!!!,
+            # out_dim=config.hidden_size,
+            # categorical_embedding_dim=config.categorical_embedding_dim,
+            # numerical_embedding_dim=config.numerical_embedding_dim,
+            # static_embedding_mode=config.static_embedding_mode,
+            # split_by_measurement_indices=None,
+            # do_normalize_by_measurement_index=config.do_normalize_by_measurement_index,
+            # static_weight=config.static_embedding_weight,
+            # dynamic_weight=config.dynamic_embedding_weight,
+            # categorical_weight=config.categorical_embedding_weight,
+            # numerical_weight=config.numerical_embedding_weight,)
         
 
     def save_pretrained(self, model_dir: Path, finetune=False,strategy=None):
