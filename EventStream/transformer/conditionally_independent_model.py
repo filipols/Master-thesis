@@ -307,7 +307,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         )
 
         if batch.stream_labels:
-            task_loss, accuracy, auroc_score, mse, f1_score = self.get_task_outputs(
+            task_loss, accuracy, auroc_score, mse, f1_score, taskLogits = self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
                 classification_out = classification_out,       # ENDAST FÖR CLASS DISTRIBUTION PROXY TASK!
@@ -343,14 +343,13 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         #     accuracy = None
         #     auroc_score = None
         
-        
         return GenerativeSequenceModelOutput(
             **{
                 "loss": (
                     task_loss
-                    + sum(classification_losses_by_measurement.values())
-                    + sum(regression_loss_values.values())
-                    - TTE_LL_overall
+                    # + sum(classification_losses_by_measurement.values())
+                    # + sum(regression_loss_values.values())
+                    # - TTE_LL_overall
                 )
                 if not is_generation
                 else None,
@@ -379,7 +378,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
                     time_to_event=None if is_generation else TTE_true,
                 ),
                 "event_mask": batch["event_mask"],
-                "dynamic_values_mask": batch["dynamic_values_mask"],
+                "dynamic_values_mask": batch["dynamic_values_mask"]
             }
         )
 

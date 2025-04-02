@@ -7,7 +7,7 @@ Attributes:
 """
 from dataclasses import asdict, dataclass
 from typing import Any
-
+import numpy as np
 import torch
 from transformers.utils import ModelOutput
 
@@ -38,6 +38,37 @@ from torcheval.metrics.functional import binary_f1_score
 BERNOULLI_DIST_T = torch.distributions.Bernoulli
 CATEGORICAL_DIST_T = torch.distributions.Categorical
 REGRESSION_DIST_T = torch.distributions.Normal
+
+
+import torch.nn.functional as F
+from torchviz import make_dot
+
+
+class FocalLoss(torch.nn.Module):
+    def __init__(self, gamma=2.0, alpha=0.25, reduction="mean"):
+        super(FocalLoss, self).__init__()
+        self.gamma = gamma
+        self.alpha = alpha
+        self.reduction = reduction
+
+    def forward(self, logits, targets):
+        probas = torch.sigmoid(logits)
+        targets = targets.float()
+        bce_loss = F.binary_cross_entropy_with_logits(logits, targets, reduction="none")
+        p_t = probas * targets + (1 - probas) * (1 - targets)
+        focal_factor = (1 - p_t) ** self.gamma
+        alpha_factor = self.alpha * targets + (1 - self.alpha) * (1 - targets)
+        focal_loss = alpha_factor * focal_factor * bce_loss
+        return focal_loss.mean() if self.reduction == "mean" else focal_loss.sum()
+
+
+def class_balance_penalty(logits, target, beta=0.01):
+    probs = torch.sigmoid(logits)
+    predicted_ratio = probs.mean()  # Expected proportion of positive class
+    true_ratio = target.float().mean()  # Actual proportion of positive class
+    return beta * (predicted_ratio - true_ratio).abs()  # Penalize large difference
+
+
 
 
 def get_event_types(
@@ -1217,6 +1248,7 @@ class GenerativeSequenceModelOutput(ModelOutput):
     labels: GenerativeSequenceModelLabels | None = None
     event_mask: torch.BoolTensor | None = None
     dynamic_values_mask: torch.BoolTensor | None = None
+    taskLogits: None=None
 
     past_key_values: tuple[tuple[torch.FloatTensor]] | None = None
     hidden_states: tuple[torch.FloatTensor] | None = None
@@ -1262,7 +1294,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         config: StructuredTransformerConfig,
     ):
         super().__init__()
-
+        
         self.config = config
 
         match self.config.TTE_generation_layer_type:
@@ -1281,14 +1313,23 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                     f"a member of the `TimeToEventGenerationHeadType` enum: "
                     f"({TimeToEventGenerationHeadType.values()}). got {config.TTE_generation_layer_type}."
                 )
-
+        print(torch.get_default_dtype()) 
         self.IsObservedLayer = torch.nn.Linear(config.hidden_size, len(config.measurements_idxmap))
         self.ClassificationLayer = torch.nn.Linear(config.hidden_size, config.vocab_size)
-
-        self.TaskClassificationLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1)
-        self.TaskRegressionLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1)
+        self.batch_norm = torch.nn.BatchNorm1d(self.config.hidden_size * self.config.max_seq_len)
+        self.TaskClassificationLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1, dtype=torch.float32)
+        self.TaskEventCLassificationLayer = torch.nn.Linear(in_features = config.hidden_size, out_features = 1, dtype=torch.float32)
+        self.TaskRegressionLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1, dtype=torch.float32)
+        torch.nn.init.xavier_uniform_(self.TaskClassificationLayer.weight, gain=1)
+        # torch.nn.init.zeros_(self.TaskRegressionLayer.bias)
+        # torch.nn.init.zeros_(self.TaskClassificationLayer.bias)
+        self.TaskClassificationLayer.bias.data.fill_(-0.1)
+        
+        
+        # torch.nn.init.uniform_(self.TaskClassificationLayer, a=-1.0, b=1.0)
+        
         self.is_observed_criteria = torch.nn.BCEWithLogitsLoss(reduction="none")
-
+      
         self.classification_criteria = {}
         for measurement in config.measurements_for(DataModality.SINGLE_LABEL_CLASSIFICATION):
             self.classification_criteria[measurement] = torch.nn.CrossEntropyLoss(reduction="none")
@@ -1344,8 +1385,9 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         auroc_score = None
         mse = None
         f1_score = None
+        taskClassificationLogits=None
         predictions = {}
-
+        # raise
         if is_cls_dist: # class distribution proxy task
             event_types =torch.argmax(classification_out[2]["event_label"],dim=-1).to(device)
             num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
@@ -1386,45 +1428,61 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                          }
 
         elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
-            cur_seq_len = encoded.shape[1]
-            if cur_seq_len < self.config.max_seq_len:
-                zeros_to_add = self.config.max_seq_len - cur_seq_len
-                padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
-                encoded = torch.cat([encoded, padded],dim=1)
-            
-            
-            # pass through classification layer
-            # taskClassificationLogits = self.TaskLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
-            taskClassificationLogits = self.TaskClassificationLayer(encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len))
+            # # # # # # cur_seq_len = encoded.shape[1]
 
-            # num_pos = labels.sum().item()  # Count positive examples (label = 1)
-            # num_neg = (labels.shape[0] - num_pos)
-            # if num_pos == 0 or num_neg == 0:
-            #     pos_weight = torch.tensor(1.0).to(device)  # Default to 1.0 if perfectly balanced
-            # else:
-            #     pos_weight = torch.tensor(num_neg / num_pos).to(device)
-            pos_weight = torch.tensor(1.5).to(device)
+            # # # # # # if cur_seq_len < self.config.max_seq_len:
+            # # # # # #     zeros_to_add = self.config.max_seq_len - cur_seq_len
+            # # # # # #     padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
+            # # # # # #     encoded = torch.cat([encoded, padded],dim=1)
+            # # # # # # encoded = encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len)
 
-            # calculate BCE loss
-            loss_fn = torch.nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-            taskLoss = loss_fn(taskClassificationLogits.squeeze(-1), labels.float())*1000
+            # # # # # # taskClassificationLogits = self.TaskClassificationLayer(encoded)
 
-            # calculate accuracy and AUROC
-            taskClassificationProbs = torch.sigmoid(taskClassificationLogits)
-            pred_task_labels_binary = (taskClassificationProbs > 0.5).float()
-            accuracy = (pred_task_labels_binary == labels.float()).float().mean()
+            # # # # # # # calculate accuracy and AUROC
+            # # # # # # taskClassificationProbs = torch.sigmoid(taskClassificationLogits)
+
+            # # # # # # # calculate BCE loss
+            # # # # # # loss_fn = torch.nn.BCELoss()
+            # # # # # # taskLoss = loss_fn(taskClassificationProbs.squeeze(-1), labels.float())
            
-            auroc = BinaryAUROC()
-            auroc_score = auroc(taskClassificationProbs, labels.float())
-            f1_score = binary_f1_score(pred_task_labels_binary.squeeze(),labels.float(),threshold=0.9)
+            # # # # # # pred_task_labels_binary = (taskClassificationProbs.squeeze(-1) > 0.5).float()
+            
 
-            predictions={'class_dist_pred_event_label_logits' : None,
-                         'class_dist_pred_event_label_probs' : None,
-                         'cls_proxy_task_logits' : taskClassificationLogits,
-                         'cls_proxy_task_probs' : taskClassificationProbs,
-                         'reg_proxy_task_logits' : None,
-                         'reg_proxy_task_preds' : None
-                         }
+            # # # # # # # print(taskClassificationProbs)
+            # # # # # # # print(pred_task_labels_binary)
+            # # # # # # # print('LABELS')
+            # # # # # # # print(labels.float())
+
+            # # # # # # correct = (pred_task_labels_binary == labels).sum().item()  # This returns the number of correct predictions
+            # # # # # # accuracy = correct / labels.numel()
+
+            # # # # # # auroc = BinaryAUROC()
+            # # # # # # auroc_score = auroc(taskClassificationProbs, labels.float())
+
+            # # # # # # f1_score = binary_f1_score(pred_task_labels_binary.squeeze(),labels.float(),threshold=0.9)
+
+            # # # # # # predictions={'class_dist_pred_event_label_logits' : None,
+            # # # # # #              'class_dist_pred_event_label_probs' : None,
+            # # # # # #              'cls_proxy_task_logits' : taskClassificationLogits,
+            # # # # # #              'cls_proxy_task_probs' : taskClassificationProbs,
+            # # # # # #              'reg_proxy_task_logits' : None,
+            # # # # # #              'reg_proxy_task_preds' : None
+            # # # # # #              }
+            logits = self.TaskEventCLassificationLayer(encoded)
+            probs = torch.sigmoid(logits).squeeze(-1)
+
+            no_interruption_prob = torch.prod(1 - probs, dim=1)
+            seq_prob = (1 - no_interruption_prob).unsqueeze(-1)
+
+            # print(seq_prob)
+            loss_fn = torch.nn.BCELoss()
+            taskLoss = loss_fn(seq_prob.squeeze(-1),labels.float())
+            
+            pred_task_labels_binary = (seq_prob > 0.5).float()
+            correct = (pred_task_labels_binary.squeeze(-1) == labels).sum().item()  # This returns the number of correct predictions
+            accuracy = correct / labels.numel()
+            
+            print(seq_prob.min())
 
 
         elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
@@ -1453,7 +1511,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         
         
 
-        return taskLoss, accuracy, auroc_score, mse, f1_score
+        return taskLoss, accuracy, auroc_score, mse, f1_score, taskClassificationLogits
 
 
     def get_TTE_outputs(

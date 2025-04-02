@@ -50,7 +50,7 @@ from ..model_output import GenerativeSequenceModelOutput
 from ..nested_attention_model import NAPPTForGenerativeSequenceModeling
 from ..utils import expand_indexed_regression, str_summary
 #from ..generation.generation_utils import StructuredGenerationMixin
-
+from torchviz import make_dot
 
 #class ESTForGenerativeSequenceModelingLM(L.LightningModule,StructuredGenerationMixin):
 class ESTForGenerativeSequenceModelingLM(L.LightningModule):
@@ -122,34 +122,10 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             self.model = model_cls(config)
         else:
             self.model = model_cls.from_pretrained(pretrained_weights_fp, config=config, ignore_mismatched_sizes=True)
-           
-    
-            # ###### TEST 1 ######
-            # original_config = self.model.config
-            # new_config = original_config
-            # new_config.vocab_sizes_by_measurement = {"event_type": 10, "dummy_static": 2, "event_label": 5}
-            # new_config.vocab_offsets_by_measurement = {"event_type": 1, "dummy_static": 11, "event_idx": 13, "event_label": 14, "feature_0": 19, "feature_1": 20, "feature_10": 21, "feature_11": 22, "feature_12": 23, "feature_13": 24, "feature_14": 25, "feature_15": 26, "feature_16": 27, "feature_17": 28, "feature_18": 29, "feature_19": 30, "feature_2": 31, "feature_20": 32, "feature_21": 33, "feature_22": 34, "feature_23": 35, "feature_24": 36, "feature_25": 37, "feature_26": 38, "feature_27": 39, "feature_28": 40, "feature_29": 41, "feature_3": 42, "feature_30": 43, "feature_31": 44, "feature_32": 45, "feature_33": 46, "feature_34": 47, "feature_35": 48, "feature_36": 49, "feature_37": 50, "feature_38": 51, "feature_39": 52, "feature_4": 53, "feature_40": 54, "feature_41": 55, "feature_42": 56, "feature_43": 57, "feature_44": 58, "feature_45": 59, "feature_46": 60, "feature_47": 61, "feature_48": 62, "feature_5": 63, "feature_6": 64, "feature_7": 65, "feature_8": 66, "feature_9": 67}
-            # new_config.measurements_idxmap = {"event_type": 1, "dummy_static": 2, "event_idx": 3, "event_label": 4, "feature_0": 5, "feature_1": 6, "feature_10": 7, "feature_11": 8, "feature_12": 9, "feature_13": 10, "feature_14": 11, "feature_15": 12, "feature_16": 13, "feature_17": 14, "feature_18": 15, "feature_19": 16, "feature_2": 17, "feature_20": 18, "feature_21": 19, "feature_22": 20, "feature_23": 21, "feature_24": 22, "feature_25": 23, "feature_26": 24, "feature_27": 25, "feature_28": 26, "feature_29": 27, "feature_3": 28, "feature_30": 29, "feature_31": 30, "feature_32": 31, "feature_33": 32, "feature_34": 33, "feature_35": 34, "feature_36": 35, "feature_37": 36, "feature_38": 37, "feature_39": 38, "feature_4": 39, "feature_40": 40, "feature_41": 41, "feature_42": 42, "feature_43": 43, "feature_44": 44, "feature_45": 45, "feature_46": 46, "feature_47": 47, "feature_48": 48, "feature_5": 49, "feature_6": 50, "feature_7": 51, "feature_8": 52, "feature_9": 53}
-            # new_config.measurements_per_generative_mode = {"single_label_classification": ["event_type"], "multi_label_classification": ["event_label"], "univariate_regression": ["event_idx", "feature_0", "feature_1", "feature_2", "feature_3", "feature_4", "feature_5", "feature_6", "feature_7", "feature_8", "feature_9", "feature_10", "feature_11", "feature_12", "feature_13", "feature_14", "feature_15", "feature_16", "feature_17", "feature_18", "feature_19", "feature_20", "feature_21", "feature_22", "feature_23", "feature_24", "feature_25", "feature_26", "feature_27", "feature_28", "feature_29", "feature_30", "feature_31", "feature_32", "feature_33", "feature_34", "feature_35", "feature_36", "feature_37", "feature_38", "feature_39", "feature_40", "feature_41", "feature_42", "feature_43", "feature_44", "feature_45", "feature_46", "feature_47", "feature_48"]}
-            # new_config.event_types_idxmap = {"unbalance_i": 1, "harmonics_i": 2, "unbalance_u": 3, "current_deviation": 4, "VD": 5, "transient": 6, "interruption": 7, "harmonics_u": 8, "VD&current_deviation": 9, "current_deviation&unbalance_i": 10}
-            # self.model.encoder.input_layer = ConditionallyIndependentPointProcessInputLayer(new_config)
-            ###### TEST 2 ######
-            # print('generative_modeling.py line 128: HÄR SÄTTS n_total_embeddings HARDCODAT!!! just nu 17, ändra beroende på dataset')
-            
-            
-            
-            # self.model.encoder.input_layer.data_embedding_layer = DataEmbeddingLayer(n_total_embeddings=config.vocab_size, # Dataset/Task specific!!!,
-            # out_dim=config.hidden_size,
-            # categorical_embedding_dim=config.categorical_embedding_dim,
-            # numerical_embedding_dim=config.numerical_embedding_dim,
-            # static_embedding_mode=config.static_embedding_mode,
-            # split_by_measurement_indices=None,
-            # do_normalize_by_measurement_index=config.do_normalize_by_measurement_index,
-            # static_weight=config.static_embedding_weight,
-            # dynamic_weight=config.dynamic_embedding_weight,
-            # categorical_weight=config.categorical_embedding_weight,
-            # numerical_weight=config.numerical_embedding_weight,)
-        
+            self.model.output_layer.TaskClassificationLayer.bias.data.fill_(-0.08)
+            self.model.output_layer.TaskRegressionLayer.bias.data.fill_(-0.08)
+            torch.nn.init.xavier_uniform_(self.model.output_layer.TaskClassificationLayer.weight)
+
 
     def save_pretrained(self, model_dir: Path, finetune=False,strategy=None):
         if finetune:
@@ -499,185 +475,22 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
 
         Skips logging all AUROC, AUPRC, and per_class metric to save compute.
         """
-        # if True:
-        #     device = batch.device
-        #     task_loss = 0
-        #     interruption_idx = self.config.event_types_idxmap["interruption"]
-
-        #     all_pred_types = []
-        #     all_pred_values = []
-        #     all_pred_times = []
-        #     interruption_probs = []
-        #     cumulative_time = torch.zeros((batch.batch_size, 1))
-
-        #     event_mask = batch.event_mask.clone()
-        #     time_delta = batch.time_delta.clone()
-        #     dynamic_indices = batch.dynamic_indices.clone()
-        #     dynamic_values = batch.dynamic_values.clone()
-        #     # print("indices: ", dynamic_indices)
-        #     # print("values ", dynamic_values)
-        #     print(self.model(batch).labels[0].keys())
-        #     raise
-        #     i = 0
-        #     while torch.mean(cumulative_time) < 24*60*7:
-        #         print(i)
-        #         i=i+1
-
-        #         # create dynamic indices and dynamic values
-                
-
-
-        #         pred = self.model(batch)            # batch_size x seq_len
-        #         event_type_pred = pred.preds.classification["event_type"][1].logits           # batch_size x seq_len x num_classes
-                
-        #         pred_values = []
-
-        #         for key, (presence, normal_dist) in pred.preds.regression.items():
-        #             sampled_value = normal_dist.rsample()
-        #             pred_values.append(sampled_value)
-
-        #         pred_values = torch.cat(pred_values, dim=-1)[:,-1,:]
-        #         pred_time = pred.preds.time_to_event.rsample().squeeze(-1)[:,-1]
-        #         next_event_type = event_type_pred.argmax(dim=-1)
-
-        #         all_pred_types.append(next_event_type)
-        #         all_pred_values.append(pred_values)
-        #         all_pred_times.append(pred_time)
-
-        #         # gör nya dynamic_values / dynamic_indices varje iteration
-
-
-        #         print("dyn: ", dynamic_values.shape)
-        #         print("predv alues: ", pred_values.shape)
-        #         raise
-        #         dynamic_values = torch.cat([dynamic_values[:, 1:, :], pred_values.unsqueeze(1)], dim=1)         # roll
-        #         time_delta = torch.cat([time_delta[:, 1:], pred_time.unsqueeze(1)], dim=1)                      # roll
-
-        #         # update batch
-        #         batch.dynamic_indices = dynamic_indices
-        #         batch.dynamic_values = dynamic_values
-        #         batch.time_delta = time_delta
-
-
-        #         # calculate predictions of cls interruption next week and TTI
-        #         interruption_prob = event_type_pred[:,:,interruption_idx][:,-1]       # probability of each event being interruption
-        #         interruption_probs.append(interruption_prob)                        # should be batch_size x 1
-
-
-
-        #         cumulative_time = cumulative_time + time_delta
-
-        #     interruption_next_week_prob = 1 - torch.prod(1-interruption_probs, dim=1)
-        #     raise
-
-
-        # labeler_fp = "data/processed/eneryield_event_type/task_dfs/task_df_eneryield_interruption_cls_one_week_ahead_labeler.py"
-        # labeler_cls = import_class_from_file(labeler_fp, "TaskLabeler")
-        # labeling_function = labeler_cls(config=self.config)
         
-        # empirical_labels, labels_unpredicted = labeling_function(self.model.generate(
-        #                                                                 batch,
-                                                                    
-        #                                                                 do_sample=True,
-        #                                                                 return_dict_in_generate=False,
-        #                                                                 output_scores=False,
-        #                                                                 num_return_sequences=self.config.task_specific_params["num_samples"],
-        #                                                                 output_attentions=False,
-        #                                                                 output_hidden_states=False,
-        #                                                                 use_cache=True,
-        #                                                                 max_length=200
-        #                                                             ),
-        #                                                             input_seq_len=batch.sequence_length,
-        #                                                         )
-        
-        
-        # stream_labels_float = batch.stream_labels['label'].squeeze().float()
-        
-        # # print("empirical labels: ", type(torch.argmax(empirical_labels,dim=1)[1]))
-        # # print("stream labels: ",type(stream_labels_float[1]))
-        # loss_fn = torch.nn.CrossEntropyLoss()
-        # loss = loss_fn(torch.argmax(empirical_labels,dim=1).float(),stream_labels_float)
-        # # print("Loss: ", loss)
-        # accuracy = (torch.argmax(empirical_labels,dim=1).float() == stream_labels_float).float().mean()
-        # auroc = BinaryAUROC()
-        # auroc_score = auroc(torch.argmax(empirical_labels,dim=1).float(),stream_labels_float)
-        # wandb.init()
-        # wandb.log({'task accuracy': accuracy})
-        # wandb.log({'task AUROC':auroc_score})
-        
-
-
-
-        # ########### calculate task loss ###########
-
-        # out = self.model(batch)
-        # event_mask = out.event_mask
-        # device = event_mask.device
-
-
-        # ########## get predicted time deltas ###########
-
-        # pred_distributions = out.preds.time_to_event
-        # pred_time_deltas = pred_distributions.sample()
-        
-        # filtered_time_deltas = pred_time_deltas.masked_fill(out.event_mask == False, 0)     # [:-1] # kan vara lite kaiko här
-        # gen_times = filtered_time_deltas.cumsum(dim=1)
-        # is_within_7d = gen_times < (7*24*60)
-
-
-        # ############# get predicted event_types and correct labels ############
-
-        # pred_event_types_logits = out.preds.classification["event_type"][1].logits
-        # pred_event_types = torch.argmax(pred_event_types_logits,dim=2)             # shape batch_size x seq_len
-        # pred_event_types = pred_event_types.masked_fill(event_mask == False, -1).to(device)    # set event_type to -1 where event_mask==False
-
-
-        # pred_event_labels_logits = out.preds.classification["event_label"][1].logits
-        # pred_event_labels = torch.argmax(pred_event_labels_logits,dim=2)
-        # pred_event_labels = pred_event_labels.masked_fill(event_mask == False, -1).to(device)
-
-        # ########## calculate boolean if interruption is predicted in the next 7 days ##############
-
-        # interruption_index = self.config.event_types_idxmap["interruption"]
-        # is_interruption = (pred_event_types == interruption_index)
-        # any_interruption_in_7d = (is_interruption & is_within_7d).any(dim=1)
-
-
-        # ######### calculate the binary cross-entropy loss ############
-
-        # pred_task_labels = any_interruption_in_7d
-        # stream_labels = batch.stream_labels["label"]
-
-        # loss_fn = torch.nn.CrossEntropyLoss()
-        # task_loss = loss_fn(pred_task_labels.float(), stream_labels.float())
-
-        # accuracy = (pred_task_labels.float() == stream_labels.float()).float().mean()
-        # auroc = BinaryAUROC()
-        # auroc_score = auroc(pred_task_labels.float(), stream_labels.float())
-
-        # ############ wandb log ############
-        # wandb.init()
-        # wandb.log({'task loss': task_loss,
-        #            'task accuracy': accuracy,
-        #             'task AUROC': auroc_score
-        #            })
-       
-        
-
         out = self.model(batch)
         task_losses = out["losses"].task_loss
         auroc_score = out["losses"].task_AUROC
         accuracy = out["losses"].task_accuracy
-        # wandb.init()
-        # wandb.log({
-        #         'task loss': task_losses,
-        #         'task accuracy': accuracy,
-        #         'task AUROC': auroc_score
-        #         })
-    
+        # logits = out["taskLogits"]
+
+        # for name, param in self.named_parameters():
+        #     if param.grad is not None:
+        #         print(name, param.grad.norm())
+
 
         self.log_metrics(out, split=Split.TRAIN)
-
+        # graph = make_dot(logits, params=dict(self.named_parameters()))
+        # graph.render("/home/filip-marcus/figures/computation_graph", format="png")
+        # raise
         return out["loss"]
 
     def validation_step(self, batch: PytorchBatch, batch_idx: int):
@@ -704,11 +517,16 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         warming up from 0 on a per-step manner to the configurable `self.optimization_config.init_lr`, then
         undergoes polynomial decay as specified via `self.optimization_config`.
         """
+        #opt = torch.optim.SGD(self.model.parameters(), lr = self.optimization_config.init_lr, weight_decay=self.optimization_config.weight_decay, momentum=0.9)
         opt = torch.optim.AdamW(
             self.model.parameters(),
             lr=self.optimization_config.init_lr,
             weight_decay=self.optimization_config.weight_decay,
         )
+
+        for param_group in opt.param_groups:
+            for param in param_group['params']:
+                print(param.shape, param.requires_grad)
         scheduler = get_polynomial_decay_schedule_with_warmup(
             optimizer=opt,
             num_warmup_steps=self.optimization_config.lr_num_warmup_steps,

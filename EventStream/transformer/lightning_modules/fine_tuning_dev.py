@@ -111,7 +111,7 @@ class FinetuneConfig:
             "devices": "auto",
             "detect_anomaly": False,
             "default_root_dir": "${save_dir}/model_checkpoints",
-            "log_every_n_steps": 10,
+            "log_every_n_steps": 1,
         }
     )
 

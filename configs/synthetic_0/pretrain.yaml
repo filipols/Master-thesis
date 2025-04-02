@@ -28,8 +28,8 @@ config:
   cohort_name: synthetic_0
 
 data_config:
-  max_seq_len: 409
-  min_seq_len: 13
+  max_seq_len: 20
+  min_seq_len: 1
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_0
   train_subset_seed: 1
   train_subset_size: FULL
@@ -66,7 +66,7 @@ optimization_config:
   max_training_steps: 700
   lr_decay_power: 4.915424972614257
   weight_decay: 0.927050268775883
-  patience: 10
+  patience: 5
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5
