@@ -11,6 +11,11 @@ task_df_name: task_df_synthetic_interruption_in_seq
 pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/pretrained_weights
 config:
   is_cls_dist: false
+  attention_dropout: 0.1558871633473911
+  input_dropout: 0.0999016304787566
+  resid_dropout: 0.1692415762331408
+  task_specific_params:
+    pooling_method: max
 
 # # Strategy: 2 (class distribution) DONE!
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
@@ -156,19 +161,38 @@ config:
 data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_0
   max_seq_len: 20
+# optimization_config:
+#   init_lr: 0.5e-2 #0.0006398098082729676
+#   end_lr: 1e-4 #8.05022482949952e-08
+#   end_lr_frac_of_init_lr: null #0.012582215410591178
+#   max_epochs: 1000
+#   batch_size: 106
+#   validation_batch_size: 32
+#   lr_frac_warmup_steps: 6.821087018693635e-06
+#   lr_num_warmup_steps: 0
+#   max_training_steps: 700
+#   lr_decay_power: 4.915424972614257
+#   weight_decay: 0.927050268775883
+#   patience: null #25
+#   gradient_accumulation: 1
+#   gradient_clip_val: 1
+#   num_dataloader_workers: 5
+
+  
+
 optimization_config:
-  init_lr: 0.5e-2 #0.0006398098082729676
-  end_lr: 1e-4 #8.05022482949952e-08
-  end_lr_frac_of_init_lr: null #0.012582215410591178
-  max_epochs: 1000
-  batch_size: 106
+  init_lr: 0.00013071946251203386
+  end_lr: 2.4542189002125217e-07
+  end_lr_frac_of_init_lr: 0.0018774701586510803
+  max_epochs: 100
+  batch_size: 43
   validation_batch_size: 32
-  lr_frac_warmup_steps: 6.821087018693635e-06
+  lr_frac_warmup_steps: 2.574801873841233e-06
   lr_num_warmup_steps: 0
-  max_training_steps: 700
-  lr_decay_power: 4.915424972614257
-  weight_decay: 0.927050268775883
-  patience: null #25
+  max_training_steps: 187000
+  lr_decay_power: 3.3784331171556437
+  weight_decay: 0.33408532256252665
+  patience: null
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5

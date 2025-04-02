@@ -1408,81 +1408,30 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             mse = taskLoss * 1e-4
 
             
-            
-            # auroc = BinaryAUROC()
-            # auroc_score = auroc(pred_event_labels_probs, target_distributions)
-
-            # auroc_per_class = [BinaryAUROC()(pred_event_labels_probs[:, i], target_distributions[:, i]) for i in range(num_classes)]
-            # class_weights = target_distributions.mean(dim=0)  # This will give the average probability for each class
-
-            # # Step 3: Calculate the weighted per-class AUROC
-            # auroc_per_class_tensor = torch.tensor(auroc_per_class)  # Convert AUROC scores to tensor
-            # auroc_score = (class_weights.to(device) * auroc_per_class_tensor.to(device)).sum()
-            
-            predictions={'class_dist_pred_event_label_logits' : pred_event_labels_logits,
-                         'class_dist_pred_event_label_probs' : pred_event_labels_probs,
-                         'cls_proxy_task_logits' : None,
-                         'cls_proxy_task_probs' : None,
-                         'reg_proxy_task_logits' : None,
-                         'reg_proxy_task_preds' : None
-                         }
-
-        elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
-            # # # # # # cur_seq_len = encoded.shape[1]
-
-            # # # # # # if cur_seq_len < self.config.max_seq_len:
-            # # # # # #     zeros_to_add = self.config.max_seq_len - cur_seq_len
-            # # # # # #     padded = torch.zeros((encoded.shape[0], zeros_to_add, self.config.hidden_size)).to(device)
-            # # # # # #     encoded = torch.cat([encoded, padded],dim=1)
-            # # # # # # encoded = encoded.reshape(batch.batch_size, self.config.hidden_size * self.config.max_seq_len)
-
-            # # # # # # taskClassificationLogits = self.TaskClassificationLayer(encoded)
-
-            # # # # # # # calculate accuracy and AUROC
-            # # # # # # taskClassificationProbs = torch.sigmoid(taskClassificationLogits)
-
-            # # # # # # # calculate BCE loss
-            # # # # # # loss_fn = torch.nn.BCELoss()
-            # # # # # # taskLoss = loss_fn(taskClassificationProbs.squeeze(-1), labels.float())
            
-            # # # # # # pred_task_labels_binary = (taskClassificationProbs.squeeze(-1) > 0.5).float()
+        elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
             
+            # encoded has shape (batch_size, seq_len, hidden_size)
+          
+            logits = self.TaskEventCLassificationLayer(encoded) # shape: (batch_size,seq_len,1)
 
-            # # # # # # # print(taskClassificationProbs)
-            # # # # # # # print(pred_task_labels_binary)
-            # # # # # # # print('LABELS')
-            # # # # # # # print(labels.float())
-
-            # # # # # # correct = (pred_task_labels_binary == labels).sum().item()  # This returns the number of correct predictions
-            # # # # # # accuracy = correct / labels.numel()
-
-            # # # # # # auroc = BinaryAUROC()
-            # # # # # # auroc_score = auroc(taskClassificationProbs, labels.float())
-
-            # # # # # # f1_score = binary_f1_score(pred_task_labels_binary.squeeze(),labels.float(),threshold=0.9)
-
-            # # # # # # predictions={'class_dist_pred_event_label_logits' : None,
-            # # # # # #              'class_dist_pred_event_label_probs' : None,
-            # # # # # #              'cls_proxy_task_logits' : taskClassificationLogits,
-            # # # # # #              'cls_proxy_task_probs' : taskClassificationProbs,
-            # # # # # #              'reg_proxy_task_logits' : None,
-            # # # # # #              'reg_proxy_task_preds' : None
-            # # # # # #              }
-            logits = self.TaskEventCLassificationLayer(encoded)
-            probs = torch.sigmoid(logits).squeeze(-1)
-
-            no_interruption_prob = torch.prod(1 - probs, dim=1)
-            seq_prob = (1 - no_interruption_prob).unsqueeze(-1)
-
+            probs = torch.sigmoid(logits).squeeze(-1) # shape: (batch_size,seq_len), Probability of each event being of type "interruption"
+           
+            no_interruption_prob = torch.prod(1 - probs, dim=1) # Probability of none of the events in each sequence being of type "interruption"
+            
+            seq_prob = (1 - no_interruption_prob)# Probability of that at least on of the events in the sequence is of type "interruption"
+            
             # print(seq_prob)
             loss_fn = torch.nn.BCELoss()
-            taskLoss = loss_fn(seq_prob.squeeze(-1),labels.float())
+            taskLoss = loss_fn(seq_prob,labels.float())*2
             
-            pred_task_labels_binary = (seq_prob > 0.5).float()
-            correct = (pred_task_labels_binary.squeeze(-1) == labels).sum().item()  # This returns the number of correct predictions
+            pred_task_labels_binary = (seq_prob > 0.5).float() # 1 if interruption 0 otherwise
+            correct = (pred_task_labels_binary == labels).sum().item()  # This returns the number of correct predictions
             accuracy = correct / labels.numel()
             
-            print(seq_prob.min())
+            auroc = BinaryAUROC()
+            auroc_score = auroc(pred_task_labels_binary,labels.float())
+            #print(seq_prob.min())
 
 
         elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
@@ -1501,13 +1450,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             taskLoss = loss_fn(preds.squeeze(-1), labels) * 1e-5
             mse = taskLoss*1e5
 
-            predictions={'class_dist_pred_event_label_logits' : None,
-                         'class_dist_pred_event_label_probs' : None,
-                         'cls_proxy_task_logits' : None,
-                         'cls_proxy_task_probs' : None,
-                         'reg_proxy_task_logits' : taskRegressionLogits,
-                         'reg_proxy_task_preds' : preds
-                         }
+            
         
         
 
