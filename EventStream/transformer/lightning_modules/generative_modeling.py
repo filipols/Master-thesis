@@ -480,11 +480,15 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         task_losses = out["losses"].task_loss
         auroc_score = out["losses"].task_AUROC
         accuracy = out["losses"].task_accuracy
-        # logits = out["taskLogits"]
 
         # for name, param in self.named_parameters():
         #     if param.grad is not None:
         #         print(name, param.grad.norm())
+
+
+        # for name, param in self.named_parameters():
+        #     if (name in ["model.output_layer.TaskClassificationLayer.weight", "model.output_layer.TaskClassificationLayer.bias",] and param.grad is not None):
+        #         print(name, param.grad.norm(), param.requires_grad)
 
 
         self.log_metrics(out, split=Split.TRAIN)
