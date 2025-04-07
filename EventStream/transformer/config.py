@@ -532,6 +532,8 @@ class StructuredTransformerConfig(PretrainedConfig):
         use_cache: bool = True,
         # Task config
         is_cls_dist: bool = False,
+        # For event classification,
+        is_event_classification: bool = False,
         **kwargs,
     ):
         self.do_use_learnable_sinusoidal_ATE = do_use_learnable_sinusoidal_ATE
@@ -813,6 +815,7 @@ class StructuredTransformerConfig(PretrainedConfig):
         self.do_full_block_in_dep_graph_attention = do_full_block_in_dep_graph_attention
         self.is_cls_dist = is_cls_dist
         self.use_cache = use_cache
+        self.is_event_classification = is_event_classification
 
         assert not kwargs.get("is_encoder_decoder", False), "Can't be used in encoder/decoder mode!"
         kwargs["is_encoder_decoder"] = False
