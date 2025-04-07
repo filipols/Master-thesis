@@ -347,9 +347,9 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             **{
                 "loss": (
                     task_loss
-                    # + sum(classification_losses_by_measurement.values())
-                    # + sum(regression_loss_values.values())
-                    # - TTE_LL_overall
+                    + sum(classification_losses_by_measurement.values())
+                    + sum(regression_loss_values.values())
+                    - TTE_LL_overall
                 )
                 if not is_generation
                 else None,
