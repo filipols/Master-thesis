@@ -1323,7 +1323,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         torch.nn.init.xavier_uniform_(self.TaskClassificationLayer.weight, gain=1)
         # torch.nn.init.zeros_(self.TaskRegressionLayer.bias)
         # torch.nn.init.zeros_(self.TaskClassificationLayer.bias)
-        self.TaskClassificationLayer.bias.data.fill_(-0.1)
+        self.TaskClassificationLayer.bias.data.fill_(0.0)
+        self.attention_weights_layer = torch.nn.Linear(config.hidden_size, 1, bias=False)
         
         
         # torch.nn.init.uniform_(self.TaskClassificationLayer, a=-1.0, b=1.0)
@@ -1387,16 +1388,18 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         f1_score = None
         taskClassificationLogits=None
         predictions = {}
-        # raise
+
         if is_cls_dist: # class distribution proxy task
-            event_types =torch.argmax(classification_out[2]["event_label"],dim=-1).to(device)
+
+            event_labels = torch.argmax(classification_out[2]["event_label"],dim=-1) - 1
+            event_labels.to(device)
             num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
-            batch_size, seq_len = event_types.size()
+            batch_size, seq_len = event_labels.size()
 
             target_distributions = torch.zeros(batch_size, num_classes).to(device)
             for i in range(batch_size):
                 for j in range(seq_len):
-                    target_distributions[i, event_types[i, j]] += 1
+                    target_distributions[i, event_labels[i, j]] += 1
             target_distributions = target_distributions / seq_len
 
             pred_event_labels_logits = classification_out[1]["event_label"][1].logits
@@ -1407,31 +1410,86 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             taskLoss = loss_fn(class_distribution, target_distributions) * 10000
             mse = taskLoss * 1e-4
 
-            
-           
-        elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
-            
-            # encoded has shape (batch_size, seq_len, hidden_size)
-          
-            logits = self.TaskEventCLassificationLayer(encoded) # shape: (batch_size,seq_len,1)
+        elif self.config.is_event_classification:
+            temperature = 0.1
 
-            probs = torch.sigmoid(logits).squeeze(-1) # shape: (batch_size,seq_len), Probability of each event being of type "interruption"
-           
+
+            logits = self.TaskEventCLassificationLayer(encoded)
+            logits = logits / temperature
+
+            probs = torch.sigmoid(logits).squeeze(-1)
+
+            labels_ = torch.argmax(classification_out[2]["event_label"], dim=-1) - 1
+            
+            loss_fn = torch.nn.BCEWithLogitsLoss()
+            taskLoss = loss_fn(logits.squeeze(-1), labels_.float())
+
+            # pred_task_labels_binary = (probs >= 0.5).float() # 1 if interruption 0 otherwise
+            # correct = (pred_task_labels_binary == labels_).sum().item()  # This returns the number of correct predictions
+            # accuracy = correct / labels_.numel()
+            
+            # auroc = BinaryAUROC()
+            # auroc_score = auroc(pred_task_labels_binary, labels_.float())
+
+            probs_wo_first = probs[:, 1:]  # exclude first token
+            no_interruption_prob = torch.prod(1 - probs_wo_first, dim=1)
             no_interruption_prob = torch.prod(1 - probs, dim=1) # Probability of none of the events in each sequence being of type "interruption"
+            seq_prob = (1 - no_interruption_prob) # Probability of that at least on of the events in the sequence is of type "interruption"
+
+            pred_task_labels_binary = (seq_prob > 0.8).int() # 1 if interruption 0 otherwise
+            correct = (pred_task_labels_binary == labels.int()).sum().item()  # This returns the number of correct predictions
+            accuracy = correct / labels.numel()
+
+            auroc = BinaryAUROC()
+            auroc_score = auroc(pred_task_labels_binary,labels.int())
+
+
+        elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
+
+            temperature = 0.1
+
+            # encoded has shape (batch_size, seq_len, hidden_size)
+            logits = self.TaskEventCLassificationLayer(encoded) # shape: (batch_size,seq_len)
+            logits = logits / temperature
+            # logits = torch.clamp(logits, min=-10, max=10)
+    
+            # --------------------------------------------------------POOLING------------------------------------------------------------
+            # logits_wo_first = logits[:, 1:].squeeze(-1)
+            # logits_pooled = torch.mean(logits_wo_first, dim=-1)
+                        
+            # seq_prob = torch.sigmoid(logits_pooled).squeeze(-1) # shape: (batch_size,seq_len), Probability of each event being of type "interruption"
+            # loss_fn = torch.nn.BCELoss()
+            # taskLoss = loss_fn(seq_prob, labels.float())
+
+            # pred_task_labels_binary = (seq_prob > 0.5).float() # 1 if interruption 0 otherwise
+            # correct = (pred_task_labels_binary == labels).sum().item()  # This returns the number of correct predictions
+            # accuracy = correct / labels.numel()
+
+            # auroc = BinaryAUROC()
+            # auroc_score = auroc(pred_task_labels_binary,labels.float())
+
+            # --------------------------------------------------------PROBABILITY----------------------------------------------------------
+
+            probs = torch.sigmoid(logits).squeeze(-1)
+
+            probs_wo_first = probs[:, 1:]  # exclude first token
+            no_interruption_prob = torch.prod(1 - probs_wo_first, dim=1)
+            seq_prob = (1 - no_interruption_prob) # Probability of that at least on of the events in the sequence is of type "interruption"
             
-            seq_prob = (1 - no_interruption_prob)# Probability of that at least on of the events in the sequence is of type "interruption"
-            
-            # print(seq_prob)
             loss_fn = torch.nn.BCELoss()
-            taskLoss = loss_fn(seq_prob,labels.float())*2
-            
-            pred_task_labels_binary = (seq_prob > 0.5).float() # 1 if interruption 0 otherwise
-            correct = (pred_task_labels_binary == labels).sum().item()  # This returns the number of correct predictions
+            taskLoss = loss_fn(seq_prob, labels.float())
+
+            pred_task_labels_binary = (seq_prob > 0.5).int() # 1 if interruption 0 otherwise
+            correct = (pred_task_labels_binary == labels.int()).sum().item()  # This returns the number of correct predictions
             accuracy = correct / labels.numel()
             
             auroc = BinaryAUROC()
             auroc_score = auroc(pred_task_labels_binary,labels.float())
-            #print(seq_prob.min())
+            # print("max: ", seq_prob.max(), "min: ", seq_prob.min())
+            print("acc: ", accuracy)
+            print("loss", taskLoss.item())
+            print("Logits stats:", logits.min().item(), logits.max().item(), logits.mean().item())
+
 
 
         elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
@@ -1450,9 +1508,9 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             taskLoss = loss_fn(preds.squeeze(-1), labels) * 1e-5
             mse = taskLoss*1e5
 
-            
-        
-        
+            print("loss", taskLoss.item())
+            print("Logits stats:", taskRegressionLogits.min().item(), taskRegressionLogits.max().item(), taskRegressionLogits.mean().item())
+
 
         return taskLoss, accuracy, auroc_score, mse, f1_score, taskClassificationLogits
 
