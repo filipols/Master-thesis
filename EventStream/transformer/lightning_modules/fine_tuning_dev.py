@@ -280,16 +280,17 @@ def train(cfg: FinetuneConfig):
 
     LM = ESTForGenerativeSequenceModelingLM(**model_params)
 
-    ####### UNCOMMENT TO FREEZE WEIGHTS #########
+    # ####### UNCOMMENT TO FREEZE WEIGHTS #########
     # for name, layer in LM.model.named_children():
         
     #     if name == 'encoder':
     #         for name,param in LM.model.encoder.named_parameters():
-    #             param.requires_grad = False
-    #     if name == 'output_layer':
-    #         for name,param in LM.model.output_layer.named_parameters():
-    #             if name not in ['TaskClassificationLayer.weight','TaskEventCLassificationLayer.weight','TaskRegressionLayer.weight','TaskClassificationLayer.bias','TaskEventCLassificationLayer.bias','TaskRegressionLayer.bias']:
+    #             if name in ['input_layer.data_embedding_layer.embed_layer.weight','input_layer.data_embedding_layer.cos_div_term','input_layer.data_embedding_layer.sin_div_term']:
     #                 param.requires_grad = False
+    #     # if name == 'output_layer':
+    #     #     for name,param in LM.model.output_layer.named_parameters():
+    #     #         if name not in ['TaskClassificationLayer.weight','TaskEventCLassificationLayer.weight','TaskRegressionLayer.weight','TaskEventRegressionLayer.weight','TaskClassificationLayer.bias','TaskEventCLassificationLayer.bias','TaskRegressionLayer.bias','TaskEventRegressionLayer.bias']:
+    #     #             param.requires_grad = False
                             
 
     # Setting up torch dataloader
