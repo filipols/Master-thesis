@@ -39,4 +39,4 @@ measurements:
       - event_label
     univariate_regression:
       simple_event:
-      - feature_vector
+      - feature_1

@@ -11,14 +11,36 @@ save_dir: "./data/processed/${cohort_name}"
 
 DL_chuck_size: null
 
+# inputs:
+#   subjects:
+#     input_df: "${raw_data_dir}/synthetic_subjects_1.csv"
+#   event_synthetic_1:
+#     input_df: "${raw_data_dir}/synthetic_dataset_1.csv"
+#     ts_col: "timestamp"
+#     ts_format: "%Y-%m-%d %H:%M:%S"
+#     event_type: "disturbance"
+
+    
+# measurements:
+#   static:
+#     single_label_classification:
+#       subjects: ["dummy_static"]
+#   dynamic:
+#     multi_label_classification:
+#       event_synthetic_1: ["event_label"]
+#     univariate_regression:
+#       event_synthetic_1: ["feature_vector"]
+
+
+
 inputs:
   subjects:
     input_df: "${raw_data_dir}/synthetic_subjects_2.csv"
-  event_synthetic_2:
+  simple_event:
     input_df: "${raw_data_dir}/synthetic_dataset_2.csv"
     ts_col: "timestamp"
     ts_format: "%Y-%m-%d %H:%M:%S"
-    event_type: "disturbance"
+    event_type: "simple_event"
 
     
 measurements:
@@ -27,9 +49,10 @@ measurements:
       subjects: ["dummy_static"]
   dynamic:
     multi_label_classification:
-      event_synthetic_2: ["event_label"]
+      simple_event: ["event_label"]
     univariate_regression:
-      event_synthetic_2: ["feature_vector"]
+      simple_event: ["feature_1"]
+
 
      
      

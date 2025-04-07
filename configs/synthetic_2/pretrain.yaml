@@ -25,12 +25,12 @@ config:
   static_embedding_mode: drop
   static_embedding_weight: 0.9863513359013114
   structured_event_processing_mode: conditionally_independent
-  cohort_name: synthetic_1
+  cohort_name: synthetic_2
 
 data_config:
   max_seq_len: 20
   min_seq_len: 2
-  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_1
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_2
   train_subset_seed: 1
   train_subset_size: FULL
 
@@ -65,7 +65,7 @@ optimization_config:
   lr_num_warmup_steps: 0
   max_training_steps: 700
   lr_decay_power: 4.915424972614257
-  weight_decay: 0.0001
+  weight_decay: 0.00001
   patience: 1
   gradient_accumulation: 1
   gradient_clip_val: 1

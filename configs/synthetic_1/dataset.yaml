@@ -51,7 +51,7 @@ measurements:
     multi_label_classification:
       simple_event: ["event_label"]
     univariate_regression:
-      simple_event: ["feature_vector"]
+      simple_event: ["feature_1"]
 
 
      
