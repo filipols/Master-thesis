@@ -29,7 +29,7 @@ config:
 
 data_config:
   max_seq_len: 20
-  min_seq_len: 1
+  min_seq_len: 13
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_0
   train_subset_seed: 1
   train_subset_size: FULL
@@ -59,14 +59,14 @@ optimization_config:
   end_lr: 8.05022482949952e-06
   end_lr_frac_of_init_lr: 0.012582215410591178
   max_epochs: 100
-  batch_size: 106
+  batch_size: 256
   validation_batch_size: 32
   lr_frac_warmup_steps: 6.821087018693635e-06
   lr_num_warmup_steps: 0
   max_training_steps: 700
   lr_decay_power: 4.915424972614257
   weight_decay: 0.927050268775883
-  patience: 5
+  patience: 2
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5

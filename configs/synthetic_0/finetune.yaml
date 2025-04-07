@@ -5,17 +5,25 @@ defaults:
 do_overwrite: true
 seed: 1
 
-# Strategy: 1 (interruption in seq) DONE!
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/
+# # Strategy:  (event label) DONE!
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/
+# task_df_name: task_df_synthetic_event_label
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/pretrained_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: true
+
+
+# Strategy:  (event label --> interruption in seq) 
+strategy: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/finetuning/task_df_synthetic_event_label
 task_df_name: task_df_synthetic_interruption_in_seq
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/pretrained_weights
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/finetuning/task_df_synthetic_event_label/finetune_weights
 config:
   is_cls_dist: false
-  attention_dropout: 0.1558871633473911
-  input_dropout: 0.0999016304787566
-  resid_dropout: 0.1692415762331408
-  task_specific_params:
-    pooling_method: max
+  is_event_classification: false
+
+
 
 # # Strategy: 2 (class distribution) DONE!
 # load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
@@ -25,11 +33,9 @@ config:
 #   is_cls_dist: true
 
 # # Strategy: 3 (interruption next week) DONE!
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
 # task_df_name: task_df_synthetic_interruption_next_week
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_0/pretrained_weights
-# config:
-#   is_cls_dist: false
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
 
 # # Strategy: 1->2 (interruption in seq --> class distribution) DONE!
 # strategy: true
@@ -67,6 +73,7 @@ config:
 # pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_in_seq/task_df_synthetic_class_dist/task_df_synthetic_interruption_next_week/finetune_weights
 # config:
 #   is_cls_dist: false
+#   is_event_classification: true
 
 # # Strategy: 1->2->4 (interruption in seq --> class distribution  --> TTI) 
 # strategy: true
@@ -161,38 +168,22 @@ config:
 data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_0
   max_seq_len: 20
-# optimization_config:
-#   init_lr: 0.5e-2 #0.0006398098082729676
-#   end_lr: 1e-4 #8.05022482949952e-08
-#   end_lr_frac_of_init_lr: null #0.012582215410591178
-#   max_epochs: 1000
-#   batch_size: 106
-#   validation_batch_size: 32
-#   lr_frac_warmup_steps: 6.821087018693635e-06
-#   lr_num_warmup_steps: 0
-#   max_training_steps: 700
-#   lr_decay_power: 4.915424972614257
-#   weight_decay: 0.927050268775883
-#   patience: null #25
-#   gradient_accumulation: 1
-#   gradient_clip_val: 1
-#   num_dataloader_workers: 5
+  do_include_subject_id: true
 
-  
 
 optimization_config:
-  init_lr: 0.00013071946251203386
-  end_lr: 2.4542189002125217e-07
-  end_lr_frac_of_init_lr: 0.0018774701586510803
-  max_epochs: 100
-  batch_size: 43
+  init_lr: 0.01 #0.0006398098082729676
+  end_lr: null #8.05022482949952e-06
+  end_lr_frac_of_init_lr: 0.012582215410591178
+  max_epochs: 50
+  batch_size: 64
   validation_batch_size: 32
-  lr_frac_warmup_steps: 2.574801873841233e-06
+  lr_frac_warmup_steps: 6.821087018693635e-06
   lr_num_warmup_steps: 0
-  max_training_steps: 187000
-  lr_decay_power: 3.3784331171556437
-  weight_decay: 0.33408532256252665
+  max_training_steps: 700 #100
+  lr_decay_power: 0 #2 #4.915424972614257
+  weight_decay: 0.01 #0.927050268775883
   patience: null
-  gradient_accumulation: 1
+  gradient_accumulation: 2
   gradient_clip_val: 1
   num_dataloader_workers: 5
