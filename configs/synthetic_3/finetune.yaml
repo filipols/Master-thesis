@@ -5,28 +5,28 @@ defaults:
 do_overwrite: true
 seed: 1
 
-# Strategy:  (event label) DONE!
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/
-task_df_name: task_df_synthetic_event_label
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/pretrained_weights
-config:
-  is_cls_dist: false
-  is_event_classification: true
-
-# # Strategy:  (event label --> interruption in seq) 
-# strategy: true
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_event_label
-# task_df_name: task_df_synthetic_interruption_in_seq
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_event_label/finetune_weights
+# # Strategy:  (event label) DONE!
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_3/
+# task_df_name: task_df_synthetic_event_label
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_3/pretrained_weights
 # config:
 #   is_cls_dist: false
-#   is_event_classification: false
+#   is_event_classification: true
+
+# Strategy:  (event label --> interruption in seq) 
+strategy: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_3/finetuning/task_df_synthetic_event_label
+task_df_name: task_df_synthetic_interruption_in_seq
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_3/finetuning/task_df_synthetic_event_label/finetune_weights
+config:
+  is_cls_dist: false
+  is_event_classification: false
 
 # # Strategy:  (event label --> interruption in seq --> interruptin next week) 
 # strategy: true
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_2/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq
 # task_df_name: task_df_synthetic_interruption_next_week
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq/finetune_weights
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_2/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq/finetune_weights
 # config:
 #   is_cls_dist: false
 #   is_event_classification: false
@@ -34,9 +34,9 @@ config:
 
 # # Strategy:  (event label --> interruption in seq --> interruptin next week --> class distribution) 
 # strategy: true
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_2/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week
 # task_df_name: task_df_synthetic_class_dist
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/finetune_weights
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_2/finetuning/task_df_synthetic_event_label/task_df_synthetic_interruption_in_seq/task_df_synthetic_interruption_next_week/finetune_weights
 # config:
 #   is_cls_dist: true
 #   is_event_classification: false
@@ -191,14 +191,14 @@ config:
 # pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/synthetic_1/finetuning/task_df_synthetic_interruption_next_week/task_df_synthetic_class_dist/task_df_synthetic_interruption_in_seq/finetune_weights
 
 data_config:
-  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_1
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_3
   max_seq_len: 20
 optimization_config:
-  init_lr: 0.01 #0.0006398098082729676
-  end_lr: 0.0001258 #8.05022482949952e-06
+  init_lr: 0.0001 #0.0006398098082729676
+  end_lr: 0.00001258 #8.05022482949952e-06
   end_lr_frac_of_init_lr: null
   max_epochs: 100
-  batch_size: 64
+  batch_size: 128
   validation_batch_size: 32
   lr_frac_warmup_steps: 6.821087018693635e-06
   lr_num_warmup_steps: 0

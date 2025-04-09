@@ -134,13 +134,13 @@ hydra:
     - path: hydra.conf
       schema: pkg
       provider: hydra
-    - path: /home/filip-marcus/ESGPT_new/EventStreamGPT/configs/eneryield
+    - path: /home/filip-marcus/ESGPT_new/EventStreamGPT/configs/synthetic_4
       schema: file
       provider: main
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield/.logs
+    output_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/synthetic_4/.logs
     choices:
       normalizer_config: standard_scaler
       outlier_detector_config: stddev_cutoff

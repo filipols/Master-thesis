@@ -3,8 +3,8 @@ outlier_detector_config:
   stddev_cutoff: 5.0
 normalizer_config:
   cls: standard_scaler
-cohort_name: synthetic_3
-save_dir: ./data/processed/synthetic_3
+cohort_name: synthetic_4
+save_dir: ./data/processed/synthetic_4
 subject_id_col: sequence_id
 seed: 1
 split:
@@ -22,9 +22,9 @@ raw_data_dir: /home/filip-marcus/preprocessed_data/synthetic/pretrain
 DL_chuck_size: null
 inputs:
   subjects:
-    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_subjects_3.csv
+    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_subjects_4.csv
   simple_event:
-    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_dataset_3.csv
+    input_df: /home/filip-marcus/preprocessed_data/synthetic/pretrain/synthetic_dataset_4.csv
     ts_col: timestamp
     ts_format: '%Y-%m-%d %H:%M:%S'
     event_type: simple_event
