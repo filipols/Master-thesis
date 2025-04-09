@@ -1372,6 +1372,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         Returns: loss, accuracy and auroc for the proxy task.
         """
         labels = batch.stream_labels['label']
+        event_mask = batch.event_mask
 
         torch._assert(~torch.isnan(encoded).any(), f"{torch.isnan(encoded).sum()} NaNs in encoded")
         device = batch.device
@@ -1387,40 +1388,84 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
         if is_cls_dist: # class distribution proxy task
     
-            event_labels = torch.argmax(classification_out[2]["event_label"],dim=-1) - 1
-            event_labels.to(device)
+            # event_labels = torch.argmax(classification_out[2]["event_label"],dim=-1) - 1
+            # event_labels.to(device)
+            # num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
+            # batch_size, seq_len = event_labels.size()
+            # print(event_labels)
+
+            # target_distributions = torch.zeros(batch_size, num_classes).to(device)
+            # for i in range(batch_size):
+            #     for j in range(seq_len):
+            #         target_distributions[i, event_labels[i, j]] += 1
+            # target_distributions = target_distributions / seq_len
+
+
+            # pred_event_labels_logits = classification_out[1]["event_label"][1].logits / temperature
+            # pred_event_labels_probs = torch.nn.functional.softmax(pred_event_labels_logits, dim=-1)
+            # class_distribution = pred_event_labels_probs.sum(dim=1) # Average probabilities across sequence
+            # class_distribution = class_distribution / class_distribution.sum(dim=-1, keepdim=True)
+            # loss_fn = torch.nn.MSELoss()
+            # taskLoss = loss_fn(class_distribution, target_distributions) * 10000
+            # mse = taskLoss * 1e-4
+
+
+
+
+            event_labels = torch.argmax(classification_out[2]["event_label"], dim=-1) - 1
+            event_labels = event_labels.to(device)
+
+            event_mask = batch.event_mask.to(device)
+
             num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
             batch_size, seq_len = event_labels.size()
 
             target_distributions = torch.zeros(batch_size, num_classes).to(device)
+
             for i in range(batch_size):
                 for j in range(seq_len):
-                    target_distributions[i, event_labels[i, j]] += 1
-            target_distributions = target_distributions / seq_len
+                    if event_mask[i, j] == 1:
+                        target_distributions[i, event_labels[i, j]] += 1
 
+            # Normalize by the number of valid (masked) events per sample
+            valid_counts = event_mask.sum(dim=1).clamp(min=1).unsqueeze(1)  # avoid division by zero
+            target_distributions = target_distributions / valid_counts
+
+            # Predictions
             pred_event_labels_logits = classification_out[1]["event_label"][1].logits / temperature
             pred_event_labels_probs = torch.nn.functional.softmax(pred_event_labels_logits, dim=-1)
-            class_distribution = pred_event_labels_probs.sum(dim=1) # Average probabilities across sequence
-            class_distribution = class_distribution / class_distribution.sum(dim=-1, keepdim=True)
+
+            masked_probs = pred_event_labels_probs * event_mask.unsqueeze(-1)
+            class_distribution = masked_probs.sum(dim=1)
+            class_distribution = class_distribution / class_distribution.sum(dim=-1, keepdim=True).clamp(min=1e-8)
+
+            # Loss
             loss_fn = torch.nn.MSELoss()
             taskLoss = loss_fn(class_distribution, target_distributions) * 10000
             mse = taskLoss * 1e-4
+
+            print("preds: ", class_distribution[0,:], "labels: ", target_distributions[0,:])
 
         elif self.config.is_event_classification:
             logits = self.TaskEventCLassificationLayer(encoded)
             logits = logits / temperature
 
             probs = torch.sigmoid(logits).squeeze(-1)
-
+            probs = torch.where(event_mask, probs, 0)
             labels_ = torch.argmax(classification_out[2]["event_label"], dim=-1) - 1
-            
+
+            event_label_idxmap = self.config.measurement_configs["event_label"].vocabulary.vocabulary
+            interruption_idx = event_label_idxmap.index("interruption")
+
+            labels_ = torch.where(labels_ == interruption_idx, 1, 0)  # 1 if interruption 0 otherwise
+
             loss_fn = torch.nn.BCEWithLogitsLoss()
             taskLoss = loss_fn(logits.squeeze(-1), labels_.float())
 
             pred_task_labels_binary = (probs > 0.5).int() # 1 if interruption 0 otherwise
             correct = (pred_task_labels_binary == labels_.int()).sum().item()  # This returns the number of correct predictions
             accuracy = correct / labels_.numel()
-            
+        
             average_precision = AveragePrecision(task='binary')                     # LOGGAS SOM task_AUROC!
             auroc_score = average_precision(pred_task_labels_binary.float(), labels_.int())
 
@@ -1429,18 +1474,16 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
             logits = self.TaskEventCLassificationLayer(encoded)
             logits = logits / temperature
-        
-
-            # --------------------------------------------------------PROBABILITY----------------------------------------------------------
-
+    
             probs = torch.sigmoid(logits).squeeze(-1)
+            probs = torch.where(event_mask, probs, 0)   # lägg till på alla om detta funkar
 
             probs_wo_first = probs[:, 1:]  # exclude first token
             no_interruption_prob = torch.prod(1 - probs_wo_first, dim=1)
-            seq_prob = (1 - no_interruption_prob) # Probability of that at least on of the events in the sequence is of type "interruption"
+            seq_prob = (1 - no_interruption_prob) # Probability that at least on of the events in the sequence is of type "interruption"
             
             loss_fn = torch.nn.BCELoss()
-            taskLoss = loss_fn(seq_prob, labels.float())
+            taskLoss = loss_fn(seq_prob, labels.float()) * 20
 
             pred_task_labels_binary = (seq_prob > 0.5).int() # 1 if interruption 0 otherwise
             correct = (pred_task_labels_binary == labels.int()).sum().item()  # This returns the number of correct predictions
@@ -1455,6 +1498,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
 
             taskRegressionLogits = self.TaskEventRegressionLayer(encoded) / temperature
+            taskRegressionLogits = torch.where(event_mask, taskRegressionLogits, -1e9)
+
             relu = torch.nn.ReLU()
             preds = relu(taskRegressionLogits).squeeze(-1)
             last_pred = preds[:,-1]
