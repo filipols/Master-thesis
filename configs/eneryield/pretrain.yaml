@@ -3,29 +3,32 @@ defaults:
   - _self_
 
 config:
-  TTE_generation_layer_type: log_normal_mixture
-  TTE_lognormal_generation_num_components: 13
-  attention_dropout: 0.4304595224548104
-  categorical_embedding_dim: 67
-  categorical_embedding_weight: 0.5295020553028275
+  TTE_generation_layer_type: exponential
+  TTE_lognormal_generation_num_components: 9
+  attention_dropout: 0.004563095202856138
+  categorical_embedding_dim: 82
+  categorical_embedding_weight: 0.906786702016441
   do_full_block_in_dep_graph_attention: false
-  do_full_block_in_seq_attention: true
-  do_normalize_by_measurement_index: true
+  do_full_block_in_seq_attention: false
+  do_normalize_by_measurement_index: false
   do_split_embeddings: false
-  do_use_learnable_sinusoidal_ATE: false
+  do_use_learnable_sinusoidal_ATE: true
   head_dim: 18
-  input_dropout: 0.45134003264588146
+  input_dropout: 0.4494236115512016
   intermediate_size: 128
   num_attention_heads: 10
   num_hidden_layers: 8
-  numerical_embedding_dim: 118
-  resid_dropout: 0.4777212129911568
+  numerical_embedding_dim: 110
+  resid_dropout: 0.4939188761966135
   seq_attention_types: global
-  seq_window_size: 46
+  seq_window_size: 62
   static_embedding_mode: drop
-  static_embedding_weight: 0.9863513359013114
+  static_embedding_weight: 0.36222010226052526
   structured_event_processing_mode: conditionally_independent
   cohort_name: eneryield
+  save_metrics: true
+  save_metrics_fp: /home/filip-marcus/results/eneryield/pretrain_10_04_2025
+  is_pretrain: true
 
 data_config:
   max_seq_len: 256
@@ -55,18 +58,18 @@ wandb_logger_kwargs:
   project: Eneryield
 
 optimization_config:
-  init_lr: 0.0006398098082729676
-  end_lr: 8.05022482949952e-06
-  end_lr_frac_of_init_lr: 0.012582215410591178
-  max_epochs: 100
-  batch_size: 64
+  init_lr: 0.008
+  end_lr: null
+  end_lr_frac_of_init_lr: 0.0004
+  max_epochs: 115
+  batch_size: 32
   validation_batch_size: 32
-  lr_frac_warmup_steps: 6.821087018693635e-06
-  lr_num_warmup_steps: 0
-  max_training_steps: 700
-  lr_decay_power: 4.915424972614257
-  weight_decay: 0.00001
-  patience: 3
+  lr_frac_warmup_steps: 0.04643375085884701
+  lr_num_warmup_steps: 7
+  max_training_steps: 150
+  lr_decay_power: 1.5
+  weight_decay: 0.0003
+  patience: 30
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5

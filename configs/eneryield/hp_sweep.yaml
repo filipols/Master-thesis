@@ -9,8 +9,7 @@ parameters:
     save_dir:
       value: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
     max_seq_len: 
-      max: 256
-      min: 128
+      value: 256
   config:
     measurements_per_dep_graph_level:
       values: null
