@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import wandb
+import csv
 import lightning as L
 import omegaconf
 import torch
@@ -233,6 +234,27 @@ class FinetuneConfig:
             self.wandb_logger_kwargs["project"] = reloaded_pretrain_config.wandb_logger_kwargs.project
 
 
+def save_metrics_to_csv(fp, save_dict):
+   
+    # Filter out keys with empty lists
+    valid_keys = [k for k, v in save_dict.items() if isinstance(v, list) and len(v) > 0]
+
+    # Determine the minimum common length across valid lists
+    min_len = min(len(save_dict[k]) for k in valid_keys)
+
+    # Build a filtered dict with only valid keys and truncated to min_len
+    filtered_dict = {k: save_dict[k][:min_len] for k in valid_keys}
+
+    # Transpose: get list of row dicts
+    rows = [dict(zip(filtered_dict.keys(), values)) for values in zip(*filtered_dict.values())]
+
+    # Write to CSV
+    with open(f"{fp}.csv", mode="w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=filtered_dict.keys())
+        writer.writeheader()
+        writer.writerows(rows)
+        print("Metrics saved!")
+
 @task_wrapper
 def train(cfg: FinetuneConfig):
     """Runs the end to end training procedure for the fine-tuning model.
@@ -364,6 +386,11 @@ def train(cfg: FinetuneConfig):
 
     trainer = L.Trainer(**trainer_kwargs)
     trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+
+    # save metrics
+    if config.save_metrics:
+        save_metrics_to_csv(fp = config.save_metrics_fp, save_dict = LM.save_dict)
+
 
     LM.save_pretrained(cfg.save_dir,finetune=True,strategy=cfg.strategy)
 

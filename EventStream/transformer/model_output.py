@@ -1314,14 +1314,14 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                     f"a member of the `TimeToEventGenerationHeadType` enum: "
                     f"({TimeToEventGenerationHeadType.values()}). got {config.TTE_generation_layer_type}."
                 )
-        print(torch.get_default_dtype()) 
+       
         self.IsObservedLayer = torch.nn.Linear(config.hidden_size, len(config.measurements_idxmap))
         self.ClassificationLayer = torch.nn.Linear(config.hidden_size, config.vocab_size)
         self.batch_norm = torch.nn.BatchNorm1d(self.config.hidden_size * self.config.max_seq_len)
-        self.TaskClassificationLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1, dtype=torch.float32)
+        
         self.TaskEventCLassificationLayer = torch.nn.Linear(in_features = config.hidden_size, out_features = 1, dtype=torch.float32)
         self.TaskEventRegressionLayer = torch.nn.Linear(in_features = config.hidden_size, out_features = 1, dtype=torch.float32)
-        self.TaskRegressionLayer = torch.nn.Linear(in_features = config.hidden_size*config.max_seq_len, out_features = 1, dtype=torch.float32)
+        
         
         self.is_observed_criteria = torch.nn.BCEWithLogitsLoss(reduction="none")
       
@@ -1383,34 +1383,13 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         f1_score = None
         prc_auc = None
         taskClassificationLogits=None
+        event_label_preds = None
+        event_label_labels = None
         predictions = {}
         temperature = 0.1
 
         if is_cls_dist: # class distribution proxy task
     
-            # event_labels = torch.argmax(classification_out[2]["event_label"],dim=-1) - 1
-            # event_labels.to(device)
-            # num_classes = classification_out[1]["event_label"][1].logits.shape[-1]
-            # batch_size, seq_len = event_labels.size()
-            # print(event_labels)
-
-            # target_distributions = torch.zeros(batch_size, num_classes).to(device)
-            # for i in range(batch_size):
-            #     for j in range(seq_len):
-            #         target_distributions[i, event_labels[i, j]] += 1
-            # target_distributions = target_distributions / seq_len
-
-
-            # pred_event_labels_logits = classification_out[1]["event_label"][1].logits / temperature
-            # pred_event_labels_probs = torch.nn.functional.softmax(pred_event_labels_logits, dim=-1)
-            # class_distribution = pred_event_labels_probs.sum(dim=1) # Average probabilities across sequence
-            # class_distribution = class_distribution / class_distribution.sum(dim=-1, keepdim=True)
-            # loss_fn = torch.nn.MSELoss()
-            # taskLoss = loss_fn(class_distribution, target_distributions) * 10000
-            # mse = taskLoss * 1e-4
-
-
-
 
             event_labels = torch.argmax(classification_out[2]["event_label"], dim=-1) - 1
             event_labels = event_labels.to(device)
@@ -1444,7 +1423,6 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             taskLoss = loss_fn(class_distribution, target_distributions) * 10000
             mse = taskLoss * 1e-4
 
-            print("preds: ", class_distribution[0,:], "labels: ", target_distributions[0,:])
 
         elif self.config.is_event_classification:
             logits = self.TaskEventCLassificationLayer(encoded)
@@ -1468,6 +1446,9 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         
             average_precision = AveragePrecision(task='binary')                     # LOGGAS SOM task_AUROC!
             auroc_score = average_precision(pred_task_labels_binary.float(), labels_.int())
+
+            event_label_preds = pred_task_labels_binary
+            event_label_labels = labels_
 
 
         elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
@@ -1510,7 +1491,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
 
 
-        return taskLoss, accuracy, auroc_score, mse, f1_score, prc_auc
+        return taskLoss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels
 
 
     def get_TTE_outputs(
@@ -1692,9 +1673,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
                 labels = (
                     (dynamic_indices.long() * tensor_idx.long()).sum(dim=-1) - vocab_start
                 ) * events_with_label.long()
-                # labels is of shape [batch X seq]
-                # print(labels)
-                # raise TypeError
+     
                 try:
                     loss_per_event = self.classification_criteria[measurement](scores.transpose(1, 2), labels)
                 except IndexError as e:

@@ -9,6 +9,7 @@ import wandb
 
 from safetensors.torch import load_file
 
+import csv
 import lightning as L
 import omegaconf
 import torch
@@ -99,6 +100,13 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         self.metrics_config = metrics_config
         self.optimization_config.gradient_clip_val = 1
         self.optimization_config.gradient_accumulation = 1
+        self.save_dict = {
+            "train_loss": [],
+            "task_loss": [],
+            "event_label_preds": [],
+            "event_label_labels": [],
+            "task_accuracy": [],
+        }
         self.save_hyperparameters(
             {
                 "config": config.to_dict(),
@@ -122,9 +130,7 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             self.model = model_cls(config)
         else:
             self.model = model_cls.from_pretrained(pretrained_weights_fp, config=config, ignore_mismatched_sizes=True)
-            self.model.output_layer.TaskClassificationLayer.bias.data.fill_(-0.08)
-            self.model.output_layer.TaskRegressionLayer.bias.data.fill_(-0.08)
-            torch.nn.init.xavier_uniform_(self.model.output_layer.TaskClassificationLayer.weight)
+
 
 
     def save_pretrained(self, model_dir: Path, finetune=False,strategy=None):
@@ -476,10 +482,22 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         Skips logging all AUROC, AUPRC, and per_class metric to save compute.
         """
         
-        out = self.model(batch)
+        out_tuple = self.model(batch)
+        out = out_tuple[0]
+        train_loss = out_tuple[1]
+        task_loss = out_tuple[2]
+        event_label_preds = out_tuple[3]
+        event_label_labels  = out_tuple[4]
         task_losses = out["losses"].task_loss
         auroc_score = out["losses"].task_AUROC
         accuracy = out["losses"].task_accuracy
+        if self.config.save_metrics:
+            if not self.config.is_pretrain:
+                self.save_dict["task_loss"].append(task_loss.item())
+
+            self.save_dict["train_loss"].append(train_loss.item())    # train loss is the loss without the task loss. This part is the same regardless of the task                                                                                                # this task loss is specific for the finetuning task
+            self.save_dict["event_label_preds"].append(event_label_preds)
+            self.save_dict["event_label_labels"].append(event_label_labels)
 
         # for name, param in self.named_parameters():
         #     if param.grad is not None:
@@ -503,7 +521,10 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         Differs from training only in that it does not skip metrics.
         """
 
-        out = self.model(batch)
+        out_tuple = self.model(batch)
+        out = out_tuple[0]
+        
+       
         self.log_metrics(out, split=Split.TUNING)
 
     def test_step(self, batch: PytorchBatch, batch_idx: int):
@@ -511,7 +532,8 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
 
         Differs from training only in that it does not skip metrics.
         """
-        out = self.model(batch)
+        out_tuple = self.model(batch)
+        out = out_tuple[0]
         self.log_metrics(out, split=Split.HELD_OUT)
 
     def configure_optimizers(self):
@@ -546,57 +568,7 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             },
         }
 
-    # def prepare_inputs_for_generation(
-    #     self, batch: PytorchBatch, past: tuple | None = None, **kwargs
-    #     ) -> dict[str, Any]:
-    #     """Returns model keyword arguments that have been modified for generation purposes.
 
-    #     Args:
-    #         batch: The batch of data to be transformed.
-    #         past: The past state of the model, if any. If specified, it must be a tuple containing the past
-    #             values over prior layers and heads.
-
-    #         **kwargs: Additional keyword arguments. If "use_cache" is set in the kwargs to False, then the
-    #             past state is ignored. If not, then the past state is passed through the model to accelerate
-    #             generation, if past is not None then the batch is trimmed to the last element in the sequence,
-    #             and the sequential attention mask is pre-computed.
-
-    #     Raises:
-    #         ValueError: If the past state is malformed or if there is a dep_graph_el_generation_target in the
-    #             kwargs that is not None.
-    #     """
-    #     # only last sequence element in the batch if past is defined in kwargs
-    #     batch.time = time_from_deltas(batch)
-
-    #     use_cache = kwargs.get("use_cache", False)
-    #     if not use_cache:
-    #         return {**kwargs, "batch": batch}
-
-    #     seq_attention_mask = expand_mask(batch.event_mask, batch.time_delta.dtype)
-
-    #     dep_graph_el_generation_target = kwargs.get("dep_graph_el_generation_target", None)
-    #     if dep_graph_el_generation_target is not None:
-    #         raise ValueError(
-    #             f"Can't use dep_graph_el_generation_target ({dep_graph_el_generation_target}) "
-    #             "in a conditionally independent model."
-    #         )
-
-    #     match past:
-    #         case None:
-    #             pass
-
-    #         case tuple():
-    #             batch = batch.last_sequence_element_unsqueezed()
-
-    #         case _:
-    #             raise ValueError(f"{past} malformed!")
-
-    #     return {
-    #         **kwargs,
-    #         "seq_attention_mask": seq_attention_mask,
-    #         "batch": batch,
-    #         "past": past,
-    #     }
 
 
 def import_class_from_file(module_path, class_name):
@@ -682,6 +654,29 @@ class PretrainConfig:
             raise ValueError("Callbacks are built internally, not set via trainer_config!")
 
 
+
+def save_metrics_to_csv(fp, save_dict):
+   
+    # Filter out keys with empty lists
+    valid_keys = [k for k, v in save_dict.items() if isinstance(v, list) and len(v) > 0]
+
+    # Determine the minimum common length across valid lists
+    min_len = min(len(save_dict[k]) for k in valid_keys)
+
+    # Build a filtered dict with only valid keys and truncated to min_len
+    filtered_dict = {k: save_dict[k][:min_len] for k in valid_keys}
+
+    # Transpose: get list of row dicts
+    rows = [dict(zip(filtered_dict.keys(), values)) for values in zip(*filtered_dict.values())]
+
+    # Write to CSV
+    with open(f"{fp}.csv", mode="w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=filtered_dict.keys())
+        writer.writeheader()
+        writer.writerows(rows)
+        print("Metrics saved!")
+
+
 @task_wrapper
 def train(cfg: PretrainConfig):
     """Runs the end to end training procedure for the pre-training model.
@@ -693,7 +688,7 @@ def train(cfg: PretrainConfig):
     L.seed_everything(cfg.seed)
     if cfg.do_use_filesystem_sharing:
         torch.multiprocessing.set_sharing_strategy("file_system")
-    # print(cfg.data_config)
+
     train_pyd = PytorchDataset(cfg.data_config, split="train")
     tuning_pyd = PytorchDataset(cfg.data_config, split="tuning")
 
@@ -725,7 +720,7 @@ def train(cfg: PretrainConfig):
         cfg.final_validation_metrics_config.to_json_file(
             cfg.save_dir / "final_validation_metrics_config.json", do_overwrite=cfg.do_overwrite
         )
-    # print(config)
+
     # Model
     LM = ESTForGenerativeSequenceModelingLM(
         config=config,
@@ -797,6 +792,9 @@ def train(cfg: PretrainConfig):
     # Fitting model
     trainer = L.Trainer(**trainer_kwargs)
     trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+
+    if config.save_metrics:
+        save_metrics_to_csv(fp = config.save_metrics_fp, save_dict = LM.save_dict)
 
     LM.save_pretrained(cfg.save_dir)
 

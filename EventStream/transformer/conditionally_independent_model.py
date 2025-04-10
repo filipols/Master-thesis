@@ -4,6 +4,7 @@ from typing import Any
 import torch
 import wandb
 import numpy as np
+import csv
 
 from ..data.types import DataModality, PytorchBatch
 from .config import StructuredEventProcessingMode, StructuredTransformerConfig
@@ -44,191 +45,9 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         if config.structured_event_processing_mode != StructuredEventProcessingMode.CONDITIONALLY_INDEPENDENT:
             raise ValueError(f"{config.structured_event_processing_mode} invalid!")
         self.config = config
-        
 
-    def proxy_task(
-            self,
-            batch,
-            classification_out,
-            regression_out,
-            TTE_dist,
-            task: str = None,
-            encoded=None,
-            is_generation=None
-            ):
 
-        event_mask = batch["event_mask"]
-        device = event_mask.device
     
-        task_loss = None
-        accuracy = None
-        auroc_score = None
-
-        match task:
-            case "interruption_in_seq":
-                pred_distributions = TTE_dist
-                pred_time_deltas = pred_distributions.sample()
-                
-                filtered_time_deltas = pred_time_deltas.masked_fill(event_mask == False, 0)     # [:-1]??
-                gen_times = filtered_time_deltas.cumsum(dim=1)
-                is_within_7d = gen_times < (7*24*60)
-
-                pred_event_types_logits = classification_out[1]["event_type"][1].logits  # (batch_size, seq_len, num_classes)
-                pred_event_types_probs = torch.softmax(pred_event_types_logits, dim=2)  # (batch_size, seq_len, num_classes)
-
-                interruption_index = self.config.event_types_idxmap["interruption"]
-                is_interruption_prob = pred_event_types_probs[:, :, interruption_index]  # (batch_size, seq_len)
-
-                any_interruption_in_7d_prob = (is_interruption_prob * is_within_7d).sum(dim=1)
-
-                # pos_weight = (labels == 0).float().mean() / (0.000001+(labels == 1)).float().mean()
-
-                loss_fn = torch.nn.BCEWithLogitsLoss()#pos_weight=pos_weight)
-                task_loss = loss_fn(any_interruption_in_7d_prob, batch.stream_labels["label"].float())
-
-                pred_task_labels_binary = (any_interruption_in_7d_prob > 0.5).float()
-                accuracy = (pred_task_labels_binary == batch.stream_labels["label"].float()).float().mean()
-
-
-                auroc = BinaryAUROC()
-                auroc_score = auroc(any_interruption_in_7d_prob, batch.stream_labels["label"].float())
-
-            case "majority_class":
-                # "DOES NOT WORK, BECAUSE MODE OPERATION IS NOT DIFFERENTIABLE!"
-                event_types = classification_out[2]["event_type"].to(device)
-                majority_classes, _ = torch.mode(event_types, dim=1)
-                majority_classes = majority_classes.to(device)
-
-                pred_event_labels_logits = classification_out[1]["event_type"][1].logits
-                pred_event_labels_probs = torch.softmax(pred_event_labels_logits, dim=2)
-                pred_event_labels = torch.argmax(pred_event_labels_probs, dim=2)
-                pred_majority_classes, _ = torch.mode(pred_event_labels, dim=1)
-                pred_majority_classes = pred_majority_classes.to(device)
-
-                loss_fn = torch.nn.CrossEntropyLoss()
-                task_loss = loss_fn(pred_majority_classes.float(), majority_classes.float())
-
-                accuracy = (pred_majority_classes == majority_classes).float().mean()
-
-                auroc = BinaryAUROC()
-                auroc_score = auroc(pred_majority_classes.float(), majority_classes.float())
-
-
-            case "class_distribution":
-                event_types = classification_out[2]["event_type"].to(device)
-                num_classes = classification_out[1]["event_type"][1].logits.shape[-1]
-                batch_size, seq_len = event_types.size()
-
-                target_distributions = torch.zeros(batch_size, num_classes).to(event_types.device)
-                for i in range(batch_size):
-                    for j in range(seq_len):
-                        target_distributions[i, event_types[i, j]] += 1
-                target_distributions = target_distributions / seq_len
-
-                pred_event_labels_logits = classification_out[1]["event_type"][1].logits
-                pred_event_labels_probs = torch.softmax(pred_event_labels_logits, dim=2).mean(dim=1) # Average probabilities across sequence
-
-                task_loss = torch.mean((pred_event_labels_probs - target_distributions)**2)
-
-                pred_argmax = torch.argmax(pred_event_labels_probs, dim=1)
-                target_argmax = torch.argmax(target_distributions, dim=1)
-
-                auroc = BinaryAUROC()
-                specific_class_index = 0
-                auroc_score = auroc(pred_event_labels_probs[:, specific_class_index], target_distributions[:, specific_class_index])
-
-                print("task loss: ", task_loss)
-
-            case "interruption_next_week_cls":
-
-                pred_distributions = TTE_dist
-                pred_time_deltas = pred_distributions.sample()
-                
-                filtered_time_deltas = pred_time_deltas.masked_fill(event_mask == False, 0)     # [:-1]??
-                gen_times = filtered_time_deltas.cumsum(dim=1)
-                is_next_week = gen_times > (7*24*60)
-
-                pred_event_types_logits = classification_out[1]["event_type"][1].logits  # (batch_size, seq_len, num_classes)           # 0: losses, 1: predictions, 2: labels
-                pred_event_types_probs = torch.softmax(pred_event_types_logits, dim=2)  # (batch_size, seq_len, num_classes)
-
-                interruption_index = self.config.event_types_idxmap["interruption"]
-                is_interruption_prob = pred_event_types_probs[:, :, interruption_index]  # (batch_size, seq_len)
-                interruption_next_week_prob = 1 - torch.prod(1-is_interruption_prob, dim=1) # shape batch_size
-
-
-                # create labels
-                combined_mask = (event_mask & is_next_week)
-                event_type_labels = classification_out[2]["event_type"].masked_fill(combined_mask==False,-2) + 1               # shift to get correct event type indices, same ones that are in self.config.event_type_idxmap
-                interruption_next_week_label = (event_type_labels == interruption_index).any(dim=1).float()
-
-                loss_fn = torch.nn.BCELoss()
-                task_loss = loss_fn(interruption_next_week_prob, interruption_next_week_label)
-
-                binary_interruption_pred = (interruption_next_week_prob > 0.5).float()
-                accuracy = (binary_interruption_pred == interruption_next_week_label).float().mean()
-
-                auroc = BinaryAUROC()
-                auroc_score = auroc(interruption_next_week_prob, interruption_next_week_label)
-
-                # hur använder vi endast första veckan i batchen för att göra predictions, så som det är nu är det nästan samma som interruption in seq fast kollar bara på andra veckan?
-
-
-            case "time_to_next_interruption":
-                # num_new_events = 1000
-
-                # gen_times, gen_event_labels, gen_interruption = self.autoregressive_generate(batch=batch, encoded=encoded, num_new_events=num_new_events)
-                # interruption_next_week_prob = 1 - torch.prod(1-gen_interruption, dim=1)    # calculate the probability of an interruption happening next week, based            
-                # stream_labels = batch.stream_labels["label"].float()
-
-                # Maccky style
-                time_delta = batch.time_delta
-                cumulative_time_delta = time_delta.cumsum(dim=1)
-                max_true_index = batch.event_mask.cumsum(dim=1).argmax(dim=1)
-                cumulative_time_delta_filtered = cumulative_time_delta[:, max_true_index]
-
-                in_one_week = (cumulative_time_delta_filtered < 60*24*7).to(device)
-                one_week_idx = (in_one_week.cumsum(dim=1).argmax(dim=1)).long()
-
-
-
-                # get label for TTI task
-                whole_event_encoded = encoded
-                classification_measurements = set(self.classification_mode_per_measurement.keys())
-                for_event_contents_prediction = torch.cat(
-                (
-                    torch.zeros_like(whole_event_encoded[:, 0, :]).unsqueeze(1),
-                    whole_event_encoded[:, :-1, :],
-                ),
-                dim=1,
-                )
-                classification_out = self.get_classification_outputs(batch, for_event_contents_prediction, classification_measurements)         # 0: losses, 1: predictions, 2: labels
-                event_type_labels = classification_out[2]["event_type"].to(torch.int64)                                                         # shape: batch_size x seq_len
-                interruption_event_type_idx = self.config.event_types_idxmap["interruption"]                                                    # get event type index of interruption
-                interruption_event_type_idx = torch.tensor(interruption_event_type_idx, dtype=torch.int64, device=event_type_labels.device)
-
-                # find index in each sequence where the event type is interruption
-                interruptions_in_seq = (event_type_labels == interruption_event_type_idx)
-                interruption_indices = torch.nonzero(interruptions_in_seq, as_tuple=False)[:,0]
-    
-                tti_labels = torch.zeros((batch.batch_size,1))
-                for i in range(batch.batch_size):
-                    if len(interruption_indices) != 0:
-                        
-                        index = torch.searchsorted(interruption_indices, one_week_idx, right=True)    
-                        tti_labels[i] = cumulative_time_delta_filtered[index]    
-
-                    else:
-                        tti_labels[i] = -1                                             # no interruption next week
-
-
-                print(tti_labels)
-                raise
-
-
-            case _:
-                raise ValueError(f"Task: {task} not implemented!")
-
-        return task_loss, accuracy, auroc_score
 
 
     def forward(
@@ -265,6 +84,9 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             + self.config.measurements_for(DataModality.UNIVARIATE_REGRESSION)
         )
 
+
+        event_label_preds = None
+        event_label_labels = None
         # encoded is of shape: (batch size, sequence length, config.hidden_size)
         bsz, seq_len, _ = encoded.shape
         whole_event_encoded = encoded
@@ -307,10 +129,10 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         )
 
         if batch.stream_labels:
-            task_loss, accuracy, auroc_score, mse, f1_score, taskLogits = self.get_task_outputs(
+            task_loss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels = self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
-                classification_out = classification_out,       # ENDAST FÖR CLASS DISTRIBUTION PROXY TASK!
+                classification_out = classification_out,
                 is_cls_dist = self.config.is_cls_dist
             )
             
@@ -342,8 +164,13 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         #     task_loss = 0
         #     accuracy = None
         #     auroc_score = None
+
+
+        train_loss = sum(classification_losses_by_measurement.values()) + sum(regression_loss_values.values()) - TTE_LL_overall
+                                                               
         
-        return GenerativeSequenceModelOutput(
+        return (
+            GenerativeSequenceModelOutput(
             **{
                 "loss": (
                     task_loss
@@ -380,47 +207,15 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
                 "event_mask": batch["event_mask"],
                 "dynamic_values_mask": batch["dynamic_values_mask"]
             }
+        ), 
+        train_loss,
+        task_loss,
+        event_label_preds,
+        event_label_labels
         )
 
 
 
-
-
-
-
-        # else:
-        #     return GenerativeSequenceModelOutput(
-        #     **{
-        #         "loss": (
-        #             sum(classification_losses_by_measurement.values())
-        #             + sum(regression_loss_values.values())
-        #             - TTE_LL_overall
-        #         )
-        #         if not is_generation
-        #         else None,
-        #         "losses": GenerativeSequenceModelLosses(
-        #             **{
-        #                 "classification": classification_losses_by_measurement,
-        #                 "regression": regression_loss_values,
-        #                 "time_to_event": None if is_generation else -TTE_LL_overall,
-        #             }
-        #         ),
-        #         "preds": GenerativeSequenceModelPredictions(
-        #             classification=classification_dists_by_measurement,
-        #             regression=regression_dists,
-        #             regression_indices=regression_indices,
-        #             time_to_event=TTE_dist,
-        #         ),
-        #         "labels": GenerativeSequenceModelLabels(
-        #             classification=classification_labels_by_measurement,
-        #             regression=regression_labels,
-        #             regression_indices=regression_indices,
-        #             time_to_event=None if is_generation else TTE_true,
-        #         ),
-        #         "event_mask": batch["event_mask"],
-        #         "dynamic_values_mask": batch["dynamic_values_mask"],
-        #     }
-        # )
 
 
 
