@@ -6,6 +6,7 @@ from typing import Any
 import gc
 import importlib.util
 import wandb
+import time
 
 from safetensors.torch import load_file
 
@@ -339,6 +340,9 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             split=split,
             cat=MetricCategories.TTE,
         )
+    import time
+
+
 
     def log_metrics(self, results: GenerativeSequenceModelOutput, split: Split):
         """Logs metric results for a given output result.
@@ -365,16 +369,15 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
                 **log_kwargs,
             )
             self.log(f"{split}_TTE_reg_NLL", results["losses"]["time_to_event"], **log_kwargs)
-        
+  
         self.log("task_loss", results["losses"]["task_loss"],**log_kwargs)
 
         if results["losses"].task_accuracy:
             self.log("task_accuracy", results["losses"].task_accuracy, **log_kwargs)
-  
-        if results["losses"].task_AUROC:
-            self.log("task_AUROC", results["losses"]["task_AUROC"], **log_kwargs)
-        if results["losses"].task_loss:
-            self.log("task_loss", results["losses"]["task_loss"],**log_kwargs)
+        
+        self.log("task_AUROC", results["losses"].task_AUROC, **log_kwargs)
+        
+        self.log("task_loss", results["losses"]["task_loss"],**log_kwargs)
         # Time-to-event
         if self.metrics_config.do_log(split, MetricCategories.TTE):
             self.log_tte_metrics(results, split)
@@ -524,8 +527,8 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         out_tuple = self.model(batch)
         out = out_tuple[0]
         
-       
         self.log_metrics(out, split=Split.TUNING)
+
 
     def test_step(self, batch: PytorchBatch, batch_idx: int):
         """Validation step.
@@ -550,9 +553,9 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             weight_decay=self.optimization_config.weight_decay,
         )
 
-        for param_group in opt.param_groups:
-            for param in param_group['params']:
-                print(param.shape, param.requires_grad)
+        # for param_group in opt.param_groups:
+        #     for param in param_group['params']:
+        #         print(param.shape, param.requires_grad)
         scheduler = get_polynomial_decay_schedule_with_warmup(
             optimizer=opt,
             num_warmup_steps=self.optimization_config.lr_num_warmup_steps,
