@@ -532,6 +532,10 @@ class StructuredTransformerConfig(PretrainedConfig):
         use_cache: bool = True,
         # Task config
         is_cls_dist: bool = False,
+        # For saving metric to csv
+        save_metrics: bool = False,
+        save_metrics_fp: str | None = None,
+        is_pretrain: bool = False,
         # For event classification,
         is_event_classification: bool = False,
         **kwargs,
@@ -816,6 +820,9 @@ class StructuredTransformerConfig(PretrainedConfig):
         self.is_cls_dist = is_cls_dist
         self.use_cache = use_cache
         self.is_event_classification = is_event_classification
+        self.save_metrics = save_metrics
+        self.save_metrics_fp = save_metrics_fp
+        self.is_pretrain = is_pretrain
 
         assert not kwargs.get("is_encoder_decoder", False), "Can't be used in encoder/decoder mode!"
         kwargs["is_encoder_decoder"] = False
@@ -897,7 +904,7 @@ class StructuredTransformerConfig(PretrainedConfig):
                             i: v for i, v in enumerate(dataset.task_vocabs[self.finetuning_task])
                         }
                         self.label2id = {v: i for i, v in self.id2label.items()}
-                        # print(self.label2id)
+                     
                         self.num_labels = len(self.id2label)
                         self.problem_type = "single_label_classification"
                     case "regression":
@@ -911,7 +918,7 @@ class StructuredTransformerConfig(PretrainedConfig):
             elif all(t == "regression" for t in dataset.task_types.values()):
                 self.num_labels = len(dataset.tasks)
                 self.problem_type = "regression"
-            # print("ELO FLIPOVIC")
+        
 
     def __eq__(self, other):
         """Checks equality in a type sensitive manner to avoid pytorch lightning issues."""
@@ -931,14 +938,9 @@ class StructuredTransformerConfig(PretrainedConfig):
 
     @classmethod
     def from_dict(cls, *args, **kwargs) -> "StructuredTransformerConfig":
-        # raw_from_dict = super().from_dict(*args, **kwargs)
-        # if raw_from_dict.measurement_configs:
-        #     new_meas_configs = {}
-        #     for k, v in raw_from_dict.measurement_configs.items():
-        #         new_meas_configs[k] = MeasurementConfig.from_dict(v)
-        #     raw_from_dict.measurement_configs = new_meas_configs
+     
 
-        # return cls(**kwargs)
+      
         raw_config, model_kwargs = super().from_dict(*args, **kwargs)  # Capture both values
 
         config_data = raw_config.__dict__  # Get config data as a dictionary
