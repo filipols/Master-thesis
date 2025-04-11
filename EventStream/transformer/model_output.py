@@ -1376,12 +1376,12 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
         torch._assert(~torch.isnan(encoded).any(), f"{torch.isnan(encoded).sum()} NaNs in encoded")
         device = batch.device
-        taskLoss = None
-        accuracy = None
-        auroc_score = None
-        mse = None
-        f1_score = None
-        prc_auc = None
+        taskLoss = 0
+        accuracy = 0
+        auroc_score = 0
+        mse = 0
+        f1_score = 0
+        prc_auc = 0
         taskClassificationLogits=None
         event_label_preds = None
         event_label_labels = None
