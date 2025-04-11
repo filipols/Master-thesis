@@ -1,5 +1,5 @@
 name:
-  value: "generative_event_stream_transformer"
+  value:  ${name}
 project:
   value: ${project}
 entity:
