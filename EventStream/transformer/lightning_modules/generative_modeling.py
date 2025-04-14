@@ -107,6 +107,8 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             "event_label_preds": [],
             "event_label_labels": [],
             "task_accuracy": [],
+            "task_auroc":[],
+            "task_mse":[]
         }
         self.save_hyperparameters(
             {
@@ -376,6 +378,7 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
             self.log("task_accuracy", results["losses"].task_accuracy, **log_kwargs)
         
         self.log("task_AUROC", results["losses"].task_AUROC, **log_kwargs)
+        self.log("task_avg_precision", results["losses"].average_precision, **log_kwargs)
         
         self.log("task_loss", results["losses"]["task_loss"],**log_kwargs)
         # Time-to-event
@@ -491,16 +494,24 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
         task_loss = out_tuple[2]
         event_label_preds = out_tuple[3]
         event_label_labels  = out_tuple[4]
+        average_precision = out["losses"].average_precision
         task_losses = out["losses"].task_loss
         auroc_score = out["losses"].task_AUROC
         accuracy = out["losses"].task_accuracy
+        mse = out["losses"].mse
+        
         if self.config.save_metrics:
             if not self.config.is_pretrain:
                 self.save_dict["task_loss"].append(task_loss.item())
-
-            self.save_dict["train_loss"].append(train_loss.item())    # train loss is the loss without the task loss. This part is the same regardless of the task                                                                                                # this task loss is specific for the finetuning task
-            self.save_dict["event_label_preds"].append(event_label_preds)
-            self.save_dict["event_label_labels"].append(event_label_labels)
+                self.save_dict["task_auroc"].append(auroc_score)
+                self.save_dict["task_accuracy"].append(accuracy)
+                self.save_dict["task_mse"].append(mse.item())
+            
+            self.save_dict["train_loss"].append(train_loss.item())    # train loss is the loss without the task loss. This part is the same regardless of the task        
+            if event_label_preds != None:                                                                                        # this task loss is specific for the finetuning task
+                self.save_dict["event_label_preds"].append(event_label_preds.detach().cpu().numpy().tolist())
+                self.save_dict["event_label_labels"].append(event_label_labels.detach().cpu().numpy().tolist())
+            
 
         # for name, param in self.named_parameters():
         #     if param.grad is not None:

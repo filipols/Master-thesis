@@ -129,7 +129,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         )
 
         if batch.stream_labels:
-            task_loss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels = self.get_task_outputs(
+            task_loss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels, average_precision_score= self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
                 classification_out = classification_out,
@@ -188,8 +188,9 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
                         "task_loss": task_loss,
                         "task_accuracy": accuracy,
                         "task_AUROC": auroc_score,
-                        "TTI_mse" : mse,
-                        "CLS_f1_score" : f1_score
+                        "mse" : mse,
+                        "CLS_f1_score" : f1_score,
+                        "average_precision" : average_precision_score,
                     }
                 ),
                 "preds": GenerativeSequenceModelPredictions(
@@ -211,7 +212,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         train_loss,
         task_loss,
         event_label_preds,
-        event_label_labels
+        event_label_labels,
         )
 
 

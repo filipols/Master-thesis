@@ -278,8 +278,9 @@ class GenerativeSequenceModelLosses(ModelOutput):
     task_loss: torch.FloatTensor | None = None
     task_accuracy: float | None = None
     task_AUROC: float | None = None
-    TTI_mse: float | None = None
+    mse: float | None = None
     CLS_f1_score: float | None = None
+    average_precision: float | None = None
 
 
 @dataclass
@@ -1381,7 +1382,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         auroc_score = 0
         mse = 0
         f1_score = 0
-        prc_auc = 0
+        average_precision_score = 0
         taskClassificationLogits=None
         event_label_preds = None
         event_label_labels = None
@@ -1438,14 +1439,16 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             labels_ = torch.where(labels_ == interruption_idx, 1, 0)  # 1 if interruption 0 otherwise
 
             loss_fn = torch.nn.BCEWithLogitsLoss()
-            taskLoss = loss_fn(logits.squeeze(-1), labels_.float())
+            taskLoss = loss_fn(logits.squeeze(-1), labels_.float()) * 100
 
             pred_task_labels_binary = (probs > 0.5).int() # 1 if interruption 0 otherwise
             correct = (pred_task_labels_binary == labels_.int()).sum().item()  # This returns the number of correct predictions
             accuracy = correct / labels_.numel()
         
-            average_precision = AveragePrecision(task='binary')                     # LOGGAS SOM task_AUROC!
-            auroc_score = average_precision(pred_task_labels_binary.float(), labels_.int())
+            average_precision = AveragePrecision(task='binary')                    
+            average_precision_score = average_precision(pred_task_labels_binary.float(), labels_.int())
+            auroc = BinaryAUROC()
+            auroc_score = auroc(pred_task_labels_binary,labels_.float())
 
             event_label_preds = pred_task_labels_binary
             event_label_labels = labels_
@@ -1464,14 +1467,17 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             seq_prob = (1 - no_interruption_prob) # Probability that at least on of the events in the sequence is of type "interruption"
             
             loss_fn = torch.nn.BCELoss()
-            taskLoss = loss_fn(seq_prob, labels.float()) * 20
+            taskLoss = loss_fn(seq_prob, labels.float()) * 2
 
             pred_task_labels_binary = (seq_prob > 0.5).int() # 1 if interruption 0 otherwise
             correct = (pred_task_labels_binary == labels.int()).sum().item()  # This returns the number of correct predictions
             accuracy = correct / labels.numel()
-            
+                        
+            average_precision = AveragePrecision(task='binary')                     # LOGGAS SOM task_AUROC!
+            average_precision_score = average_precision(pred_task_labels_binary.float(), labels.int())
+
             auroc = BinaryAUROC()
-            auroc_score = auroc(pred_task_labels_binary,labels.float())
+            auroc_score = auroc(pred_task_labels_binary,labels.int())
 
             # pooling in github
 
@@ -1491,7 +1497,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
 
 
-        return taskLoss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels
+        return taskLoss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels, average_precision_score
 
 
     def get_TTE_outputs(
