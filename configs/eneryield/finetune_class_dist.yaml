@@ -14,6 +14,7 @@ config:
   is_event_classification: false
   save_metrics: true
   save_metrics_fp: /home/filip-marcus/results/eneryield/class_dist_baseline
+  is_pretrain: false
 
 
 # # Strategy:  (event label) 
@@ -53,7 +54,7 @@ optimization_config:
   init_lr: 0.000942347413279038
   end_lr: 1.9845775906985686e-07
   end_lr_frac_of_init_lr: 0.0002105993567481589
-  max_epochs: 300
+  max_epochs: 200
   batch_size: 24
   validation_batch_size: 32
   lr_frac_warmup_steps: 0.007224855776086499
@@ -61,7 +62,7 @@ optimization_config:
   max_training_steps: 1400
   lr_decay_power: 2.0760468396815996
   weight_decay: 0.003921407153395629
-  patience: 10
+  patience: null
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5

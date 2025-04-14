@@ -8,8 +8,8 @@ program: finetune.py
 method: bayes
 name: event_label
 metric:
-  goal: minimize
-  name: task_loss
+  goal: maximize
+  name: task_avg_precision
 early_terminate:
   type: hyperband
   min_iter: 1000

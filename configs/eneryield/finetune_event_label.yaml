@@ -12,7 +12,7 @@ pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/ener
 config:
   is_cls_dist: false
   is_event_classification: true
-  save_metrics: false
+  save_metrics: true
   save_metrics_fp: /home/filip-marcus/results/eneryield/event_label_baseline
 
 
@@ -53,15 +53,15 @@ optimization_config:
   init_lr: 0.002155807165377951
   end_lr: 2.1345168099176987e-06
   end_lr_frac_of_init_lr: 0.000990124183738614
-  max_epochs: 200
+  max_epochs: 40
   batch_size: 16
   validation_batch_size: 32
   lr_frac_warmup_steps: 1.1847258935945835e-06
   lr_num_warmup_steps: 0
   max_training_steps: 2200
   lr_decay_power: 2.998650142606342
-  weight_decay: 0.0022485831156105023
-  patience: 10
+  weight_decay: 0.5 #0.022485831156105023
+  patience: null
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5
