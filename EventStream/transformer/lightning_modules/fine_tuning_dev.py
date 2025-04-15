@@ -54,7 +54,8 @@ class FinetuneConfig:
     task_df_name: str | None = omegaconf.MISSING
     strategy: bool = False
     pretrained_weights_fp: Path | str | None = "${load_from_model_dir}/pretrained_weights"
-
+    is_inference: bool = False
+    task_type: str | None = None
 
     experiment_dir: str | Path | None = "${load_from_model_dir}/finetuning"
     
@@ -321,7 +322,7 @@ def train(cfg: FinetuneConfig):
         batch_size=optimization_config.batch_size,
         num_workers=optimization_config.num_dataloader_workers,
         collate_fn=train_pyd.collate,
-        shuffle=True,
+        shuffle=False,
     )
     tuning_dataloader = torch.utils.data.DataLoader(
         tuning_pyd,

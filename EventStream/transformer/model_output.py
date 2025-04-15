@@ -1438,8 +1438,13 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
             labels_ = torch.where(labels_ == interruption_idx, 1, 0)  # 1 if interruption 0 otherwise
 
-            loss_fn = torch.nn.BCEWithLogitsLoss()
-            taskLoss = loss_fn(logits.squeeze(-1), labels_.float()) * 100
+            # chattis
+            # positive_weight=(1-0.0023) / 0.0023 # ~434
+            positive_weight = 600
+            loss_fn = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([positive_weight]).to(logits.device))
+
+            # loss_fn = torch.nn.BCEWithLogitsLoss()
+            taskLoss = loss_fn(logits.squeeze(-1), labels_.float()) * 10
 
             pred_task_labels_binary = (probs > 0.5).int() # 1 if interruption 0 otherwise
             correct = (pred_task_labels_binary == labels_.int()).sum().item()  # This returns the number of correct predictions

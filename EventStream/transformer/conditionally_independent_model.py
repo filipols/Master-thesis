@@ -165,8 +165,11 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         #     accuracy = None
         #     auroc_score = None
 
-
-        train_loss = sum(classification_losses_by_measurement.values()) + sum(regression_loss_values.values()) - TTE_LL_overall
+        if classification_losses_by_measurement is None or regression_loss_values is None:
+            # We are in generation mode, so we don't need to calculate the losses
+            train_loss = 0        
+        else:
+            train_loss = sum(classification_losses_by_measurement.values()) + sum(regression_loss_values.values()) - TTE_LL_overall
                                                                
         
         return (
