@@ -143,6 +143,9 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
             mse = 0
             f1_score = 0
             task_predictions = {}
+            average_precision_score = 0
+            event_label_preds = None
+            event_label_labels = None
 
 
 
