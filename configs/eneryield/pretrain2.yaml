@@ -1,0 +1,76 @@
+defaults:
+  - pretrain_config
+  - _self_
+
+config:
+  TTE_generation_layer_type: exponential
+  TTE_lognormal_generation_num_components: 9
+  attention_dropout: 0.004563095202856138
+  categorical_embedding_dim: 82
+  categorical_embedding_weight: 0.906786702016441
+  do_full_block_in_dep_graph_attention: false
+  do_full_block_in_seq_attention: false
+  do_normalize_by_measurement_index: false
+  do_split_embeddings: false
+  do_use_learnable_sinusoidal_ATE: true
+  head_dim: 18
+  input_dropout: 0.4494236115512016
+  intermediate_size: 128
+  num_attention_heads: 10
+  num_hidden_layers: 8
+  numerical_embedding_dim: 110
+  resid_dropout: 0.4939188761966135
+  seq_attention_types: global
+  seq_window_size: 62
+  static_embedding_mode: drop
+  static_embedding_weight: 0.36222010226052526
+  structured_event_processing_mode: conditionally_independent
+  cohort_name: eneryield2
+  save_metrics: true
+  save_metrics_fp: /home/filip-marcus/results/eneryield2/pretrain_10_04_2025
+  is_pretrain: true
+
+data_config:
+  max_seq_len: 256
+  min_seq_len: 2
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+  train_subset_seed: 1
+  train_subset_size: FULL
+
+do_final_validation_on_metrics: true
+do_overwrite: true
+experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT
+
+final_validation_metrics_config:
+  do_skip_all_metrics: false
+  n_auc_thresholds: 25
+
+pretraining_metrics_config:
+  do_skip_all_metrics: false
+
+trainer_config:
+  detect_anomaly: false
+  log_every_n_steps: 20
+wandb_logger_kwargs:  
+  do_log_graph: false
+  log_model: false
+  name: generative_event_stream_transformer
+  project: Eneryield2
+
+optimization_config:
+  init_lr: 0.008
+  end_lr: null
+  end_lr_frac_of_init_lr: 0.0004
+  max_epochs: 115
+  batch_size: 32
+  validation_batch_size: 32
+  lr_frac_warmup_steps: 0.04643375085884701
+  lr_num_warmup_steps: 7
+  max_training_steps: 150
+  lr_decay_power: 1.5
+  weight_decay: 0.0003
+  patience: 30
+  gradient_accumulation: 1
+  gradient_clip_val: 1
+  num_dataloader_workers: 5
+

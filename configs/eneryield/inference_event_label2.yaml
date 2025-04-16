@@ -4,16 +4,22 @@ defaults:
 
 do_overwrite: true
 seed: 1
+is_inference: true # Flag to indicate that this is an inference run
+task_type: event_label # Task type for the inference run - used to use the appropirate evaluation metrics
 
-# Strategy:  (class dist)
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/
-task_df_name: task_df_eneryield_interruption_next_week
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/pretrained_weights
+data_config:
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+  max_seq_len: 256
+
+# Strategy:  (event label) DONE!
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label
+task_df_name: task_df_eneryield_event_label # task to be evaluated
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label/finetune_weights
 config:
   is_cls_dist: false
-  is_event_classification: false
+  is_event_classification: true
   save_metrics: false
-  save_metrics_fp: /home/filip-marcus/results/eneryield/interruption_next_week_baseline
+  save_metrics_fp: /home/filip-marcus/results/eneryield2/event_label_baseline
 
 
 # # Strategy:  (event label) 
@@ -45,43 +51,3 @@ config:
 #   is_cls_dist: false
 #   is_event_classification: false
 
-###### FROM SWEEPASUS #######
-# data_config:
-#   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
-#   max_seq_len: 256
-# optimization_config:
-#   init_lr: 0.000653657122722588
-#   end_lr: 8.657162142251503e-06
-#   end_lr_frac_of_init_lr: 0.013244194611072265
-#   max_epochs: 200
-#   batch_size: 55
-#   validation_batch_size: 32
-#   lr_frac_warmup_steps: 0.465323678404592
-#   lr_num_warmup_steps: 279
-#   max_training_steps: 600
-#   lr_decay_power: 1.569407691948747
-#   weight_decay: 0.29435447242663826
-#   patience: null
-#   gradient_accumulation: 1
-#   gradient_clip_val: 1
-#   num_dataloader_workers: 5
-
-data_config:
-  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
-  max_seq_len: 256
-optimization_config:
-  init_lr: 0.003
-  end_lr: 0.0000003
-  end_lr_frac_of_init_lr: 0.0001
-  max_epochs: 200
-  batch_size: 128
-  validation_batch_size: 32
-  lr_frac_warmup_steps: 0.25
-  lr_num_warmup_steps: 250
-  max_training_steps: 1000
-  lr_decay_power: 1.569407691948747
-  weight_decay: 0.01
-  patience: null
-  gradient_accumulation: 1
-  gradient_clip_val: 5
-  num_dataloader_workers: 5

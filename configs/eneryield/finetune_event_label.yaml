@@ -5,6 +5,7 @@ defaults:
 do_overwrite: true
 seed: 1
 
+
 # Strategy:  (event label) DONE!
 load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/
 task_df_name: task_df_eneryield_event_label
@@ -50,18 +51,37 @@ data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
   max_seq_len: 256
 optimization_config:
-  init_lr: 0.002155807165377951
-  end_lr: 2.1345168099176987e-06
-  end_lr_frac_of_init_lr: 0.000990124183738614
-  max_epochs: 40
-  batch_size: 16
+  init_lr: 0.003
+  end_lr: 0.000003
+  end_lr_frac_of_init_lr: 0.001
+  max_epochs: 12
+  batch_size: 64
   validation_batch_size: 32
-  lr_frac_warmup_steps: 1.1847258935945835e-06
-  lr_num_warmup_steps: 0
-  max_training_steps: 2200
-  lr_decay_power: 2.998650142606342
-  weight_decay: 0.5 #0.022485831156105023
+  lr_frac_warmup_steps: 0.1
+  lr_num_warmup_steps: 100
+  max_training_steps: 1000
+  lr_decay_power: 1.4708137696434
+  weight_decay: 0.01
   patience: null
   gradient_accumulation: 1
-  gradient_clip_val: 1
+  gradient_clip_val: 5
   num_dataloader_workers: 5
+
+
+
+
+    # init_lr: 0.002846394145333227
+    # end_lr: 2.3329478071180696e-05
+    # end_lr_frac_of_init_lr: 0.008196151650125572
+    # max_epochs: 200
+    # batch_size: 12
+    # validation_batch_size: 32
+    # lr_frac_warmup_steps: 3.5555186373837375e-06
+    # lr_num_warmup_steps: 0
+    # max_training_steps: 2800
+    # lr_decay_power: 1.4708137696434
+    # weight_decay: 0.00847623042952091
+    # patience: 10
+    # gradient_accumulation: 1
+    # gradient_clip_val: 1
+    # num_dataloader_workers: 5

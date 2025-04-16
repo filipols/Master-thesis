@@ -7,13 +7,13 @@ seed: 1
 
 # Strategy:  (class dist)
 load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/
-task_df_name: task_df_eneryield_interruption_next_week
+task_df_name: task_df_eneryield_interruption_in_seq
 pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/pretrained_weights
 config:
   is_cls_dist: false
   is_event_classification: false
-  save_metrics: false
-  save_metrics_fp: /home/filip-marcus/results/eneryield/interruption_next_week_baseline
+  save_metrics: true
+  save_metrics_fp: /home/filip-marcus/results/eneryield/interruption_in_seq_baseline
 
 
 # # Strategy:  (event label) 
@@ -45,43 +45,23 @@ config:
 #   is_cls_dist: false
 #   is_event_classification: false
 
-###### FROM SWEEPASUS #######
-# data_config:
-#   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
-#   max_seq_len: 256
-# optimization_config:
-#   init_lr: 0.000653657122722588
-#   end_lr: 8.657162142251503e-06
-#   end_lr_frac_of_init_lr: 0.013244194611072265
-#   max_epochs: 200
-#   batch_size: 55
-#   validation_batch_size: 32
-#   lr_frac_warmup_steps: 0.465323678404592
-#   lr_num_warmup_steps: 279
-#   max_training_steps: 600
-#   lr_decay_power: 1.569407691948747
-#   weight_decay: 0.29435447242663826
-#   patience: null
-#   gradient_accumulation: 1
-#   gradient_clip_val: 1
-#   num_dataloader_workers: 5
 
 data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
   max_seq_len: 256
 optimization_config:
-  init_lr: 0.003
-  end_lr: 0.0000003
-  end_lr_frac_of_init_lr: 0.0001
+  init_lr: 0.0005387192471114002
+  end_lr: 2.524466419119271e-06
+  end_lr_frac_of_init_lr: 0.004686052025531666
   max_epochs: 200
-  batch_size: 128
+  batch_size: 63
   validation_batch_size: 32
-  lr_frac_warmup_steps: 0.25
-  lr_num_warmup_steps: 250
-  max_training_steps: 1000
-  lr_decay_power: 1.569407691948747
-  weight_decay: 0.01
-  patience: null
+  lr_frac_warmup_steps: 0.2670639865238901
+  lr_num_warmup_steps: 160
+  max_training_steps: 600
+  lr_decay_power: 0.9032979645205408
+  weight_decay: 0.2821793603431732
+  patience: 15
   gradient_accumulation: 1
-  gradient_clip_val: 5
+  gradient_clip_val: 1
   num_dataloader_workers: 5

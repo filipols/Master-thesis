@@ -646,24 +646,88 @@ class DatasetBase(
         self,
         split_fracs: Sequence[float],
         split_names: Sequence[str] | None = None,
+          # <-- Add this argument
     ):
+        # """Splits the underlying dataset into random sets by `subject_id`.
+
+        # Args:
+        #     split_fracs: The fractional sizes of the desired splits. If it sums to < 1, the remainder will be
+        #         tracked **in an extra split** at the end of the list. All split fractions must be positive
+        #         floating point numbers less than 1.
+        #     split_names: If specified, assigns the passed names to each split. Must be of the same size as
+        #         `split_fracs` (after it is expanded to sum to 1 if necessary). If unset, and there are two
+        #         splits, it defaults to [`train`, `held_out`]. If there are three, it defaults to `['train',
+        #         'tuning', 'held_out']. If more than 3, it defaults to `['split_0', 'split_1', ...]`. Split
+        #         names of `train`, `tuning`, and `held_out` have special significance and are used elsewhere in
+        #         the model, so if `split_names` does not reflect those other things may not work down the line.
+
+        # Raises:
+        #     ValueError: if `split_fracs` contains anything outside the range of (0, 1], sums to something > 1,
+        #         or is not of the same length as `split_names`.
+        # """
+        # split_fracs = list(split_fracs)
+
+        # if min(split_fracs) <= 0 or max(split_fracs) > 1 or sum(split_fracs) > 1:
+        #     raise ValueError(
+        #         "split_fracs invalid! Want a list of numbers in (0, 1] that sums to no more than 1; got "
+        #         f"{repr(split_fracs)}"
+        #     )
+
+        # if sum(split_fracs) < 1:
+        #     split_fracs.append(1 - sum(split_fracs))
+
+        # if split_names is None:
+        #     if len(split_fracs) == 2:
+        #         split_names = ["train", "held_out"]
+        #     elif len(split_fracs) == 3:
+        #         split_names = ["train", "tuning", "held_out"]
+        #     else:
+        #         split_names = [f"split_{i}" for i in range(len(split_fracs))]
+        # elif len(split_names) != len(split_fracs):
+        #     raise ValueError(
+        #         f"split_names and split_fracs must be the same length; got {len(split_names)} and "
+        #         f"{len(split_fracs)}"
+        #     )
+
+        # # # As split fractions may not result in integer split sizes, we shuffle the split names and fractions
+        # # # so that the splits that exceed the desired size are not always the last ones in the original passed
+        # # # order.
+        # # split_names_idx = np.random.permutation(len(split_names))
+        # # split_names = [split_names[i] for i in split_names_idx]
+        # # split_fracs = [split_fracs[i] for i in split_names_idx]
+
+        # # subjects = np.random.permutation(list(self.subject_ids))
+        # # split_lens = (np.array(split_fracs[:-1]) * len(subjects)).round().astype(int)
+        # # split_lens = np.append(split_lens, len(subjects) - split_lens.sum())
+
+        # # subjects_per_split = np.split(subjects, split_lens.cumsum())
+
+        # # self.split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
+
+
+        # ###### FOR ENERYIELD ONLY #######
+        # # Use the original order (assumed to be time-sorted)
+        # subjects = list(self.subject_ids)
+        # print(split_fracs)
+        # split_lens = (np.array(split_fracs[:-1]) * len(subjects)).round().astype(int)
+        # print(split_lens)
+        # split_lens = np.append(split_lens, len(subjects) - split_lens.sum())
+        # print(split_lens)
+        # subjects_per_split = np.split(subjects, split_lens.cumsum())
+        # print(subjects_per_split)
+
+        # self.split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
+    
+    
+  
         """Splits the underlying dataset into random sets by `subject_id`.
 
         Args:
-            split_fracs: The fractional sizes of the desired splits. If it sums to < 1, the remainder will be
-                tracked **in an extra split** at the end of the list. All split fractions must be positive
-                floating point numbers less than 1.
-            split_names: If specified, assigns the passed names to each split. Must be of the same size as
-                `split_fracs` (after it is expanded to sum to 1 if necessary). If unset, and there are two
-                splits, it defaults to [`train`, `held_out`]. If there are three, it defaults to `['train',
-                'tuning', 'held_out']. If more than 3, it defaults to `['split_0', 'split_1', ...]`. Split
-                names of `train`, `tuning`, and `held_out` have special significance and are used elsewhere in
-                the model, so if `split_names` does not reflect those other things may not work down the line.
-
-        Raises:
-            ValueError: if `split_fracs` contains anything outside the range of (0, 1], sums to something > 1,
-                or is not of the same length as `split_names`.
+            split_fracs: The fractional sizes of the desired splits (for train/tuning, not held_out).
+            split_names: If specified, assigns the passed names to each split.
+            n_held_out: Number of subjects to assign to held_out (taken as the last n subjects). *****HARDCODED IN FUNCTION********
         """
+        n_held_out = 300 # HARDCODE
         split_fracs = list(split_fracs)
 
         if min(split_fracs) <= 0 or max(split_fracs) > 1 or sum(split_fracs) > 1:
@@ -675,11 +739,10 @@ class DatasetBase(
         if sum(split_fracs) < 1:
             split_fracs.append(1 - sum(split_fracs))
 
+        # Default split names
         if split_names is None:
             if len(split_fracs) == 2:
-                split_names = ["train", "held_out"]
-            elif len(split_fracs) == 3:
-                split_names = ["train", "tuning", "held_out"]
+                split_names = ["train", "tuning"]
             else:
                 split_names = [f"split_{i}" for i in range(len(split_fracs))]
         elif len(split_names) != len(split_fracs):
@@ -688,20 +751,29 @@ class DatasetBase(
                 f"{len(split_fracs)}"
             )
 
-        # As split fractions may not result in integer split sizes, we shuffle the split names and fractions
-        # so that the splits that exceed the desired size are not always the last ones in the original passed
-        # order.
-        split_names_idx = np.random.permutation(len(split_names))
-        split_names = [split_names[i] for i in split_names_idx]
-        split_fracs = [split_fracs[i] for i in split_names_idx]
+        subjects = list(self.subject_ids)
+        n_subjects = len(subjects)
 
-        subjects = np.random.permutation(list(self.subject_ids))
-        split_lens = (np.array(split_fracs[:-1]) * len(subjects)).round().astype(int)
-        split_lens = np.append(split_lens, len(subjects) - split_lens.sum())
+        # Assign held_out as the last n_held_out subjects
+        if n_held_out > 0:
+            held_out_subjects = subjects[-n_held_out:]
+            remaining_subjects = subjects[:-n_held_out]
+        else:
+            held_out_subjects = []
+            remaining_subjects = subjects
 
-        subjects_per_split = np.split(subjects, split_lens.cumsum())
+        # Randomly permute the remaining subjects for train/tuning split
+        rng = np.random.default_rng()
+        permuted = rng.permutation(remaining_subjects)
+        split_lens = (np.array(split_fracs[:-1]) * len(permuted)).round().astype(int)
+        split_lens = np.append(split_lens, len(permuted) - split_lens.sum())
+        subjects_per_split = np.split(permuted, split_lens.cumsum())
 
-        self.split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
+        split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
+        if n_held_out > 0:
+            split_subjects["held_out"] = set(held_out_subjects)
+
+        self.split_subjects = split_subjects
 
     @classmethod
     @abc.abstractmethod

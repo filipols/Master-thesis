@@ -5,6 +5,7 @@ defaults:
 entity: marcus-student-chalmers-personal
 project: eneryield_ft_sweep
 program: finetune.py
+runcap: 100
 method: bayes
 name: event_label
 metric:
