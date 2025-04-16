@@ -108,24 +108,40 @@ def inference(cfg):
         # 3. event_label_ap
         
         accuracy = []
-        auroc = []
-        ap = []
+        all_event_label_labels = []
+        all_event_label_preds = []
         for batch in held_out_dataloader:
             encoded = model.encoder(batch,
                                         use_cache = None,
                                         output_attentions=False,
                                         output_hidden_states=True,
                                         return_dict=True)
+            out_tuple = model.output_layer(batch, encoded.last_hidden_state, is_generation=True)
+            event_label_labels = out_tuple[4]
+            event_label_preds = out_tuple[3]
+            print(event_label_preds.shape)
+            all_event_label_labels.append(event_label_labels.detach().cpu())
+            all_event_label_preds.append(event_label_preds.detach().cpu())
+           
+            accuracy.append(out_tuple[0].losses.task_accuracy)
             
-            accuracy.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True)[0].losses.task_accuracy)
-            auroc.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True)[0].losses.task_AUROC.item())
-            ap.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True)[0].losses.average_precision.item())
+        auroc_fn = torchmetrics.AUROC(num_classes=2,task="binary")
+        ap_fn = torchmetrics.AveragePrecision(num_classes=2,task="binary")
+    
+       
+        all_event_label_labels_ = torch.cat(all_event_label_labels[:-1], dim=1)
+        all_event_label_preds_ = torch.cat(all_event_label_preds[:-1], dim=1)
+        all_event_label_labels = all_event_label_labels_.view(-1, 2)
+        all_event_label_preds = all_event_label_preds_.view(-1, 2)
+
+        auroc = auroc_fn(all_event_label_labels, all_event_label_preds)
+        ap = ap_fn(all_event_label_preds.to(dtype=torch.float),all_event_label_labels )
         print('-------------------------------------------------------------------')
         print('METRICS:')
         print('-------------------------------------------------------------------')
         print(f'Mean Accuracy evaluated on HELD OUT set: {np.mean(accuracy)}')
-        print(f'Mean AUROC evaluated on HELD OUT set: {np.mean(auroc)}')
-        print(f'Mean AP evaluated on HELD OUT set: {np.mean(ap)}')
+        print(f'Mean AUROC evaluated on HELD OUT set: {auroc}')
+        print(f'Mean AP evaluated on HELD OUT set: {ap}')
         print('-------------------------------------------------------------------')
     elif cfg.task_type == "interruption":
         # Metrics:
