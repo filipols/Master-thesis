@@ -345,7 +345,7 @@ def main(cfg: DictConfig):
     )
 
     # 2. Build Config
-    split = cfg.pop("split", (0.8, 0.1))
+    split = cfg.pop("split", (0.8, 0.1)) # change 0.2 to 0.1 if not running gigamind
     seed = cfg.pop("seed", 1)
     do_overwrite = cfg.pop("do_overwrite", False)
     cfg.pop("cohort_name")

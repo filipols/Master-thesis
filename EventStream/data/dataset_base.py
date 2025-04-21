@@ -689,20 +689,20 @@ class DatasetBase(
         #         f"{len(split_fracs)}"
         #     )
 
-        # # # As split fractions may not result in integer split sizes, we shuffle the split names and fractions
-        # # # so that the splits that exceed the desired size are not always the last ones in the original passed
-        # # # order.
-        # # split_names_idx = np.random.permutation(len(split_names))
-        # # split_names = [split_names[i] for i in split_names_idx]
-        # # split_fracs = [split_fracs[i] for i in split_names_idx]
+        # # As split fractions may not result in integer split sizes, we shuffle the split names and fractions
+        # # so that the splits that exceed the desired size are not always the last ones in the original passed
+        # # order.
+        # split_names_idx = np.random.permutation(len(split_names))
+        # split_names = [split_names[i] for i in split_names_idx]
+        # split_fracs = [split_fracs[i] for i in split_names_idx]
 
-        # # subjects = np.random.permutation(list(self.subject_ids))
-        # # split_lens = (np.array(split_fracs[:-1]) * len(subjects)).round().astype(int)
-        # # split_lens = np.append(split_lens, len(subjects) - split_lens.sum())
+        # subjects = np.random.permutation(list(self.subject_ids))
+        # split_lens = (np.array(split_fracs[:-1]) * len(subjects)).round().astype(int)
+        # split_lens = np.append(split_lens, len(subjects) - split_lens.sum())
 
-        # # subjects_per_split = np.split(subjects, split_lens.cumsum())
+        # subjects_per_split = np.split(subjects, split_lens.cumsum())
 
-        # # self.split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
+        # self.split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
 
 
         # ###### FOR ENERYIELD ONLY #######
@@ -727,9 +727,10 @@ class DatasetBase(
             split_names: If specified, assigns the passed names to each split.
             n_held_out: Number of subjects to assign to held_out (taken as the last n subjects). *****HARDCODED IN FUNCTION********
         """
-        n_held_out = 300 # HARDCODE
+        n_held_out = 100 # HARDCODE
         split_fracs = list(split_fracs)
-
+        split_fracs = [0.9,0.1] # HARDCODED FOR ENERYIELD
+      
         if min(split_fracs) <= 0 or max(split_fracs) > 1 or sum(split_fracs) > 1:
             raise ValueError(
                 "split_fracs invalid! Want a list of numbers in (0, 1] that sums to no more than 1; got "
@@ -758,6 +759,7 @@ class DatasetBase(
         if n_held_out > 0:
             held_out_subjects = subjects[-n_held_out:]
             remaining_subjects = subjects[:-n_held_out]
+            held_out_subjects = held_out_subjects[7:] # Remove the first 7 subjects to avoid data leakage
         else:
             held_out_subjects = []
             remaining_subjects = subjects
@@ -772,7 +774,7 @@ class DatasetBase(
         split_subjects = {k: set(v) for k, v in zip(split_names, subjects_per_split)}
         if n_held_out > 0:
             split_subjects["held_out"] = set(held_out_subjects)
-
+      
         self.split_subjects = split_subjects
 
     @classmethod

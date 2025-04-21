@@ -1387,7 +1387,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         event_label_preds = None
         event_label_labels = None
         predictions = {}
-        temperature = 0.1
+        temperature = 1
 
         if is_cls_dist: # class distribution proxy task
     
@@ -1470,7 +1470,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             probs_wo_first = probs[:, 1:]  # exclude first token
             no_interruption_prob = torch.prod(1 - probs_wo_first, dim=1)
             seq_prob = (1 - no_interruption_prob) # Probability that at least on of the events in the sequence is of type "interruption"
-            
+            weight_tensor = torch.where(labels == 1, torch.tensor([0.77/0.23]).to(logits.device), torch.tensor(1.0).to(logits.device)) # 0.77 = 1 - 0.23, 0.23 = fraction of interruptions in the dataset
+
             loss_fn = torch.nn.BCELoss()
             taskLoss = loss_fn(seq_prob, labels.float()) * 2
 

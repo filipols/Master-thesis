@@ -1,0 +1,1779 @@
+wandb: WARNING Malformed sweep config detected! This may cause your sweep to behave in unexpected ways.
+wandb: WARNING To avoid this, please fix the sweep config schema violations below:
+wandb: WARNING   Violation 1. Additional properties are not allowed ('finetuning' was unexpected)
+2025-04-17 07:38:51,406 - wandb.wandb_agent - INFO - Running runs: []
+Create sweep with ID: j8zht2k6
+Sweep URL: https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/sweeps/j8zht2k6
+[2025-04-17 07:38:51,406][wandb.wandb_agent][INFO] - Running runs: []
+2025-04-17 07:38:51,677 - wandb.wandb_agent - INFO - Agent received command: run
+[2025-04-17 07:38:51,677][wandb.wandb_agent][INFO] - Agent received command: run
+2025-04-17 07:38:51,678 - wandb.wandb_agent - INFO - Agent starting run with config:
+	config.attention_dropout: 0.2244738065914037
+	config.input_dropout: 0.22960727186999508
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.4621498037420165
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: max
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 21
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.0009529482940982716
+	optimization_config.init_lr: 0.19573342330318244
+	optimization_config.lr_decay_power: 0.8484957630551675
+	optimization_config.lr_frac_warmup_steps: 0.008026529474642179
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.18207203081302764
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+[2025-04-17 07:38:51,678][wandb.wandb_agent][INFO] - Agent starting run with config:
+	config.attention_dropout: 0.2244738065914037
+	config.input_dropout: 0.22960727186999508
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.4621498037420165
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: max
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 21
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.0009529482940982716
+	optimization_config.init_lr: 0.19573342330318244
+	optimization_config.lr_decay_power: 0.8484957630551675
+	optimization_config.lr_frac_warmup_steps: 0.008026529474642179
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.18207203081302764
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+2025-04-17 07:38:51,689 - wandb.wandb_agent - INFO - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.2244738065914037 config.input_dropout=0.22960727186999508 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.4621498037420165 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=max data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=21 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.0009529482940982716 optimization_config.init_lr=0.19573342330318244 optimization_config.lr_decay_power=0.8484957630551675 optimization_config.lr_frac_warmup_steps=0.008026529474642179 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.18207203081302764 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+[2025-04-17 07:38:51,689][wandb.wandb_agent][INFO] - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.2244738065914037 config.input_dropout=0.22960727186999508 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.4621498037420165 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=max data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=21 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.0009529482940982716 optimization_config.init_lr=0.19573342330318244 optimization_config.lr_decay_power=0.8484957630551675 optimization_config.lr_frac_warmup_steps=0.008026529474642179 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.18207203081302764 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+2025-04-17 07:38:56,699 - wandb.wandb_agent - INFO - Running runs: ['zurgnzmu']
+[2025-04-17 07:38:56,699][wandb.wandb_agent][INFO] - Running runs: ['zurgnzmu']
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: WARNING Ignored wandb.init() arg project when running a sweep.
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/wandb/run-20250417_073900-zurgnzmu
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Resuming run interruption_7_day
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep
+wandb: 🧹 View sweep at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/sweeps/j8zht2k6
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/runs/zurgnzmu
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.2244738065914037
+Overwriting input_dropout in config from 0.4494236115512016 to 0.22960727186999508
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.4621498037420165
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'max', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.2244738065914037
+Overwriting input_dropout in config from 0.4494236115512016 to 0.22960727186999508
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.4621498037420165
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'max', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.55it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  2.33it/s]                                                                           /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py:310: The number of training batches (26) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/26 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/26 [00:00<?, ?it/s] Epoch 0:   4%|▍         | 1/26 [00:00<00:20,  1.24it/s]Epoch 0:   4%|▍         | 1/26 [00:00<00:20,  1.24it/s, v_num=nzmu]Epoch 0:   8%|▊         | 2/26 [00:01<00:12,  1.94it/s, v_num=nzmu]Epoch 0:   8%|▊         | 2/26 [00:01<00:12,  1.94it/s, v_num=nzmu]/pytorch/aten/src/ATen/native/cuda/ScatterGatherKernel.cu:365: operator(): block: [188,0,0], thread: [2,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 105, in launch
+    return function(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 270, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, closure, model, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 390, in training_step
+    return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 641, in __call__
+    wrapper_output = wrapper_module(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1643, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1459, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 634, in wrapped_forward
+    out = method(*_args, **_kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/generative_modeling.py", line 491, in training_step
+    out_tuple = self.model(batch)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 337, in forward
+    output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 112, in forward
+    classification_out = self.get_classification_outputs(
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/model_output.py", line 1732, in get_classification_outputs
+    dists = torch.distributions.Bernoulli(logits=scores)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/bernoulli.py", line 60, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/distribution.py", line 70, in __init__
+    if not valid.all():
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+    fn_return = task_func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 389, in train
+    trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 69, in _call_and_handle_interrupt
+    trainer._teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _teardown
+    self.strategy.teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 419, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/parallel.py", line 134, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 532, in teardown
+    _optimizers_to_device(self.optimizers, torch.device("cpu"))
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 27, in _optimizers_to_device
+    _optimizer_to_device(opt, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 41, in _optimizer_to_device
+    v[key] = move_data_to_device(val, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 110, in move_data_to_device
+    return apply_to_collection(batch, dtype=_TransferableDataType, function=batch_to)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 66, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 104, in batch_to
+    data_output = data.to(device, **kwargs)
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+None
+EXCEPTION: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Error executing job with overrides: ['config.attention_dropout=0.2244738065914037', 'config.input_dropout=0.22960727186999508', 'config.is_cls_dist=False', 'config.is_event_classification=False', 'config.resid_dropout=0.4621498037420165', 'config.save_metrics=False', 'config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test', 'config.task_specific_params.pooling_method=max', 'data_config.max_seq_len=256', 'data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2', 'do_overwrite=True', 'load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/', 'optimization_config.batch_size=21', 'optimization_config.end_lr=null', 'optimization_config.end_lr_frac_of_init_lr=0.0009529482940982716', 'optimization_config.init_lr=0.19573342330318244', 'optimization_config.lr_decay_power=0.8484957630551675', 'optimization_config.lr_frac_warmup_steps=0.008026529474642179', 'optimization_config.max_epochs=200', 'optimization_config.num_dataloader_workers=5', 'optimization_config.patience=15', 'optimization_config.weight_decay=0.18207203081302764', 'pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights', 'seed=1', 'task_df_name=task_df_eneryield_interruption_7_day', 'trainer_config.detect_anomaly=False', 'trainer_config.log_every_n_steps=50', 'wandb_logger_kwargs.do_log_graph=False', 'wandb_logger_kwargs.log_model=False', 'wandb_logger_kwargs.name=interruption_7_day', 'wandb_logger_kwargs.project=eneryield2_ft_sweep']
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 105, in launch
+    return function(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 270, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, closure, model, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 390, in training_step
+    return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 641, in __call__
+    wrapper_output = wrapper_module(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1643, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1459, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 634, in wrapped_forward
+    out = method(*_args, **_kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/generative_modeling.py", line 491, in training_step
+    out_tuple = self.model(batch)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 337, in forward
+    output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 112, in forward
+    classification_out = self.get_classification_outputs(
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/model_output.py", line 1732, in get_classification_outputs
+    dists = torch.distributions.Bernoulli(logits=scores)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/bernoulli.py", line 60, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/distribution.py", line 70, in __init__
+    if not valid.all():
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/scripts/finetune.py", line 44, in main
+    return train(cfg)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 385, in wrap
+    raise ex
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+    fn_return = task_func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 389, in train
+    trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 69, in _call_and_handle_interrupt
+    trainer._teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _teardown
+    self.strategy.teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 419, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/parallel.py", line 134, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 532, in teardown
+    _optimizers_to_device(self.optimizers, torch.device("cpu"))
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 27, in _optimizers_to_device
+    _optimizer_to_device(opt, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 41, in _optimizer_to_device
+    v[key] = move_data_to_device(val, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 110, in move_data_to_device
+    return apply_to_collection(batch, dtype=_TransferableDataType, function=batch_to)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 66, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 104, in batch_to
+    data_output = data.to(device, **kwargs)
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Exception ignored in atexit callback: <function _destroy_dist_connection at 0x7e5d0cfdc1f0>
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/distributed.py", line 317, in _destroy_dist_connection
+    torch.distributed.destroy_process_group()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 2146, in destroy_process_group
+    _shutdown_backend(pg_to_shutdown)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 1815, in _shutdown_backend
+    backend._shutdown()
+torch.distributed.DistBackendError: NCCL error in: /pytorch/torch/csrc/distributed/c10d/NCCLUtils.cpp:133, unhandled cuda error (run with NCCL_DEBUG=INFO for details), NCCL version 2.21.5
+ncclUnhandledCudaError: Call to CUDA function failed.
+Last error:
+Cuda failure 'device-side assert triggered'
+[rank1]:[W417 07:39:14.551011247 CUDAGuardImpl.h:119] Warning: CUDA warning: device-side assert triggered (function destroyEvent)
+terminate called after throwing an instance of 'c10::Error'
+  what():  CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Exception raised from c10_cuda_check_implementation at /pytorch/c10/cuda/CUDAException.cpp:43 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x7e5d9f76c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x7e5d9f715a76 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, int, bool) + 0x118 (0x7e5dbcea3918 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #3: <unknown function> + 0x20d8e (0x7e5dbce69d8e in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #4: <unknown function> + 0x22507 (0x7e5dbce6b507 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #5: <unknown function> + 0x2270f (0x7e5dbce6b70f in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #6: <unknown function> + 0x6417b2 (0x7e5d964417b2 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #7: <unknown function> + 0x6f30f (0x7e5d9f74d30f in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #8: c10::TensorImpl::~TensorImpl() + 0x21b (0x7e5d9f74633b in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #9: c10::TensorImpl::~TensorImpl() + 0x9 (0x7e5d9f7464e9 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #10: c10d::Reducer::~Reducer() + 0x3d8 (0x7e5d86f39dc8 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: std::_Sp_counted_ptr<c10d::Reducer*, (__gnu_cxx::_Lock_policy)2>::_M_dispose() + 0x12 (0x7e5d96c48532 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #12: std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release() + 0x48 (0x7e5d9630bcb8 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #13: <unknown function> + 0xe51ed1 (0x7e5d96c51ed1 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #14: <unknown function> + 0x516907 (0x7e5d96316907 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #15: <unknown function> + 0x5174d1 (0x7e5d963174d1 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #16: <unknown function> + 0x169b93 (0x6414f70deb93 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #17: <unknown function> + 0x1a2407 (0x6414f7117407 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #18: <unknown function> + 0x1aaa67 (0x6414f711fa67 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #19: <unknown function> + 0x181370 (0x6414f70f6370 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #20: <unknown function> + 0x194588 (0x6414f7109588 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #21: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #22: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #23: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #24: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #25: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #26: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #27: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #28: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #29: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #30: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #31: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #32: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #33: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #34: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #35: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #36: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #37: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #38: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #39: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #40: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #41: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #42: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #43: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #44: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #45: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #46: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #47: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #48: <unknown function> + 0x19459c (0x6414f710959c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #49: <unknown function> + 0x1a04af (0x6414f71154af in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #50: <unknown function> + 0x1a04cb (0x6414f71154cb in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #51: <unknown function> + 0x169b93 (0x6414f70deb93 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #52: <unknown function> + 0x20da01 (0x6414f7182a01 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #53: <unknown function> + 0x15d4cd (0x6414f70d24cd in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #54: <unknown function> + 0x256210 (0x6414f71cb210 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #55: PyGC_Collect + 0x6e (0x6414f71f7aee in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #56: Py_FinalizeEx + 0x140 (0x6414f71f5b70 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #57: Py_Exit + 0xc (0x6414f72080cc in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #58: <unknown function> + 0x282baf (0x6414f71f7baf in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #59: PyErr_PrintEx + 0x1d (0x6414f71f795d in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #60: _PyRun_SimpleFileObject + 0x1d6 (0x6414f71f4bb6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #61: _PyRun_AnyFileObject + 0x47 (0x6414f71f4867 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #62: Py_RunMain + 0x2be (0x6414f71e8e5e in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+
+[rank: 1] Child process with PID 957331 terminated with code -6. Forcefully terminating all other processes to avoid zombies 🧟
+2025-04-17 07:39:17,408 - wandb.wandb_agent - INFO - Cleaning up finished run: zurgnzmu
+[2025-04-17 07:39:17,408][wandb.wandb_agent][INFO] - Cleaning up finished run: zurgnzmu
+wandb: Waiting for W&B process to finish... (failed -9). Press Control-C to abort syncing.
+wandb: - 0.000 MB of 0.000 MB uploaded (0.000 MB deduped)wandb: \ 0.022 MB of 0.022 MB uploaded (0.000 MB deduped)wandb: 🚀 View run interruption_7_day at: https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/runs/zurgnzmu
+wandb: Synced 3 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/wandb/run-20250417_073900-zurgnzmu/logs
+2025-04-17 07:39:22,515 - wandb.wandb_agent - INFO - Agent received command: run
+[2025-04-17 07:39:22,515][wandb.wandb_agent][INFO] - Agent received command: run
+2025-04-17 07:39:22,515 - wandb.wandb_agent - INFO - Agent starting run with config:
+	config.attention_dropout: 0.12606721658214776
+	config.input_dropout: 0.31817911022058015
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.4336968122673357
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: max
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 37
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.00015663951444279463
+	optimization_config.init_lr: 0.02975856029385923
+	optimization_config.lr_decay_power: 1.947560368375939
+	optimization_config.lr_frac_warmup_steps: 3.0922058180639755e-06
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.30227080868796036
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+[2025-04-17 07:39:22,515][wandb.wandb_agent][INFO] - Agent starting run with config:
+	config.attention_dropout: 0.12606721658214776
+	config.input_dropout: 0.31817911022058015
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.4336968122673357
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: max
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 37
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.00015663951444279463
+	optimization_config.init_lr: 0.02975856029385923
+	optimization_config.lr_decay_power: 1.947560368375939
+	optimization_config.lr_frac_warmup_steps: 3.0922058180639755e-06
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.30227080868796036
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+2025-04-17 07:39:22,527 - wandb.wandb_agent - INFO - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.12606721658214776 config.input_dropout=0.31817911022058015 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.4336968122673357 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=max data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=37 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.00015663951444279463 optimization_config.init_lr=0.02975856029385923 optimization_config.lr_decay_power=1.947560368375939 optimization_config.lr_frac_warmup_steps=3.0922058180639755e-06 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.30227080868796036 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+[2025-04-17 07:39:22,527][wandb.wandb_agent][INFO] - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.12606721658214776 config.input_dropout=0.31817911022058015 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.4336968122673357 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=max data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=37 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.00015663951444279463 optimization_config.init_lr=0.02975856029385923 optimization_config.lr_decay_power=1.947560368375939 optimization_config.lr_frac_warmup_steps=3.0922058180639755e-06 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.30227080868796036 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+2025-04-17 07:39:27,540 - wandb.wandb_agent - INFO - Running runs: ['kswcddtf']
+[2025-04-17 07:39:27,540][wandb.wandb_agent][INFO] - Running runs: ['kswcddtf']
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: WARNING Ignored wandb.init() arg project when running a sweep.
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/wandb/run-20250417_073931-kswcddtf
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Resuming run interruption_7_day
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep
+wandb: 🧹 View sweep at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/sweeps/j8zht2k6
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/runs/kswcddtf
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.12606721658214776
+Overwriting input_dropout in config from 0.4494236115512016 to 0.31817911022058015
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.4336968122673357
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'max', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.12606721658214776
+Overwriting input_dropout in config from 0.4494236115512016 to 0.31817911022058015
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.4336968122673357
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'max', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.55it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  2.33it/s]                                                                           /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py:310: The number of training batches (15) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/15 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/15 [00:00<?, ?it/s] Epoch 0:   7%|▋         | 1/15 [00:01<00:15,  0.92it/s]Epoch 0:   7%|▋         | 1/15 [00:01<00:15,  0.91it/s, v_num=ddtf]/pytorch/aten/src/ATen/native/cuda/ScatterGatherKernel.cu:365: operator(): block: [256,0,0], thread: [2,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 105, in launch
+    return function(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 270, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, closure, model, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 390, in training_step
+    return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 641, in __call__
+    wrapper_output = wrapper_module(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1643, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1459, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 634, in wrapped_forward
+    out = method(*_args, **_kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/generative_modeling.py", line 491, in training_step
+    out_tuple = self.model(batch)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 337, in forward
+    output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 112, in forward
+    classification_out = self.get_classification_outputs(
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/model_output.py", line 1732, in get_classification_outputs
+    dists = torch.distributions.Bernoulli(logits=scores)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/bernoulli.py", line 60, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/distribution.py", line 70, in __init__
+    if not valid.all():
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+    fn_return = task_func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 389, in train
+    trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 69, in _call_and_handle_interrupt
+    trainer._teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _teardown
+    self.strategy.teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 419, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/parallel.py", line 134, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 532, in teardown
+    _optimizers_to_device(self.optimizers, torch.device("cpu"))
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 27, in _optimizers_to_device
+    _optimizer_to_device(opt, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 41, in _optimizer_to_device
+    v[key] = move_data_to_device(val, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 110, in move_data_to_device
+    return apply_to_collection(batch, dtype=_TransferableDataType, function=batch_to)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 66, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 104, in batch_to
+    data_output = data.to(device, **kwargs)
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+None
+EXCEPTION: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Error executing job with overrides: ['config.attention_dropout=0.12606721658214776', 'config.input_dropout=0.31817911022058015', 'config.is_cls_dist=False', 'config.is_event_classification=False', 'config.resid_dropout=0.4336968122673357', 'config.save_metrics=False', 'config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test', 'config.task_specific_params.pooling_method=max', 'data_config.max_seq_len=256', 'data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2', 'do_overwrite=True', 'load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/', 'optimization_config.batch_size=37', 'optimization_config.end_lr=null', 'optimization_config.end_lr_frac_of_init_lr=0.00015663951444279463', 'optimization_config.init_lr=0.02975856029385923', 'optimization_config.lr_decay_power=1.947560368375939', 'optimization_config.lr_frac_warmup_steps=3.0922058180639755e-06', 'optimization_config.max_epochs=200', 'optimization_config.num_dataloader_workers=5', 'optimization_config.patience=15', 'optimization_config.weight_decay=0.30227080868796036', 'pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights', 'seed=1', 'task_df_name=task_df_eneryield_interruption_7_day', 'trainer_config.detect_anomaly=False', 'trainer_config.log_every_n_steps=50', 'wandb_logger_kwargs.do_log_graph=False', 'wandb_logger_kwargs.log_model=False', 'wandb_logger_kwargs.name=interruption_7_day', 'wandb_logger_kwargs.project=eneryield2_ft_sweep']
+[rank1]:[E417 07:39:45.375836301 ProcessGroupNCCL.cpp:1895] [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Exception raised from c10_cuda_check_implementation at /pytorch/c10/cuda/CUDAException.cpp:43 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x721aaf46c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x721aaf415a76 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, int, bool) + 0x118 (0x721accaa3918 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::finishedGPUExecutionInternal() const + 0x56 (0x721a5c9f1556 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::WorkNCCL::isCompleted() + 0xa0 (0x721a5c9fe8c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::watchdogHandler() + 0x617 (0x721a5ca00557 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: c10d::ProcessGroupNCCL::ncclCommWatchdog() + 0x14d (0x721a5ca016ed in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #7: <unknown function> + 0x145c0 (0x721acd6ea5c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch.so)
+frame #8: <unknown function> + 0x94ac3 (0x721ad2094ac3 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #9: <unknown function> + 0x126850 (0x721ad2126850 in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Exception raised from c10_cuda_check_implementation at /pytorch/c10/cuda/CUDAException.cpp:43 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x721aaf46c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x721aaf415a76 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, int, bool) + 0x118 (0x721accaa3918 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::finishedGPUExecutionInternal() const + 0x56 (0x721a5c9f1556 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::WorkNCCL::isCompleted() + 0xa0 (0x721a5c9fe8c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::watchdogHandler() + 0x617 (0x721a5ca00557 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: c10d::ProcessGroupNCCL::ncclCommWatchdog() + 0x14d (0x721a5ca016ed in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #7: <unknown function> + 0x145c0 (0x721acd6ea5c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch.so)
+frame #8: <unknown function> + 0x94ac3 (0x721ad2094ac3 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #9: <unknown function> + 0x126850 (0x721ad2126850 in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from ncclCommWatchdog at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:1901 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x721aaf46c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0xe5c6fc (0x721a5c65c6fc in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x145c0 (0x721acd6ea5c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch.so)
+frame #3: <unknown function> + 0x94ac3 (0x721ad2094ac3 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #4: <unknown function> + 0x126850 (0x721ad2126850 in /lib/x86_64-linux-gnu/libc.so.6)
+
+[rank: 1] Child process with PID 957676 terminated with code -6. Forcefully terminating all other processes to avoid zombies 🧟
+2025-04-17 07:39:48,266 - wandb.wandb_agent - INFO - Cleaning up finished run: kswcddtf
+[2025-04-17 07:39:48,266][wandb.wandb_agent][INFO] - Cleaning up finished run: kswcddtf
+2025-04-17 07:39:48,646 - wandb.wandb_agent - INFO - Agent received command: run
+[2025-04-17 07:39:48,646][wandb.wandb_agent][INFO] - Agent received command: run
+2025-04-17 07:39:48,646 - wandb.wandb_agent - INFO - Agent starting run with config:
+	config.attention_dropout: 0.014720013664153209
+	config.input_dropout: 0.4060456434834136
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.2934467565980204
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: mean
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 29
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.6105901581108124
+	optimization_config.init_lr: 0.06247232689790444
+	optimization_config.lr_decay_power: 4.689053479606558
+	optimization_config.lr_frac_warmup_steps: 0.0004202812318310315
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.06355440060334643
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+[2025-04-17 07:39:48,646][wandb.wandb_agent][INFO] - Agent starting run with config:
+	config.attention_dropout: 0.014720013664153209
+	config.input_dropout: 0.4060456434834136
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.2934467565980204
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: mean
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 29
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.6105901581108124
+	optimization_config.init_lr: 0.06247232689790444
+	optimization_config.lr_decay_power: 4.689053479606558
+	optimization_config.lr_frac_warmup_steps: 0.0004202812318310315
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.06355440060334643
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+2025-04-17 07:39:48,658 - wandb.wandb_agent - INFO - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.014720013664153209 config.input_dropout=0.4060456434834136 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.2934467565980204 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=mean data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=29 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.6105901581108124 optimization_config.init_lr=0.06247232689790444 optimization_config.lr_decay_power=4.689053479606558 optimization_config.lr_frac_warmup_steps=0.0004202812318310315 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.06355440060334643 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+[2025-04-17 07:39:48,658][wandb.wandb_agent][INFO] - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.014720013664153209 config.input_dropout=0.4060456434834136 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.2934467565980204 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=mean data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=29 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.6105901581108124 optimization_config.init_lr=0.06247232689790444 optimization_config.lr_decay_power=4.689053479606558 optimization_config.lr_frac_warmup_steps=0.0004202812318310315 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.06355440060334643 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+2025-04-17 07:39:53,671 - wandb.wandb_agent - INFO - Running runs: ['0k54czff']
+[2025-04-17 07:39:53,671][wandb.wandb_agent][INFO] - Running runs: ['0k54czff']
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: WARNING Ignored wandb.init() arg project when running a sweep.
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/wandb/run-20250417_073958-0k54czff
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Resuming run interruption_7_day
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep
+wandb: 🧹 View sweep at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/sweeps/j8zht2k6
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/runs/0k54czff
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.014720013664153209
+Overwriting input_dropout in config from 0.4494236115512016 to 0.4060456434834136
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.2934467565980204
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'mean', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.014720013664153209
+Overwriting input_dropout in config from 0.4494236115512016 to 0.4060456434834136
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.2934467565980204
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'mean', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.65it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  2.44it/s]                                                                           /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py:310: The number of training batches (19) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/19 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/19 [00:00<?, ?it/s] Epoch 0:   5%|▌         | 1/19 [00:00<00:16,  1.06it/s]Epoch 0:   5%|▌         | 1/19 [00:00<00:16,  1.06it/s, v_num=czff]/pytorch/aten/src/ATen/native/cuda/ScatterGatherKernel.cu:365: operator(): block: [364,0,0], thread: [2,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 105, in launch
+    return function(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 270, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, closure, model, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 390, in training_step
+    return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 641, in __call__
+    wrapper_output = wrapper_module(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1643, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1459, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 634, in wrapped_forward
+    out = method(*_args, **_kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/generative_modeling.py", line 491, in training_step
+    out_tuple = self.model(batch)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 337, in forward
+    output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 112, in forward
+    classification_out = self.get_classification_outputs(
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/model_output.py", line 1732, in get_classification_outputs
+    dists = torch.distributions.Bernoulli(logits=scores)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/bernoulli.py", line 60, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/distribution.py", line 70, in __init__
+    if not valid.all():
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+    fn_return = task_func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 389, in train
+    trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 69, in _call_and_handle_interrupt
+    trainer._teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _teardown
+    self.strategy.teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 419, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/parallel.py", line 134, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 532, in teardown
+    _optimizers_to_device(self.optimizers, torch.device("cpu"))
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 27, in _optimizers_to_device
+    _optimizer_to_device(opt, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/optimizer.py", line 41, in _optimizer_to_device
+    v[key] = move_data_to_device(val, device)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 110, in move_data_to_device
+    return apply_to_collection(batch, dtype=_TransferableDataType, function=batch_to)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 66, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/apply_func.py", line 104, in batch_to
+    data_output = data.to(device, **kwargs)
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+None
+EXCEPTION: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Error executing job with overrides: ['config.attention_dropout=0.014720013664153209', 'config.input_dropout=0.4060456434834136', 'config.is_cls_dist=False', 'config.is_event_classification=False', 'config.resid_dropout=0.2934467565980204', 'config.save_metrics=False', 'config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test', 'config.task_specific_params.pooling_method=mean', 'data_config.max_seq_len=256', 'data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2', 'do_overwrite=True', 'load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/', 'optimization_config.batch_size=29', 'optimization_config.end_lr=null', 'optimization_config.end_lr_frac_of_init_lr=0.6105901581108124', 'optimization_config.init_lr=0.06247232689790444', 'optimization_config.lr_decay_power=4.689053479606558', 'optimization_config.lr_frac_warmup_steps=0.0004202812318310315', 'optimization_config.max_epochs=200', 'optimization_config.num_dataloader_workers=5', 'optimization_config.patience=15', 'optimization_config.weight_decay=0.06355440060334643', 'pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights', 'seed=1', 'task_df_name=task_df_eneryield_interruption_7_day', 'trainer_config.detect_anomaly=False', 'trainer_config.log_every_n_steps=50', 'wandb_logger_kwargs.do_log_graph=False', 'wandb_logger_kwargs.log_model=False', 'wandb_logger_kwargs.name=interruption_7_day', 'wandb_logger_kwargs.project=eneryield2_ft_sweep']
+[rank1]:[E417 07:40:11.402429493 ProcessGroupNCCL.cpp:1895] [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Exception raised from c10_cuda_check_implementation at /pytorch/c10/cuda/CUDAException.cpp:43 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x71378126c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x713781215a76 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, int, bool) + 0x118 (0x71379e8a3918 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::finishedGPUExecutionInternal() const + 0x56 (0x71372e7f1556 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::WorkNCCL::isCompleted() + 0xa0 (0x71372e7fe8c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::watchdogHandler() + 0x617 (0x71372e800557 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: c10d::ProcessGroupNCCL::ncclCommWatchdog() + 0x14d (0x71372e8016ed in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #7: <unknown function> + 0x145c0 (0x71379f4b75c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch.so)
+frame #8: <unknown function> + 0x94ac3 (0x7137a3e94ac3 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #9: <unknown function> + 0x126850 (0x7137a3f26850 in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Exception raised from c10_cuda_check_implementation at /pytorch/c10/cuda/CUDAException.cpp:43 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x71378126c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x713781215a76 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, int, bool) + 0x118 (0x71379e8a3918 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::finishedGPUExecutionInternal() const + 0x56 (0x71372e7f1556 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::WorkNCCL::isCompleted() + 0xa0 (0x71372e7fe8c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::watchdogHandler() + 0x617 (0x71372e800557 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: c10d::ProcessGroupNCCL::ncclCommWatchdog() + 0x14d (0x71372e8016ed in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #7: <unknown function> + 0x145c0 (0x71379f4b75c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch.so)
+frame #8: <unknown function> + 0x94ac3 (0x7137a3e94ac3 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #9: <unknown function> + 0x126850 (0x7137a3f26850 in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from ncclCommWatchdog at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:1901 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x71378126c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0xe5c6fc (0x71372e45c6fc in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x145c0 (0x71379f4b75c0 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch.so)
+frame #3: <unknown function> + 0x94ac3 (0x7137a3e94ac3 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #4: <unknown function> + 0x126850 (0x7137a3f26850 in /lib/x86_64-linux-gnu/libc.so.6)
+
+[rank: 1] Child process with PID 958019 terminated with code -6. Forcefully terminating all other processes to avoid zombies 🧟
+2025-04-17 07:40:14,390 - wandb.wandb_agent - INFO - Cleaning up finished run: 0k54czff
+[2025-04-17 07:40:14,390][wandb.wandb_agent][INFO] - Cleaning up finished run: 0k54czff
+2025-04-17 07:40:14,832 - wandb.wandb_agent - INFO - Agent received command: run
+[2025-04-17 07:40:14,832][wandb.wandb_agent][INFO] - Agent received command: run
+2025-04-17 07:40:14,832 - wandb.wandb_agent - INFO - Agent starting run with config:
+	config.attention_dropout: 0.018045928307673487
+	config.input_dropout: 0.45275458354168785
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.16203018775615513
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: last
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 59
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.07097006163975218
+	optimization_config.init_lr: 0.001638474739468905
+	optimization_config.lr_decay_power: 4.948306066111957
+	optimization_config.lr_frac_warmup_steps: 1.5044259573583387e-06
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.04823788412467388
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+[2025-04-17 07:40:14,832][wandb.wandb_agent][INFO] - Agent starting run with config:
+	config.attention_dropout: 0.018045928307673487
+	config.input_dropout: 0.45275458354168785
+	config.is_cls_dist: False
+	config.is_event_classification: False
+	config.resid_dropout: 0.16203018775615513
+	config.save_metrics: False
+	config.save_metrics_fp: /home/filip-marcus/resutls/eneryield2/test
+	config.task_specific_params.pooling_method: last
+	data_config.max_seq_len: 256
+	data_config.save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+	do_overwrite: True
+	load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+	optimization_config.batch_size: 59
+	optimization_config.end_lr: null
+	optimization_config.end_lr_frac_of_init_lr: 0.07097006163975218
+	optimization_config.init_lr: 0.001638474739468905
+	optimization_config.lr_decay_power: 4.948306066111957
+	optimization_config.lr_frac_warmup_steps: 1.5044259573583387e-06
+	optimization_config.max_epochs: 200
+	optimization_config.num_dataloader_workers: 5
+	optimization_config.patience: 15
+	optimization_config.weight_decay: 0.04823788412467388
+	pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+	seed: 1
+	task_df_name: task_df_eneryield_interruption_7_day
+	trainer_config.detect_anomaly: False
+	trainer_config.log_every_n_steps: 50
+	wandb_logger_kwargs.do_log_graph: False
+	wandb_logger_kwargs.log_model: False
+	wandb_logger_kwargs.name: interruption_7_day
+	wandb_logger_kwargs.project: eneryield2_ft_sweep
+2025-04-17 07:40:14,844 - wandb.wandb_agent - INFO - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.018045928307673487 config.input_dropout=0.45275458354168785 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.16203018775615513 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=last data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=59 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.07097006163975218 optimization_config.init_lr=0.001638474739468905 optimization_config.lr_decay_power=4.948306066111957 optimization_config.lr_frac_warmup_steps=1.5044259573583387e-06 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.04823788412467388 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+[2025-04-17 07:40:14,844][wandb.wandb_agent][INFO] - About to run command: /usr/bin/env python scripts/finetune.py config.attention_dropout=0.018045928307673487 config.input_dropout=0.45275458354168785 config.is_cls_dist=False config.is_event_classification=False config.resid_dropout=0.16203018775615513 config.save_metrics=False config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test config.task_specific_params.pooling_method=last data_config.max_seq_len=256 data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 do_overwrite=True load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/ optimization_config.batch_size=59 optimization_config.end_lr=null optimization_config.end_lr_frac_of_init_lr=0.07097006163975218 optimization_config.init_lr=0.001638474739468905 optimization_config.lr_decay_power=4.948306066111957 optimization_config.lr_frac_warmup_steps=1.5044259573583387e-06 optimization_config.max_epochs=200 optimization_config.num_dataloader_workers=5 optimization_config.patience=15 optimization_config.weight_decay=0.04823788412467388 pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights seed=1 task_df_name=task_df_eneryield_interruption_7_day trainer_config.detect_anomaly=False trainer_config.log_every_n_steps=50 wandb_logger_kwargs.do_log_graph=False wandb_logger_kwargs.log_model=False wandb_logger_kwargs.name=interruption_7_day wandb_logger_kwargs.project=eneryield2_ft_sweep
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+2025-04-17 07:40:19,856 - wandb.wandb_agent - INFO - Running runs: ['1kv1j4f3']
+[2025-04-17 07:40:19,856][wandb.wandb_agent][INFO] - Running runs: ['1kv1j4f3']
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: WARNING Ignored wandb.init() arg project when running a sweep.
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/wandb/run-20250417_074024-1kv1j4f3
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Resuming run interruption_7_day
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep
+wandb: 🧹 View sweep at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/sweeps/j8zht2k6
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/eneryield2_ft_sweep/runs/1kv1j4f3
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+wandb: Ctrl-c pressed. Waiting for runs to end. Press ctrl-c again to terminate them.
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.018045928307673487
+Overwriting input_dropout in config from 0.4494236115512016 to 0.45275458354168785
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.16203018775615513
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'last', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_7_day/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_7_day', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.018045928307673487
+Overwriting input_dropout in config from 0.4494236115512016 to 0.45275458354168785
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.16203018775615513
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to False
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_10_04_2025 to /home/filip-marcus/resutls/eneryield2/test
+Overwriting task_specific_params in config from None to {'pooling_method': 'last', 'num_samples': None}
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_7_day from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_7_day/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.56it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  2.37it/s]                                                                           /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py:310: The number of training batches (9) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/9 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/9 [00:00<?, ?it/s] /pytorch/aten/src/ATen/native/cuda/ScatterGatherKernel.cu:365: operator(): block: [755,0,0], thread: [2,0,0] Assertion `idx_dim >= 0 && idx_dim < index_size && "index out of bounds"` failed.
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 105, in launch
+    return function(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 270, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, closure, model, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 390, in training_step
+    return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 641, in __call__
+    wrapper_output = wrapper_module(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1643, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1459, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 634, in wrapped_forward
+    out = method(*_args, **_kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/generative_modeling.py", line 491, in training_step
+    out_tuple = self.model(batch)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 337, in forward
+    output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 112, in forward
+    classification_out = self.get_classification_outputs(
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/model_output.py", line 1732, in get_classification_outputs
+    dists = torch.distributions.Bernoulli(logits=scores)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/bernoulli.py", line 60, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/distribution.py", line 70, in __init__
+    if not valid.all():
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+    fn_return = task_func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 389, in train
+    trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 69, in _call_and_handle_interrupt
+    trainer._teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _teardown
+    self.strategy.teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 419, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/parallel.py", line 134, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 536, in teardown
+    self.lightning_module.cpu()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/device_dtype_mixin.py", line 82, in cpu
+    return super().cpu()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1121, in cpu
+    return self._apply(lambda t: t.cpu())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/metric.py", line 891, in _apply
+    this._defaults[key] = fn(value)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1121, in <lambda>
+    return self._apply(lambda t: t.cpu())
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+None
+EXCEPTION: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Error executing job with overrides: ['config.attention_dropout=0.018045928307673487', 'config.input_dropout=0.45275458354168785', 'config.is_cls_dist=False', 'config.is_event_classification=False', 'config.resid_dropout=0.16203018775615513', 'config.save_metrics=False', 'config.save_metrics_fp=/home/filip-marcus/resutls/eneryield2/test', 'config.task_specific_params.pooling_method=last', 'data_config.max_seq_len=256', 'data_config.save_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2', 'do_overwrite=True', 'load_from_model_dir=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/', 'optimization_config.batch_size=59', 'optimization_config.end_lr=null', 'optimization_config.end_lr_frac_of_init_lr=0.07097006163975218', 'optimization_config.init_lr=0.001638474739468905', 'optimization_config.lr_decay_power=4.948306066111957', 'optimization_config.lr_frac_warmup_steps=1.5044259573583387e-06', 'optimization_config.max_epochs=200', 'optimization_config.num_dataloader_workers=5', 'optimization_config.patience=15', 'optimization_config.weight_decay=0.04823788412467388', 'pretrained_weights_fp=/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights', 'seed=1', 'task_df_name=task_df_eneryield_interruption_7_day', 'trainer_config.detect_anomaly=False', 'trainer_config.log_every_n_steps=50', 'wandb_logger_kwargs.do_log_graph=False', 'wandb_logger_kwargs.log_model=False', 'wandb_logger_kwargs.name=interruption_7_day', 'wandb_logger_kwargs.project=eneryield2_ft_sweep']
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 105, in launch
+    return function(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 270, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, closure, model, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 390, in training_step
+    return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 641, in __call__
+    wrapper_output = wrapper_module(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1643, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1459, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 634, in wrapped_forward
+    out = method(*_args, **_kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/generative_modeling.py", line 491, in training_step
+    out_tuple = self.model(batch)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 337, in forward
+    output = self.output_layer(batch, encoded.last_hidden_state, is_generation=is_generation)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/conditionally_independent_model.py", line 112, in forward
+    classification_out = self.get_classification_outputs(
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/model_output.py", line 1732, in get_classification_outputs
+    dists = torch.distributions.Bernoulli(logits=scores)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/bernoulli.py", line 60, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributions/distribution.py", line 70, in __init__
+    if not valid.all():
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/scripts/finetune.py", line 44, in main
+    return train(cfg)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 385, in wrap
+    raise ex
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+    fn_return = task_func(*args, **kwargs)
+  File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 389, in train
+    trainer.fit(model=LM, train_dataloaders=train_dataloader, val_dataloaders=tuning_dataloader)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 69, in _call_and_handle_interrupt
+    trainer._teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _teardown
+    self.strategy.teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 419, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/parallel.py", line 134, in teardown
+    super().teardown()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 536, in teardown
+    self.lightning_module.cpu()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/device_dtype_mixin.py", line 82, in cpu
+    return super().cpu()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1121, in cpu
+    return self._apply(lambda t: t.cpu())
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/metric.py", line 891, in _apply
+    this._defaults[key] = fn(value)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1121, in <lambda>
+    return self._apply(lambda t: t.cpu())
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Exception ignored in atexit callback: <function _destroy_dist_connection at 0x7f78f57f01f0>
+Traceback (most recent call last):
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/fabric/utilities/distributed.py", line 317, in _destroy_dist_connection
+    torch.distributed.destroy_process_group()
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 2146, in destroy_process_group
+    _shutdown_backend(pg_to_shutdown)
+  File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 1815, in _shutdown_backend
+    backend._shutdown()
+torch.distributed.DistBackendError: NCCL error in: /pytorch/torch/csrc/distributed/c10d/NCCLUtils.cpp:133, unhandled cuda error (run with NCCL_DEBUG=INFO for details), NCCL version 2.21.5
+ncclUnhandledCudaError: Call to CUDA function failed.
+Last error:
+Cuda failure 'device-side assert triggered'
+terminate called after throwing an instance of 'c10::Error'
+  what():  CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Exception raised from c10_cuda_check_implementation at /pytorch/c10/cuda/CUDAException.cpp:43 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x7f7987e6c1b6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x7f7987e15a76 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, int, bool) + 0x118 (0x7f79a56a3918 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #3: <unknown function> + 0x20d8e (0x7f79a5669d8e in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #4: <unknown function> + 0x22507 (0x7f79a566b507 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #5: <unknown function> + 0x2270f (0x7f79a566b70f in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10_cuda.so)
+frame #6: <unknown function> + 0x6417b2 (0x7f797ec417b2 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #7: <unknown function> + 0x6f30f (0x7f7987e4d30f in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #8: c10::TensorImpl::~TensorImpl() + 0x21b (0x7f7987e4633b in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #9: c10::TensorImpl::~TensorImpl() + 0x9 (0x7f7987e464e9 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #10: <unknown function> + 0x8fefb8 (0x7f797eefefb8 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #11: THPVariable_subclass_dealloc(_object*) + 0x2f6 (0x7f797eeff306 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torch/lib/libtorch_python.so)
+frame #12: <unknown function> + 0x169c71 (0x60617fff7c71 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #13: <unknown function> + 0x169a6c (0x60617fff7a6c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #14: <unknown function> + 0x169b57 (0x60617fff7b57 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #15: <unknown function> + 0x1a2407 (0x606180030407 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #16: <unknown function> + 0x169c71 (0x60617fff7c71 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #17: <unknown function> + 0x169a6c (0x60617fff7a6c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #18: <unknown function> + 0x169b93 (0x60617fff7b93 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #19: <unknown function> + 0x1a2407 (0x606180030407 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #20: <unknown function> + 0x169c71 (0x60617fff7c71 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #21: <unknown function> + 0x169a6c (0x60617fff7a6c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #22: <unknown function> + 0x169b93 (0x60617fff7b93 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #23: <unknown function> + 0x1a2407 (0x606180030407 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #24: <unknown function> + 0x169c71 (0x60617fff7c71 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #25: <unknown function> + 0x169a6c (0x60617fff7a6c in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #26: <unknown function> + 0x169b93 (0x60617fff7b93 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #27: <unknown function> + 0x20da01 (0x60618009ba01 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #28: <unknown function> + 0x15d4cd (0x60617ffeb4cd in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #29: <unknown function> + 0x256210 (0x6061800e4210 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #30: PyGC_Collect + 0x6e (0x606180110aee in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #31: Py_FinalizeEx + 0x140 (0x60618010eb70 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #32: Py_Exit + 0xc (0x6061801210cc in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #33: <unknown function> + 0x282baf (0x606180110baf in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #34: PyErr_PrintEx + 0x1d (0x60618011095d in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #35: _PyRun_SimpleFileObject + 0x1d6 (0x60618010dbb6 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #36: _PyRun_AnyFileObject + 0x47 (0x60618010d867 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #37: Py_RunMain + 0x2be (0x606180101e5e in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #38: Py_BytesMain + 0x2d (0x6061800dbe6d in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+frame #39: <unknown function> + 0x29d90 (0x7f79aaa29d90 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #40: __libc_start_main + 0x80 (0x7f79aaa29e40 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #41: _start + 0x25 (0x6061800dbd65 in /home/filip-marcus/ESGPT_new/esgpt-new-venv/bin/python)
+
+[rank: 1] Child process with PID 958364 terminated with code -6. Forcefully terminating all other processes to avoid zombies 🧟
+wandb: Terminating and syncing runs. Press ctrl-c to kill.

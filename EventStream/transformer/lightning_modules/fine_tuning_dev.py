@@ -121,11 +121,11 @@ class FinetuneConfig:
     do_use_filesystem_sharing: bool = True
 
     def __post_init__(self):
-
         if self.strategy:
             self.experiment_dir = Path(self.load_from_model_dir)
         else:
             self.experiment_dir = Path(self.load_from_model_dir) / "finetuning"
+            print(f"experiment_dir: {self.experiment_dir}")
 
         self.save_dir = Path(self.experiment_dir) / self.task_df_name
 

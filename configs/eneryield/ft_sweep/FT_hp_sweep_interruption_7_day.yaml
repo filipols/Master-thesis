@@ -1,0 +1,65 @@
+defaults:
+  - parameters: finetuning
+  - _self_
+
+entity: marcus-student-chalmers-personal
+project: eneryield1_ft_sweep
+program: finetune.py
+method: bayes
+run_cap: 100
+name: interruption_7_day1
+metric:
+  goal: maximize
+  name: accuracy
+early_terminate:
+  type: hyperband
+  min_iter: 1000
+
+finetuning:
+  wand_logger_kwargs:
+    name:
+      value: "interruption_7_day"
+
+parameters:
+  do_overwrite: 
+    value: true
+  config:
+    is_cls_dist: 
+      value: false
+    is_event_classification: 
+      value: false
+    save_metrics_fp:
+      value: /home/filip-marcus/resutls/eneryield/test
+    save_metrics:
+      value: false
+  optimization_config:
+    num_dataloader_workers:
+      value: 5
+
+    patience:
+      value: 15
+    init_lr:
+      max: 1
+      min: 1e-4
+    weight_decay:
+      max: 0.5
+      min: 0.000001
+    max_epochs:
+      value: 200
+    batch_size:
+      max: 64
+      min: 8
+  task_df_name: 
+    value: task_df_eneryield_interruption_7_day1
+  load_from_model_dir: 
+    value: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/
+  seed: 
+    value: 1
+  pretrained_weights_fp: 
+    value: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
+
+  data_config:
+    save_dir: 
+      value: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield1
+    max_seq_len:
+      value: 256

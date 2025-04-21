@@ -25,15 +25,15 @@ config:
   static_embedding_mode: drop
   static_embedding_weight: 0.36222010226052526
   structured_event_processing_mode: conditionally_independent
-  cohort_name: eneryield
+  cohort_name: eneryield1
   save_metrics: true
-  save_metrics_fp: /home/filip-marcus/results/eneryield/pretrain_10_04_2025
+  save_metrics_fp: /home/filip-marcus/results/eneryield1/pretrain_21_04_2025
   is_pretrain: true
 
 data_config:
   max_seq_len: 256
   min_seq_len: 2
-  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield1
   train_subset_seed: 1
   train_subset_size: FULL
 
@@ -55,7 +55,7 @@ wandb_logger_kwargs:
   do_log_graph: false
   log_model: false
   name: generative_event_stream_transformer
-  project: Eneryield
+  project: Eneryield1
 
 optimization_config:
   init_lr: 0.008

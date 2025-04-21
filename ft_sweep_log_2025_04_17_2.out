@@ -1,0 +1,1296 @@
+nohup: ignoring input
+Running sweep with config: finetune_event_label2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/wandb/run-20250417_192006-2i24guzj
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run task_df_eneryield_event_label2_finetuning
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/runs/2i24guzj
+wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_event_label2', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.047203
+Overwriting input_dropout in config from 0.4494236115512016 to 0.1378
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.40641
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to True
+Overwriting save_metrics in config from True to True
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_17_04_2025 to /home/filip-marcus/results/eneryield2/event_label_baseline
+Overwriting task_specific_params in config from None to {'pooling_method': 'mean', 'num_samples': None}
+Setting wandb project to Eneryield2
+Re-loading task data for task_df_eneryield_event_label2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2/train_0.parquet
+Re-loading task data for task_df_eneryield_event_label2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_event_label2', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.047203
+Overwriting input_dropout in config from 0.4494236115512016 to 0.1378
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.40641
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to True
+Overwriting save_metrics in config from True to True
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_17_04_2025 to /home/filip-marcus/results/eneryield2/event_label_baseline
+Overwriting task_specific_params in config from None to {'pooling_method': 'mean', 'num_samples': None}
+Setting wandb project to Eneryield2
+Re-loading task data for task_df_eneryield_event_label2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2/train_0.parquet
+Re-loading task data for task_df_eneryield_event_label2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.65it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  2.48it/s]                                                                           Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/23 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/23 [00:00<?, ?it/s] Epoch 0:   4%|▍         | 1/23 [00:00<00:19,  1.12it/s]Epoch 0:   4%|▍         | 1/23 [00:00<00:19,  1.12it/s, v_num=guzj]/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:43: UserWarning: No positive samples found in target, recall is undefined. Setting recall to one for all thresholds.
+  warnings.warn(*args, **kwargs)
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:43: UserWarning: No positive samples in targets, true positive value should be meaningless. Returning zero tensor in true positive score
+  warnings.warn(*args, **kwargs)
+Epoch 0:   9%|▊         | 2/23 [00:01<00:12,  1.73it/s, v_num=guzj]Epoch 0:   9%|▊         | 2/23 [00:01<00:12,  1.73it/s, v_num=guzj]Epoch 0:  13%|█▎        | 3/23 [00:01<00:09,  2.18it/s, v_num=guzj]Epoch 0:  13%|█▎        | 3/23 [00:01<00:09,  2.18it/s, v_num=guzj]Epoch 0:  17%|█▋        | 4/23 [00:01<00:07,  2.50it/s, v_num=guzj]Epoch 0:  17%|█▋        | 4/23 [00:01<00:07,  2.50it/s, v_num=guzj]Epoch 0:  22%|██▏       | 5/23 [00:01<00:06,  2.75it/s, v_num=guzj]Epoch 0:  22%|██▏       | 5/23 [00:01<00:06,  2.75it/s, v_num=guzj]Epoch 0:  26%|██▌       | 6/23 [00:02<00:05,  2.93it/s, v_num=guzj]Epoch 0:  26%|██▌       | 6/23 [00:02<00:05,  2.93it/s, v_num=guzj]Epoch 0:  30%|███       | 7/23 [00:02<00:05,  3.07it/s, v_num=guzj]Epoch 0:  30%|███       | 7/23 [00:02<00:05,  3.07it/s, v_num=guzj]Epoch 0:  35%|███▍      | 8/23 [00:02<00:04,  3.19it/s, v_num=guzj]Epoch 0:  35%|███▍      | 8/23 [00:02<00:04,  3.19it/s, v_num=guzj]Epoch 0:  39%|███▉      | 9/23 [00:02<00:04,  3.30it/s, v_num=guzj]Epoch 0:  39%|███▉      | 9/23 [00:02<00:04,  3.30it/s, v_num=guzj]Epoch 0:  43%|████▎     | 10/23 [00:02<00:03,  3.37it/s, v_num=guzj]Epoch 0:  43%|████▎     | 10/23 [00:02<00:03,  3.37it/s, v_num=guzj]Epoch 0:  48%|████▊     | 11/23 [00:03<00:03,  3.45it/s, v_num=guzj]Epoch 0:  48%|████▊     | 11/23 [00:03<00:03,  3.45it/s, v_num=guzj]Epoch 0:  52%|█████▏    | 12/23 [00:03<00:03,  3.51it/s, v_num=guzj]Epoch 0:  52%|█████▏    | 12/23 [00:03<00:03,  3.51it/s, v_num=guzj]Epoch 0:  57%|█████▋    | 13/23 [00:03<00:02,  3.58it/s, v_num=guzj]Epoch 0:  57%|█████▋    | 13/23 [00:03<00:02,  3.58it/s, v_num=guzj]Epoch 0:  61%|██████    | 14/23 [00:03<00:02,  3.63it/s, v_num=guzj]Epoch 0:  61%|██████    | 14/23 [00:03<00:02,  3.63it/s, v_num=guzj]Epoch 0:  65%|██████▌   | 15/23 [00:04<00:02,  3.67it/s, v_num=guzj]Epoch 0:  65%|██████▌   | 15/23 [00:04<00:02,  3.67it/s, v_num=guzj]Epoch 0:  70%|██████▉   | 16/23 [00:04<00:01,  3.71it/s, v_num=guzj]Epoch 0:  70%|██████▉   | 16/23 [00:04<00:01,  3.71it/s, v_num=guzj]Epoch 0:  74%|███████▍  | 17/23 [00:04<00:01,  3.74it/s, v_num=guzj]Epoch 0:  74%|███████▍  | 17/23 [00:04<00:01,  3.74it/s, v_num=guzj]Epoch 0:  78%|███████▊  | 18/23 [00:04<00:01,  3.77it/s, v_num=guzj]Epoch 0:  78%|███████▊  | 18/23 [00:04<00:01,  3.77it/s, v_num=guzj]Epoch 0:  83%|████████▎ | 19/23 [00:05<00:01,  3.80it/s, v_num=guzj]Epoch 0:  83%|████████▎ | 19/23 [00:05<00:01,  3.80it/s, v_num=guzj]Epoch 0:  87%|████████▋ | 20/23 [00:05<00:00,  3.82it/s, v_num=guzj]Epoch 0:  87%|████████▋ | 20/23 [00:05<00:00,  3.82it/s, v_num=guzj]Epoch 0:  91%|█████████▏| 21/23 [00:05<00:00,  3.85it/s, v_num=guzj]Epoch 0:  91%|█████████▏| 21/23 [00:05<00:00,  3.85it/s, v_num=guzj]Epoch 0:  96%|█████████▌| 22/23 [00:05<00:00,  3.87it/s, v_num=guzj]Epoch 0:  96%|█████████▌| 22/23 [00:05<00:00,  3.87it/s, v_num=guzj]Epoch 0: 100%|██████████| 23/23 [00:05<00:00,  3.88it/s, v_num=guzj]Epoch 0: 100%|██████████| 23/23 [00:05<00:00,  3.88it/s, v_num=guzj]
+Validation: |          | 0/? [00:00<?, ?it/s][A
+Validation:   0%|          | 0/2 [00:00<?, ?it/s][A
+Validation DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s][A
+Validation DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  4.29it/s][A
+Validation DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  4.44it/s][A
+                                                                      [AEpoch 0: 100%|██████████| 23/23 [00:07<00:00,  3.20it/s, v_num=guzj]Epoch 0: 100%|██████████| 23/23 [00:07<00:00,  3.20it/s, v_num=guzj]`Trainer.fit` stopped: `max_epochs=1` reached.
+Epoch 0: 100%|██████████| 23/23 [00:07<00:00,  3.16it/s, v_num=guzj]Restoring states from the checkpoint path at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/Eneryield2/2i24guzj/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+Loaded model weights from the checkpoint at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/Eneryield2/2i24guzj/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/data_connector.py:216: Using `DistributedSampler` with the dataloaders. During `trainer.validate()`, it is recommended to use `Trainer(devices=1, num_nodes=1)` to ensure each sample/batch gets evaluated exactly once. Otherwise, multi-device settings use `DistributedSampler` that replicates some samples to make sure all devices have same batch size in case of uneven inputs.
+
+Metrics saved!
+/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetune_weights
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Re-loading task data for task_df_eneryield_event_label2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2/held_out_0.parquet
+Metrics saved!
+/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetune_weights
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Re-loading task data for task_df_eneryield_event_label2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_event_label2/held_out_0.parquet
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/2 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Validation DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  4.47it/s]Validation DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  4.73it/s]Validation DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  3.99it/s]Restoring states from the checkpoint path at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/Eneryield2/2i24guzj/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+Loaded model weights from the checkpoint at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/Eneryield2/2i24guzj/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/data_connector.py:216: Using `DistributedSampler` with the dataloaders. During `trainer.test()`, it is recommended to use `Trainer(devices=1, num_nodes=1)` to ensure each sample/batch gets evaluated exactly once. Otherwise, multi-device settings use `DistributedSampler` that replicates some samples to make sure all devices have same batch size in case of uneven inputs.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+          Validate metric                       DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+             task_AUROC                      0.4996996819972992
+           task_accuracy                     0.9984943866729736
+         task_avg_precision                0.0009053547400981188
+             task_loss                       10.614065170288086
+           tuning_TTE_MSE                      52070.4140625
+          tuning_TTE_MSLE                    11.668035507202148
+         tuning_TTE_reg_NLL                  5.2677836418151855
+     tuning_event_label_cls_NLL              0.1669727861881256
+ tuning_event_label_macro_accuracy           0.9379680752754211
+ tuning_event_label_micro_accuracy           0.9379680156707764
+ tuning_event_label_weighted_AUROC           0.8314415216445923
+tuning_event_label_weighted_accuracy         0.7883723378181458
+     tuning_event_type_cls_NLL              0.00785449706017971
+  tuning_event_type_macro_accuracy                  0.0
+  tuning_event_type_micro_accuracy                  0.0
+  tuning_event_type_weighted_AUROC                  0.0
+tuning_event_type_weighted_accuracy                 0.0
+        tuning_feature_0_MSE                 1.4518122673034668
+      tuning_feature_0_reg_NLL               0.982239305973053
+       tuning_feature_10_MSE                 2.556905746459961
+     tuning_feature_10_reg_NLL               1.6512097120285034
+       tuning_feature_11_MSE                 3.3363611698150635
+     tuning_feature_11_reg_NLL               1.6733500957489014
+       tuning_feature_12_MSE                 2.223598003387451
+     tuning_feature_12_reg_NLL               1.4378312826156616
+       tuning_feature_13_MSE                 2.3815526962280273
+     tuning_feature_13_reg_NLL               1.5922045707702637
+       tuning_feature_14_MSE                 3.119882583618164
+     tuning_feature_14_reg_NLL               2.1788716316223145
+       tuning_feature_15_MSE                 1.5126886367797852
+     tuning_feature_15_reg_NLL               1.2817832231521606
+       tuning_feature_16_MSE                 1.3094334602355957
+     tuning_feature_16_reg_NLL               1.2329241037368774
+       tuning_feature_17_MSE                 1.3487004041671753
+     tuning_feature_17_reg_NLL               1.2243081331253052
+       tuning_feature_18_MSE                 2.2816872596740723
+     tuning_feature_18_reg_NLL               1.539065957069397
+       tuning_feature_19_MSE                 0.8867982625961304
+     tuning_feature_19_reg_NLL               0.879185140132904
+        tuning_feature_1_MSE                 0.8643345832824707
+      tuning_feature_1_reg_NLL               0.8356742858886719
+       tuning_feature_20_MSE                 1.0233184099197388
+     tuning_feature_20_reg_NLL               1.0800371170043945
+       tuning_feature_21_MSE                 0.9128710627555847
+     tuning_feature_21_reg_NLL               0.919054388999939
+       tuning_feature_22_MSE                 1.8458173274993896
+     tuning_feature_22_reg_NLL               1.362410068511963
+       tuning_feature_23_MSE                 2.438931703567505
+     tuning_feature_23_reg_NLL               1.5488818883895874
+       tuning_feature_24_MSE                 2.0022408962249756
+     tuning_feature_24_reg_NLL               1.3698543310165405
+        tuning_feature_2_MSE                 2.0247573852539062
+      tuning_feature_2_reg_NLL               1.6845366954803467
+        tuning_feature_3_MSE                 3.2691171169281006
+      tuning_feature_3_reg_NLL               2.4323859214782715
+        tuning_feature_4_MSE                 2.4068219661712646
+      tuning_feature_4_reg_NLL               1.496476650238037
+        tuning_feature_5_MSE                 3.2104177474975586
+      tuning_feature_5_reg_NLL               1.1814894676208496
+        tuning_feature_6_MSE                 1.174598217010498
+      tuning_feature_6_reg_NLL               1.1825557947158813
+        tuning_feature_7_MSE                 1.755688190460205
+      tuning_feature_7_reg_NLL               1.3829971551895142
+        tuning_feature_8_MSE                 1.4920415878295898
+      tuning_feature_8_reg_NLL               1.283063292503357
+        tuning_feature_9_MSE                 1.6605950593948364
+      tuning_feature_9_reg_NLL               1.3553413152694702
+            tuning_loss                      50.84440612792969
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Testing: |          | 0/? [00:00<?, ?it/s]Testing:   0%|          | 0/5 [00:00<?, ?it/s]Testing DataLoader 0:   0%|          | 0/5 [00:00<?, ?it/s]/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:43: UserWarning: No positive samples found in target, recall is undefined. Setting recall to one for all thresholds.
+  warnings.warn(*args, **kwargs)
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:43: UserWarning: No positive samples in targets, true positive value should be meaningless. Returning zero tensor in true positive score
+  warnings.warn(*args, **kwargs)
+Testing DataLoader 0:  20%|██        | 1/5 [00:00<00:00,  4.19it/s]Testing DataLoader 0:  40%|████      | 2/5 [00:00<00:00,  4.52it/s]Testing DataLoader 0:  60%|██████    | 3/5 [00:00<00:00,  4.65it/s]Testing DataLoader 0:  80%|████████  | 4/5 [00:00<00:00,  4.71it/s]Testing DataLoader 0: 100%|██████████| 5/5 [00:01<00:00,  4.74it/s]Testing DataLoader 0: 100%|██████████| 5/5 [00:01<00:00,  4.45it/s]wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                                  epoch ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁██
+wandb:                       held_out_TTE_MSE ▁
+wandb:                      held_out_TTE_MSLE ▁
+wandb:                   held_out_TTE_reg_NLL ▁
+wandb:           held_out_event_label_cls_NLL ▁
+wandb:    held_out_event_label_macro_accuracy ▁
+wandb:    held_out_event_label_micro_accuracy ▁
+wandb:    held_out_event_label_weighted_AUROC ▁
+wandb: held_out_event_label_weighted_accuracy ▁
+wandb:            held_out_event_type_cls_NLL ▁
+wandb:     held_out_event_type_macro_accuracy ▁
+wandb:     held_out_event_type_micro_accuracy ▁
+wandb:     held_out_event_type_weighted_AUROC ▁
+wandb:  held_out_event_type_weighted_accuracy ▁
+wandb:                 held_out_feature_0_MSE ▁
+wandb:             held_out_feature_0_reg_NLL ▁
+wandb:                held_out_feature_10_MSE ▁
+wandb:            held_out_feature_10_reg_NLL ▁
+wandb:                held_out_feature_11_MSE ▁
+wandb:            held_out_feature_11_reg_NLL ▁
+wandb:                held_out_feature_12_MSE ▁
+wandb:            held_out_feature_12_reg_NLL ▁
+wandb:                held_out_feature_13_MSE ▁
+wandb:            held_out_feature_13_reg_NLL ▁
+wandb:                held_out_feature_14_MSE ▁
+wandb:            held_out_feature_14_reg_NLL ▁
+wandb:                held_out_feature_15_MSE ▁
+wandb:            held_out_feature_15_reg_NLL ▁
+wandb:                held_out_feature_16_MSE ▁
+wandb:            held_out_feature_16_reg_NLL ▁
+wandb:                held_out_feature_17_MSE ▁
+wandb:            held_out_feature_17_reg_NLL ▁
+wandb:                held_out_feature_18_MSE ▁
+wandb:            held_out_feature_18_reg_NLL ▁
+wandb:                held_out_feature_19_MSE ▁
+wandb:            held_out_feature_19_reg_NLL ▁
+wandb:                 held_out_feature_1_MSE ▁
+wandb:             held_out_feature_1_reg_NLL ▁
+wandb:                held_out_feature_20_MSE ▁
+wandb:            held_out_feature_20_reg_NLL ▁
+wandb:                held_out_feature_21_MSE ▁
+wandb:            held_out_feature_21_reg_NLL ▁
+wandb:                held_out_feature_22_MSE ▁
+wandb:            held_out_feature_22_reg_NLL ▁
+wandb:                held_out_feature_23_MSE ▁
+wandb:            held_out_feature_23_reg_NLL ▁
+wandb:                held_out_feature_24_MSE ▁
+wandb:            held_out_feature_24_reg_NLL ▁
+wandb:                 held_out_feature_2_MSE ▁
+wandb:             held_out_feature_2_reg_NLL ▁
+wandb:                 held_out_feature_3_MSE ▁
+wandb:             held_out_feature_3_reg_NLL ▁
+wandb:                 held_out_feature_4_MSE ▁
+wandb:             held_out_feature_4_reg_NLL ▁
+wandb:                 held_out_feature_5_MSE ▁
+wandb:             held_out_feature_5_reg_NLL ▁
+wandb:                 held_out_feature_6_MSE ▁
+wandb:             held_out_feature_6_reg_NLL ▁
+wandb:                 held_out_feature_7_MSE ▁
+wandb:             held_out_feature_7_reg_NLL ▁
+wandb:                 held_out_feature_8_MSE ▁
+wandb:             held_out_feature_8_reg_NLL ▁
+wandb:                 held_out_feature_9_MSE ▁
+wandb:             held_out_feature_9_reg_NLL ▁
+wandb:                          held_out_loss ▁
+wandb:                               lr-AdamW ▁▁▂▂▂▃▃▃▄▄▄▅▅▅▅▆▆▆▇▇▇██
+wandb:                             task_AUROC ██▁
+wandb:                          task_accuracy ██▁
+wandb:                     task_avg_precision ██▁
+wandb:                              task_loss ██▁
+wandb:                             train_loss ▄▄▇▄▇█▇▃▃▄▄▂▂▂▇▅▂▃▅▃▁▃▂
+wandb:                    trainer/global_step ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇████
+wandb:                         tuning_TTE_MSE ▁▁
+wandb:                        tuning_TTE_MSLE ▁▁
+wandb:                     tuning_TTE_reg_NLL ▁▁
+wandb:             tuning_event_label_cls_NLL ▁▁
+wandb:      tuning_event_label_macro_accuracy ▁▁
+wandb:      tuning_event_label_micro_accuracy ▁▁
+wandb:      tuning_event_label_weighted_AUROC ▁▁
+wandb:   tuning_event_label_weighted_accuracy ▁▁
+wandb:              tuning_event_type_cls_NLL ▁▁
+wandb:       tuning_event_type_macro_accuracy ▁▁
+wandb:       tuning_event_type_micro_accuracy ▁▁
+wandb:       tuning_event_type_weighted_AUROC ▁▁
+wandb:    tuning_event_type_weighted_accuracy ▁▁
+wandb:                   tuning_feature_0_MSE ▁▁
+wandb:               tuning_feature_0_reg_NLL ▁▁
+wandb:                  tuning_feature_10_MSE ▁▁
+wandb:              tuning_feature_10_reg_NLL ▁▁
+wandb:                  tuning_feature_11_MSE ▁▁
+wandb:              tuning_feature_11_reg_NLL ▁▁
+wandb:                  tuning_feature_12_MSE ▁▁
+wandb:              tuning_feature_12_reg_NLL ▁▁
+wandb:                  tuning_feature_13_MSE ▁▁
+wandb:              tuning_feature_13_reg_NLL ▁▁
+wandb:                  tuning_feature_14_MSE ▁▁
+wandb:              tuning_feature_14_reg_NLL ▁▁
+wandb:                  tuning_feature_15_MSE ▁▁
+wandb:              tuning_feature_15_reg_NLL ▁▁
+wandb:                  tuning_feature_16_MSE ▁▁
+wandb:              tuning_feature_16_reg_NLL ▁▁
+wandb:                  tuning_feature_17_MSE ▁▁
+wandb:              tuning_feature_17_reg_NLL ▁▁
+wandb:                  tuning_feature_18_MSE ▁▁
+wandb:              tuning_feature_18_reg_NLL ▁▁
+wandb:                  tuning_feature_19_MSE ▁▁
+wandb:              tuning_feature_19_reg_NLL ▁▁
+wandb:                   tuning_feature_1_MSE ▁▁
+wandb:               tuning_feature_1_reg_NLL ▁▁
+wandb:                  tuning_feature_20_MSE ▁▁
+wandb:              tuning_feature_20_reg_NLL ▁▁
+wandb:                  tuning_feature_21_MSE ▁▁
+wandb:              tuning_feature_21_reg_NLL ▁▁
+wandb:                  tuning_feature_22_MSE ▁▁
+wandb:              tuning_feature_22_reg_NLL ▁▁
+wandb:                  tuning_feature_23_MSE ▁▁
+wandb:              tuning_feature_23_reg_NLL ▁▁
+wandb:                  tuning_feature_24_MSE ▁▁
+wandb:              tuning_feature_24_reg_NLL ▁▁
+wandb:                   tuning_feature_2_MSE ▁▁
+wandb:               tuning_feature_2_reg_NLL ▁▁
+wandb:                   tuning_feature_3_MSE ▁▁
+wandb:               tuning_feature_3_reg_NLL ▁▁
+wandb:                   tuning_feature_4_MSE ▁▁
+wandb:               tuning_feature_4_reg_NLL ▁▁
+wandb:                   tuning_feature_5_MSE ▁▁
+wandb:               tuning_feature_5_reg_NLL ▁▁
+wandb:                   tuning_feature_6_MSE ▁▁
+wandb:               tuning_feature_6_reg_NLL ▁▁
+wandb:                   tuning_feature_7_MSE ▁▁
+wandb:               tuning_feature_7_reg_NLL ▁▁
+wandb:                   tuning_feature_8_MSE ▁▁
+wandb:               tuning_feature_8_reg_NLL ▁▁
+wandb:                   tuning_feature_9_MSE ▁▁
+wandb:               tuning_feature_9_reg_NLL ▁▁
+wandb:                            tuning_loss ▁▁
+wandb: 
+wandb: Run summary:
+wandb:                                  epoch 1
+wandb:                       held_out_TTE_MSE 42050.64453
+wandb:                      held_out_TTE_MSLE 10.88983
+wandb:                   held_out_TTE_reg_NLL 11.80905
+wandb:           held_out_event_label_cls_NLL 0.33421
+wandb:    held_out_event_label_macro_accuracy 0.90376
+wandb:    held_out_event_label_micro_accuracy 0.90376
+wandb:    held_out_event_label_weighted_AUROC 0.6933
+wandb: held_out_event_label_weighted_accuracy 0.72281
+wandb:            held_out_event_type_cls_NLL 0.16059
+wandb:     held_out_event_type_macro_accuracy 0.0
+wandb:     held_out_event_type_micro_accuracy 0.0
+wandb:     held_out_event_type_weighted_AUROC 0.0
+wandb:  held_out_event_type_weighted_accuracy 0.0
+wandb:                 held_out_feature_0_MSE 2.31584
+wandb:             held_out_feature_0_reg_NLL 1.31026
+wandb:                held_out_feature_10_MSE 4.33767
+wandb:            held_out_feature_10_reg_NLL 4.23397
+wandb:                held_out_feature_11_MSE 6.02237
+wandb:            held_out_feature_11_reg_NLL 2.46597
+wandb:                held_out_feature_12_MSE 5.53793
+wandb:            held_out_feature_12_reg_NLL 2.90617
+wandb:                held_out_feature_13_MSE 4.37811
+wandb:            held_out_feature_13_reg_NLL 2.44951
+wandb:                held_out_feature_14_MSE 12.82011
+wandb:            held_out_feature_14_reg_NLL 4.21032
+wandb:                held_out_feature_15_MSE 1.48831
+wandb:            held_out_feature_15_reg_NLL 1.36818
+wandb:                held_out_feature_16_MSE 1.37471
+wandb:            held_out_feature_16_reg_NLL 1.33003
+wandb:                held_out_feature_17_MSE 1.27858
+wandb:            held_out_feature_17_reg_NLL 1.27591
+wandb:                held_out_feature_18_MSE 5.48206
+wandb:            held_out_feature_18_reg_NLL 2.26151
+wandb:                held_out_feature_19_MSE 1.41999
+wandb:            held_out_feature_19_reg_NLL 1.41501
+wandb:                 held_out_feature_1_MSE 2.2934
+wandb:             held_out_feature_1_reg_NLL 1.33228
+wandb:                held_out_feature_20_MSE 1.20852
+wandb:            held_out_feature_20_reg_NLL 1.17949
+wandb:                held_out_feature_21_MSE 1.71431
+wandb:            held_out_feature_21_reg_NLL 1.13601
+wandb:                held_out_feature_22_MSE 3.82542
+wandb:            held_out_feature_22_reg_NLL 2.09422
+wandb:                held_out_feature_23_MSE 5.13457
+wandb:            held_out_feature_23_reg_NLL 2.13813
+wandb:                held_out_feature_24_MSE 3.78865
+wandb:            held_out_feature_24_reg_NLL 2.00927
+wandb:                 held_out_feature_2_MSE 10.55766
+wandb:             held_out_feature_2_reg_NLL 3.18814
+wandb:                 held_out_feature_3_MSE 15.27445
+wandb:             held_out_feature_3_reg_NLL 4.41502
+wandb:                 held_out_feature_4_MSE 10.42288
+wandb:             held_out_feature_4_reg_NLL 2.77009
+wandb:                 held_out_feature_5_MSE 3.24806
+wandb:             held_out_feature_5_reg_NLL 2.45389
+wandb:                 held_out_feature_6_MSE 1.69021
+wandb:             held_out_feature_6_reg_NLL 1.80881
+wandb:                 held_out_feature_7_MSE 2.43079
+wandb:             held_out_feature_7_reg_NLL 1.86177
+wandb:                 held_out_feature_8_MSE 2.18523
+wandb:             held_out_feature_8_reg_NLL 1.60407
+wandb:                 held_out_feature_9_MSE 2.26539
+wandb:             held_out_feature_9_reg_NLL 1.67104
+wandb:                          held_out_loss 75.00004
+wandb:                               lr-AdamW 0.00016
+wandb:                             task_AUROC 0.19477
+wandb:                          task_accuracy 0.98002
+wandb:                     task_avg_precision 0.00029
+wandb:                              task_loss 7.80713
+wandb:                             train_loss 46.97869
+wandb:                    trainer/global_step 23
+wandb:                         tuning_TTE_MSE 52070.41406
+wandb:                        tuning_TTE_MSLE 11.66804
+wandb:                     tuning_TTE_reg_NLL 5.26778
+wandb:             tuning_event_label_cls_NLL 0.16697
+wandb:      tuning_event_label_macro_accuracy 0.93797
+wandb:      tuning_event_label_micro_accuracy 0.93797
+wandb:      tuning_event_label_weighted_AUROC 0.83144
+wandb:   tuning_event_label_weighted_accuracy 0.78837
+wandb:              tuning_event_type_cls_NLL 0.00785
+wandb:       tuning_event_type_macro_accuracy 0.0
+wandb:       tuning_event_type_micro_accuracy 0.0
+wandb:       tuning_event_type_weighted_AUROC 0.0
+wandb:    tuning_event_type_weighted_accuracy 0.0
+wandb:                   tuning_feature_0_MSE 1.45181
+wandb:               tuning_feature_0_reg_NLL 0.98224
+wandb:                  tuning_feature_10_MSE 2.55691
+wandb:              tuning_feature_10_reg_NLL 1.65121
+wandb:                  tuning_feature_11_MSE 3.33636
+wandb:              tuning_feature_11_reg_NLL 1.67335
+wandb:                  tuning_feature_12_MSE 2.2236
+wandb:              tuning_feature_12_reg_NLL 1.43783
+wandb:                  tuning_feature_13_MSE 2.38155
+wandb:              tuning_feature_13_reg_NLL 1.5922
+wandb:                  tuning_feature_14_MSE 3.11988
+wandb:              tuning_feature_14_reg_NLL 2.17887
+wandb:                  tuning_feature_15_MSE 1.51269
+wandb:              tuning_feature_15_reg_NLL 1.28178
+wandb:                  tuning_feature_16_MSE 1.30943
+wandb:              tuning_feature_16_reg_NLL 1.23292
+wandb:                  tuning_feature_17_MSE 1.3487
+wandb:              tuning_feature_17_reg_NLL 1.22431
+wandb:                  tuning_feature_18_MSE 2.28169
+wandb:              tuning_feature_18_reg_NLL 1.53907
+wandb:                  tuning_feature_19_MSE 0.8868
+wandb:              tuning_feature_19_reg_NLL 0.87919
+wandb:                   tuning_feature_1_MSE 0.86433
+wandb:               tuning_feature_1_reg_NLL 0.83567
+wandb:                  tuning_feature_20_MSE 1.02332
+wandb:              tuning_feature_20_reg_NLL 1.08004
+wandb:                  tuning_feature_21_MSE 0.91287
+wandb:              tuning_feature_21_reg_NLL 0.91905
+wandb:                  tuning_feature_22_MSE 1.84582
+wandb:              tuning_feature_22_reg_NLL 1.36241
+wandb:                  tuning_feature_23_MSE 2.43893
+wandb:              tuning_feature_23_reg_NLL 1.54888
+wandb:                  tuning_feature_24_MSE 2.00224
+wandb:              tuning_feature_24_reg_NLL 1.36985
+wandb:                   tuning_feature_2_MSE 2.02476
+wandb:               tuning_feature_2_reg_NLL 1.68454
+wandb:                   tuning_feature_3_MSE 3.26912
+wandb:               tuning_feature_3_reg_NLL 2.43239
+wandb:                   tuning_feature_4_MSE 2.40682
+wandb:               tuning_feature_4_reg_NLL 1.49648
+wandb:                   tuning_feature_5_MSE 3.21042
+wandb:               tuning_feature_5_reg_NLL 1.18149
+wandb:                   tuning_feature_6_MSE 1.1746
+wandb:               tuning_feature_6_reg_NLL 1.18256
+wandb:                   tuning_feature_7_MSE 1.75569
+wandb:               tuning_feature_7_reg_NLL 1.383
+wandb:                   tuning_feature_8_MSE 1.49204
+wandb:               tuning_feature_8_reg_NLL 1.28306
+wandb:                   tuning_feature_9_MSE 1.6606
+wandb:               tuning_feature_9_reg_NLL 1.35534
+wandb:                            tuning_loss 50.84441
+wandb: 
+wandb: 🚀 View run task_df_eneryield_event_label2_finetuning at: https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/runs/2i24guzj
+wandb: ️⚡ View job at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjYxMzM1NzA5Ng==/version_details/v72
+wandb: Synced 5 W&B file(s), 0 media file(s), 3 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/wandb/run-20250417_192006-2i24guzj/logs
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+             Test metric                           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           held_out_TTE_MSE                       42050.64453125
+          held_out_TTE_MSLE                     10.889830589294434
+         held_out_TTE_reg_NLL                   11.809046745300293
+     held_out_event_label_cls_NLL              0.33420881628990173
+ held_out_event_label_macro_accuracy            0.9037584066390991
+ held_out_event_label_micro_accuracy            0.9037584066390991
+ held_out_event_label_weighted_AUROC            0.6933033466339111
+held_out_event_label_weighted_accuracy          0.7228058576583862
+     held_out_event_type_cls_NLL               0.16058674454689026
+  held_out_event_type_macro_accuracy                   0.0
+  held_out_event_type_micro_accuracy                   0.0
+  held_out_event_type_weighted_AUROC                   0.0
+held_out_event_type_weighted_accuracy                  0.0
+        held_out_feature_0_MSE                   2.31583833694458
+      held_out_feature_0_reg_NLL                1.3102649450302124
+       held_out_feature_10_MSE                  4.3376688957214355
+     held_out_feature_10_reg_NLL                4.233966827392578
+       held_out_feature_11_MSE                  6.022368907928467
+     held_out_feature_11_reg_NLL                2.465972900390625
+       held_out_feature_12_MSE                  5.537926197052002
+     held_out_feature_12_reg_NLL                2.9061713218688965
+       held_out_feature_13_MSE                   4.37810754776001
+     held_out_feature_13_reg_NLL                2.449509382247925
+       held_out_feature_14_MSE                  12.820112228393555
+     held_out_feature_14_reg_NLL                4.210318088531494
+       held_out_feature_15_MSE                  1.4883129596710205
+     held_out_feature_15_reg_NLL                1.3681765794754028
+       held_out_feature_16_MSE                  1.374713659286499
+     held_out_feature_16_reg_NLL                1.330027461051941
+       held_out_feature_17_MSE                  1.2785841226577759
+     held_out_feature_17_reg_NLL                1.2759054899215698
+       held_out_feature_18_MSE                  5.4820637702941895
+     held_out_feature_18_reg_NLL                2.2615115642547607
+       held_out_feature_19_MSE                  1.4199891090393066
+     held_out_feature_19_reg_NLL                1.4150124788284302
+        held_out_feature_1_MSE                  2.293403387069702
+      held_out_feature_1_reg_NLL                1.3322793245315552
+       held_out_feature_20_MSE                  1.2085223197937012
+     held_out_feature_20_reg_NLL                1.1794888973236084
+       held_out_feature_21_MSE                  1.7143127918243408
+     held_out_feature_21_reg_NLL                1.1360127925872803
+       held_out_feature_22_MSE                   3.82541823387146
+     held_out_feature_22_reg_NLL                2.0942161083221436
+       held_out_feature_23_MSE                  5.134573936462402
+     held_out_feature_23_reg_NLL                2.1381287574768066
+       held_out_feature_24_MSE                  3.7886459827423096
+     held_out_feature_24_reg_NLL                2.0092711448669434
+        held_out_feature_2_MSE                  10.557659149169922
+      held_out_feature_2_reg_NLL                3.188143014907837
+        held_out_feature_3_MSE                  15.27445125579834
+      held_out_feature_3_reg_NLL                4.415018081665039
+        held_out_feature_4_MSE                  10.422883987426758
+      held_out_feature_4_reg_NLL                2.770090103149414
+        held_out_feature_5_MSE                  3.2480576038360596
+      held_out_feature_5_reg_NLL                2.453892469406128
+        held_out_feature_6_MSE                  1.690207600593567
+      held_out_feature_6_reg_NLL                1.8088079690933228
+        held_out_feature_7_MSE                  2.430793046951294
+      held_out_feature_7_reg_NLL                1.861773133277893
+        held_out_feature_8_MSE                  2.1852338314056396
+      held_out_feature_8_reg_NLL                1.6040726900100708
+        held_out_feature_9_MSE                  2.2653932571411133
+      held_out_feature_9_reg_NLL                1.6710355281829834
+            held_out_loss                       75.00003814697266
+              task_AUROC                        0.1947748363018036
+            task_accuracy                       0.9800234436988831
+          task_avg_precision                  0.0002929687616415322
+              task_loss                         7.807132720947266
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Saving final metrics...
+Running sweep with config: finetune_class_dist2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/wandb/run-20250417_192056-1nqg7hpp
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run task_df_eneryield_class_dist2_finetuning
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/runs/1nqg7hpp
+wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_class_dist2', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.4933113429234564
+Overwriting input_dropout in config from 0.4494236115512016 to 0.04552814903192082
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.49106566709809335
+Overwriting is_cls_dist in config from False to True
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to True
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_17_04_2025 to /home/filip-marcus/results/eneryield2/class_dist_baseline
+Overwriting is_pretrain in config from True to False
+Overwriting task_specific_params in config from None to {'pooling_method': 'last', 'num_samples': None}
+Setting wandb project to Eneryield2
+Re-loading task data for task_df_eneryield_class_dist2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2/train_0.parquet
+WARNING: Observed inter-event times <= 0 for 0 subjects!
+ESD Subject IDs: 
+Global min: -1023.4833333333336
+Wrote malformed data records to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/malformed_data_train.parquet
+Removing malformed subjects
+Re-loading task data for task_df_eneryield_class_dist2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_class_dist2', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.4933113429234564
+Overwriting input_dropout in config from 0.4494236115512016 to 0.04552814903192082
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.49106566709809335
+Overwriting is_cls_dist in config from False to True
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to True
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_17_04_2025 to /home/filip-marcus/results/eneryield2/class_dist_baseline
+Overwriting is_pretrain in config from True to False
+Overwriting task_specific_params in config from None to {'pooling_method': 'last', 'num_samples': None}
+Setting wandb project to Eneryield2
+Re-loading task data for task_df_eneryield_class_dist2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2/train_0.parquet
+Re-loading task data for task_df_eneryield_class_dist2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:01<00:01,  0.87it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:01<00:00,  1.10it/s]                                                                           Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/8 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/8 [00:00<?, ?it/s] Epoch 0:  12%|█▎        | 1/8 [00:03<00:21,  0.33it/s]Epoch 0:  12%|█▎        | 1/8 [00:03<00:21,  0.33it/s, v_num=7hpp]Epoch 0:  25%|██▌       | 2/8 [00:04<00:13,  0.45it/s, v_num=7hpp]Epoch 0:  25%|██▌       | 2/8 [00:04<00:13,  0.45it/s, v_num=7hpp]Epoch 0:  38%|███▊      | 3/8 [00:05<00:09,  0.52it/s, v_num=7hpp]Epoch 0:  38%|███▊      | 3/8 [00:05<00:09,  0.52it/s, v_num=7hpp]Epoch 0:  50%|█████     | 4/8 [00:07<00:07,  0.56it/s, v_num=7hpp]Epoch 0:  50%|█████     | 4/8 [00:07<00:07,  0.56it/s, v_num=7hpp]Epoch 0:  62%|██████▎   | 5/8 [00:08<00:05,  0.59it/s, v_num=7hpp]Epoch 0:  62%|██████▎   | 5/8 [00:08<00:05,  0.59it/s, v_num=7hpp]Epoch 0:  75%|███████▌  | 6/8 [00:09<00:03,  0.61it/s, v_num=7hpp]Epoch 0:  75%|███████▌  | 6/8 [00:09<00:03,  0.61it/s, v_num=7hpp]Epoch 0:  88%|████████▊ | 7/8 [00:11<00:01,  0.62it/s, v_num=7hpp]Epoch 0:  88%|████████▊ | 7/8 [00:11<00:01,  0.62it/s, v_num=7hpp]Epoch 0: 100%|██████████| 8/8 [00:12<00:00,  0.64it/s, v_num=7hpp]Epoch 0: 100%|██████████| 8/8 [00:12<00:00,  0.64it/s, v_num=7hpp]
+Validation: |          | 0/? [00:00<?, ?it/s][A
+Validation:   0%|          | 0/2 [00:00<?, ?it/s][A
+Validation DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s][A
+Validation DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.32it/s][A
+Validation DataLoader 0: 100%|██████████| 2/2 [00:01<00:00,  1.42it/s][A
+                                                                      [AEpoch 0: 100%|██████████| 8/8 [00:14<00:00,  0.54it/s, v_num=7hpp]Epoch 0: 100%|██████████| 8/8 [00:14<00:00,  0.54it/s, v_num=7hpp]`Trainer.fit` stopped: `max_epochs=1` reached.
+Epoch 0: 100%|██████████| 8/8 [00:14<00:00,  0.54it/s, v_num=7hpp]Restoring states from the checkpoint path at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/Eneryield2/1nqg7hpp/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+Loaded model weights from the checkpoint at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/Eneryield2/1nqg7hpp/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/data_connector.py:216: Using `DistributedSampler` with the dataloaders. During `trainer.validate()`, it is recommended to use `Trainer(devices=1, num_nodes=1)` to ensure each sample/batch gets evaluated exactly once. Otherwise, multi-device settings use `DistributedSampler` that replicates some samples to make sure all devices have same batch size in case of uneven inputs.
+
+Metrics saved!
+/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/finetune_weights
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Re-loading task data for task_df_eneryield_class_dist2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2/held_out_0.parquet
+Metrics saved!
+/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/finetune_weights
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Re-loading task data for task_df_eneryield_class_dist2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_class_dist2/held_out_0.parquet
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/2 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Validation DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.48it/s]Validation DataLoader 0: 100%|██████████| 2/2 [00:01<00:00,  1.59it/s]Validation DataLoader 0: 100%|██████████| 2/2 [00:01<00:00,  1.36it/s]Restoring states from the checkpoint path at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/Eneryield2/1nqg7hpp/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+Loaded model weights from the checkpoint at /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/Eneryield2/1nqg7hpp/checkpoints/epoch=0-val_loss=0.00-best_model.ckpt
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/lightning/pytorch/trainer/connectors/data_connector.py:216: Using `DistributedSampler` with the dataloaders. During `trainer.test()`, it is recommended to use `Trainer(devices=1, num_nodes=1)` to ensure each sample/batch gets evaluated exactly once. Otherwise, multi-device settings use `DistributedSampler` that replicates some samples to make sure all devices have same batch size in case of uneven inputs.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+          Validate metric                       DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+             task_AUROC                             0.0
+         task_avg_precision                         0.0
+             task_loss                       604.2146606445312
+           tuning_TTE_MSE                      57963.6953125
+          tuning_TTE_MSLE                    12.45787525177002
+         tuning_TTE_reg_NLL                  5.326348304748535
+     tuning_event_label_cls_NLL             0.18396985530853271
+ tuning_event_label_macro_accuracy           0.9251067638397217
+ tuning_event_label_micro_accuracy           0.9251067638397217
+ tuning_event_label_weighted_AUROC           0.8302488923072815
+tuning_event_label_weighted_accuracy         0.7085068821907043
+     tuning_event_type_cls_NLL              0.00785831455141306
+  tuning_event_type_macro_accuracy                  0.0
+  tuning_event_type_micro_accuracy                  0.0
+  tuning_event_type_weighted_AUROC                  0.0
+tuning_event_type_weighted_accuracy                 0.0
+        tuning_feature_0_MSE                 1.6057888269424438
+      tuning_feature_0_reg_NLL               1.0703301429748535
+       tuning_feature_10_MSE                 2.541120767593384
+     tuning_feature_10_reg_NLL               1.6687182188034058
+       tuning_feature_11_MSE                 3.9589662551879883
+     tuning_feature_11_reg_NLL               1.7442764043807983
+       tuning_feature_12_MSE                 2.568789482116699
+     tuning_feature_12_reg_NLL               1.4852185249328613
+       tuning_feature_13_MSE                 2.990060329437256
+     tuning_feature_13_reg_NLL               1.6738121509552002
+       tuning_feature_14_MSE                 3.278391122817993
+     tuning_feature_14_reg_NLL               2.171292781829834
+       tuning_feature_15_MSE                 1.645039677619934
+     tuning_feature_15_reg_NLL               1.327765703201294
+       tuning_feature_16_MSE                 1.5737485885620117
+     tuning_feature_16_reg_NLL               1.3302608728408813
+       tuning_feature_17_MSE                 1.5265251398086548
+     tuning_feature_17_reg_NLL               1.2864041328430176
+       tuning_feature_18_MSE                  2.87168550491333
+     tuning_feature_18_reg_NLL               1.5946084260940552
+       tuning_feature_19_MSE                 1.4464308023452759
+     tuning_feature_19_reg_NLL               1.1917961835861206
+        tuning_feature_1_MSE                 1.0719419717788696
+      tuning_feature_1_reg_NLL               0.9650574326515198
+       tuning_feature_20_MSE                 1.376095175743103
+     tuning_feature_20_reg_NLL               1.2407212257385254
+       tuning_feature_21_MSE                 1.352937936782837
+     tuning_feature_21_reg_NLL               1.1826838254928589
+       tuning_feature_22_MSE                 2.039797306060791
+     tuning_feature_22_reg_NLL               1.3980847597122192
+       tuning_feature_23_MSE                 2.5080957412719727
+     tuning_feature_23_reg_NLL               1.5536860227584839
+       tuning_feature_24_MSE                 2.207667827606201
+     tuning_feature_24_reg_NLL               1.403132677078247
+        tuning_feature_2_MSE                 2.709453582763672
+      tuning_feature_2_reg_NLL               1.840301275253296
+        tuning_feature_3_MSE                 3.9915921688079834
+      tuning_feature_3_reg_NLL               2.5254909992218018
+        tuning_feature_4_MSE                 3.2123026847839355
+      tuning_feature_4_reg_NLL               1.5905201435089111
+        tuning_feature_5_MSE                 3.8463711738586426
+      tuning_feature_5_reg_NLL               1.402268648147583
+        tuning_feature_6_MSE                 1.741228699684143
+      tuning_feature_6_reg_NLL               1.3844047784805298
+        tuning_feature_7_MSE                 1.8951666355133057
+      tuning_feature_7_reg_NLL               1.3947728872299194
+        tuning_feature_8_MSE                  1.63235342502594
+      tuning_feature_8_reg_NLL               1.3149535655975342
+        tuning_feature_9_MSE                 1.872299075126648
+      tuning_feature_9_reg_NLL               1.372633695602417
+            tuning_loss                      646.8460083007812
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Testing: |          | 0/? [00:00<?, ?it/s]Testing:   0%|          | 0/5 [00:00<?, ?it/s]Testing DataLoader 0:   0%|          | 0/5 [00:00<?, ?it/s]Testing DataLoader 0:  20%|██        | 1/5 [00:00<00:03,  1.29it/s]Testing DataLoader 0:  40%|████      | 2/5 [00:01<00:02,  1.45it/s]Testing DataLoader 0:  60%|██████    | 3/5 [00:02<00:01,  1.44it/s]Testing DataLoader 0:  80%|████████  | 4/5 [00:02<00:00,  1.48it/s]Testing DataLoader 0: 100%|██████████| 5/5 [00:03<00:00,  1.59it/s]Testing DataLoader 0: 100%|██████████| 5/5 [00:03<00:00,  1.50it/s]wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                                  epoch ▁▁▁▁▁▁▁▁▁██
+wandb:                       held_out_TTE_MSE ▁
+wandb:                      held_out_TTE_MSLE ▁
+wandb:                   held_out_TTE_reg_NLL ▁
+wandb:           held_out_event_label_cls_NLL ▁
+wandb:    held_out_event_label_macro_accuracy ▁
+wandb:    held_out_event_label_micro_accuracy ▁
+wandb:    held_out_event_label_weighted_AUROC ▁
+wandb: held_out_event_label_weighted_accuracy ▁
+wandb:            held_out_event_type_cls_NLL ▁
+wandb:     held_out_event_type_macro_accuracy ▁
+wandb:     held_out_event_type_micro_accuracy ▁
+wandb:     held_out_event_type_weighted_AUROC ▁
+wandb:  held_out_event_type_weighted_accuracy ▁
+wandb:                 held_out_feature_0_MSE ▁
+wandb:             held_out_feature_0_reg_NLL ▁
+wandb:                held_out_feature_10_MSE ▁
+wandb:            held_out_feature_10_reg_NLL ▁
+wandb:                held_out_feature_11_MSE ▁
+wandb:            held_out_feature_11_reg_NLL ▁
+wandb:                held_out_feature_12_MSE ▁
+wandb:            held_out_feature_12_reg_NLL ▁
+wandb:                held_out_feature_13_MSE ▁
+wandb:            held_out_feature_13_reg_NLL ▁
+wandb:                held_out_feature_14_MSE ▁
+wandb:            held_out_feature_14_reg_NLL ▁
+wandb:                held_out_feature_15_MSE ▁
+wandb:            held_out_feature_15_reg_NLL ▁
+wandb:                held_out_feature_16_MSE ▁
+wandb:            held_out_feature_16_reg_NLL ▁
+wandb:                held_out_feature_17_MSE ▁
+wandb:            held_out_feature_17_reg_NLL ▁
+wandb:                held_out_feature_18_MSE ▁
+wandb:            held_out_feature_18_reg_NLL ▁
+wandb:                held_out_feature_19_MSE ▁
+wandb:            held_out_feature_19_reg_NLL ▁
+wandb:                 held_out_feature_1_MSE ▁
+wandb:             held_out_feature_1_reg_NLL ▁
+wandb:                held_out_feature_20_MSE ▁
+wandb:            held_out_feature_20_reg_NLL ▁
+wandb:                held_out_feature_21_MSE ▁
+wandb:            held_out_feature_21_reg_NLL ▁
+wandb:                held_out_feature_22_MSE ▁
+wandb:            held_out_feature_22_reg_NLL ▁
+wandb:                held_out_feature_23_MSE ▁
+wandb:            held_out_feature_23_reg_NLL ▁
+wandb:                held_out_feature_24_MSE ▁
+wandb:            held_out_feature_24_reg_NLL ▁
+wandb:                 held_out_feature_2_MSE ▁
+wandb:             held_out_feature_2_reg_NLL ▁
+wandb:                 held_out_feature_3_MSE ▁
+wandb:             held_out_feature_3_reg_NLL ▁
+wandb:                 held_out_feature_4_MSE ▁
+wandb:             held_out_feature_4_reg_NLL ▁
+wandb:                 held_out_feature_5_MSE ▁
+wandb:             held_out_feature_5_reg_NLL ▁
+wandb:                 held_out_feature_6_MSE ▁
+wandb:             held_out_feature_6_reg_NLL ▁
+wandb:                 held_out_feature_7_MSE ▁
+wandb:             held_out_feature_7_reg_NLL ▁
+wandb:                 held_out_feature_8_MSE ▁
+wandb:             held_out_feature_8_reg_NLL ▁
+wandb:                 held_out_feature_9_MSE ▁
+wandb:             held_out_feature_9_reg_NLL ▁
+wandb:                          held_out_loss ▁
+wandb:                               lr-AdamW ▁▂▃▄▅▆▇█
+wandb:                             task_AUROC ▁▁▁
+wandb:                     task_avg_precision ▁▁▁
+wandb:                              task_loss ██▁
+wandb:                             train_loss █▄▅▁▅▁▄▂
+wandb:                    trainer/global_step ▁▁▂▂▃▃▄▄▅▅▅▅▆▆▇▇▇██
+wandb:                         tuning_TTE_MSE ▁▁
+wandb:                        tuning_TTE_MSLE ▁▁
+wandb:                     tuning_TTE_reg_NLL ▁▁
+wandb:             tuning_event_label_cls_NLL ▁▁
+wandb:      tuning_event_label_macro_accuracy ▁▁
+wandb:      tuning_event_label_micro_accuracy ▁▁
+wandb:      tuning_event_label_weighted_AUROC ▁▁
+wandb:   tuning_event_label_weighted_accuracy ▁▁
+wandb:              tuning_event_type_cls_NLL ▁▁
+wandb:       tuning_event_type_macro_accuracy ▁▁
+wandb:       tuning_event_type_micro_accuracy ▁▁
+wandb:       tuning_event_type_weighted_AUROC ▁▁
+wandb:    tuning_event_type_weighted_accuracy ▁▁
+wandb:                   tuning_feature_0_MSE ▁▁
+wandb:               tuning_feature_0_reg_NLL ▁▁
+wandb:                  tuning_feature_10_MSE ▁▁
+wandb:              tuning_feature_10_reg_NLL ▁▁
+wandb:                  tuning_feature_11_MSE ▁▁
+wandb:              tuning_feature_11_reg_NLL ▁▁
+wandb:                  tuning_feature_12_MSE ▁▁
+wandb:              tuning_feature_12_reg_NLL ▁▁
+wandb:                  tuning_feature_13_MSE ▁▁
+wandb:              tuning_feature_13_reg_NLL ▁▁
+wandb:                  tuning_feature_14_MSE ▁▁
+wandb:              tuning_feature_14_reg_NLL ▁▁
+wandb:                  tuning_feature_15_MSE ▁▁
+wandb:              tuning_feature_15_reg_NLL ▁▁
+wandb:                  tuning_feature_16_MSE ▁▁
+wandb:              tuning_feature_16_reg_NLL ▁▁
+wandb:                  tuning_feature_17_MSE ▁▁
+wandb:              tuning_feature_17_reg_NLL ▁▁
+wandb:                  tuning_feature_18_MSE ▁▁
+wandb:              tuning_feature_18_reg_NLL ▁▁
+wandb:                  tuning_feature_19_MSE ▁▁
+wandb:              tuning_feature_19_reg_NLL ▁▁
+wandb:                   tuning_feature_1_MSE ▁▁
+wandb:               tuning_feature_1_reg_NLL ▁▁
+wandb:                  tuning_feature_20_MSE ▁▁
+wandb:              tuning_feature_20_reg_NLL ▁▁
+wandb:                  tuning_feature_21_MSE ▁▁
+wandb:              tuning_feature_21_reg_NLL ▁▁
+wandb:                  tuning_feature_22_MSE ▁▁
+wandb:              tuning_feature_22_reg_NLL ▁▁
+wandb:                  tuning_feature_23_MSE ▁▁
+wandb:              tuning_feature_23_reg_NLL ▁▁
+wandb:                  tuning_feature_24_MSE ▁▁
+wandb:              tuning_feature_24_reg_NLL ▁▁
+wandb:                   tuning_feature_2_MSE ▁▁
+wandb:               tuning_feature_2_reg_NLL ▁▁
+wandb:                   tuning_feature_3_MSE ▁▁
+wandb:               tuning_feature_3_reg_NLL ▁▁
+wandb:                   tuning_feature_4_MSE ▁▁
+wandb:               tuning_feature_4_reg_NLL ▁▁
+wandb:                   tuning_feature_5_MSE ▁▁
+wandb:               tuning_feature_5_reg_NLL ▁▁
+wandb:                   tuning_feature_6_MSE ▁▁
+wandb:               tuning_feature_6_reg_NLL ▁▁
+wandb:                   tuning_feature_7_MSE ▁▁
+wandb:               tuning_feature_7_reg_NLL ▁▁
+wandb:                   tuning_feature_8_MSE ▁▁
+wandb:               tuning_feature_8_reg_NLL ▁▁
+wandb:                   tuning_feature_9_MSE ▁▁
+wandb:               tuning_feature_9_reg_NLL ▁▁
+wandb:                            tuning_loss ▁▁
+wandb: 
+wandb: Run summary:
+wandb:                                  epoch 1
+wandb:                       held_out_TTE_MSE 47029.81641
+wandb:                      held_out_TTE_MSLE 11.66125
+wandb:                   held_out_TTE_reg_NLL 12.80108
+wandb:           held_out_event_label_cls_NLL 0.34444
+wandb:    held_out_event_label_macro_accuracy 0.89659
+wandb:    held_out_event_label_micro_accuracy 0.89659
+wandb:    held_out_event_label_weighted_AUROC 0.70029
+wandb: held_out_event_label_weighted_accuracy 0.71487
+wandb:            held_out_event_type_cls_NLL 0.18512
+wandb:     held_out_event_type_macro_accuracy 0.0
+wandb:     held_out_event_type_micro_accuracy 0.0
+wandb:     held_out_event_type_weighted_AUROC 0.0
+wandb:  held_out_event_type_weighted_accuracy 0.0
+wandb:                 held_out_feature_0_MSE 2.23506
+wandb:             held_out_feature_0_reg_NLL 1.44379
+wandb:                held_out_feature_10_MSE 4.67921
+wandb:            held_out_feature_10_reg_NLL 4.62707
+wandb:                held_out_feature_11_MSE 6.55584
+wandb:            held_out_feature_11_reg_NLL 2.45699
+wandb:                held_out_feature_12_MSE 5.63421
+wandb:            held_out_feature_12_reg_NLL 2.78364
+wandb:                held_out_feature_13_MSE 4.62593
+wandb:            held_out_feature_13_reg_NLL 2.30193
+wandb:                held_out_feature_14_MSE 12.97777
+wandb:            held_out_feature_14_reg_NLL 4.1535
+wandb:                held_out_feature_15_MSE 1.56002
+wandb:            held_out_feature_15_reg_NLL 1.44432
+wandb:                held_out_feature_16_MSE 1.55202
+wandb:            held_out_feature_16_reg_NLL 1.4827
+wandb:                held_out_feature_17_MSE 1.39336
+wandb:            held_out_feature_17_reg_NLL 1.42773
+wandb:                held_out_feature_18_MSE 5.91334
+wandb:            held_out_feature_18_reg_NLL 2.36138
+wandb:                held_out_feature_19_MSE 1.7933
+wandb:            held_out_feature_19_reg_NLL 2.44412
+wandb:                 held_out_feature_1_MSE 2.27758
+wandb:             held_out_feature_1_reg_NLL 1.45793
+wandb:                held_out_feature_20_MSE 1.60307
+wandb:            held_out_feature_20_reg_NLL 1.45926
+wandb:                held_out_feature_21_MSE 2.05668
+wandb:            held_out_feature_21_reg_NLL 1.7561
+wandb:                held_out_feature_22_MSE 3.90884
+wandb:            held_out_feature_22_reg_NLL 2.11591
+wandb:                held_out_feature_23_MSE 5.00735
+wandb:            held_out_feature_23_reg_NLL 2.18091
+wandb:                held_out_feature_24_MSE 3.78414
+wandb:            held_out_feature_24_reg_NLL 1.99047
+wandb:                 held_out_feature_2_MSE 11.02679
+wandb:             held_out_feature_2_reg_NLL 3.02414
+wandb:                 held_out_feature_3_MSE 15.84596
+wandb:             held_out_feature_3_reg_NLL 3.84586
+wandb:                 held_out_feature_4_MSE 11.00251
+wandb:             held_out_feature_4_reg_NLL 2.76137
+wandb:                 held_out_feature_5_MSE 3.27214
+wandb:             held_out_feature_5_reg_NLL 2.01527
+wandb:                 held_out_feature_6_MSE 1.99226
+wandb:             held_out_feature_6_reg_NLL 1.78903
+wandb:                 held_out_feature_7_MSE 2.4026
+wandb:             held_out_feature_7_reg_NLL 1.86901
+wandb:                 held_out_feature_8_MSE 2.13565
+wandb:             held_out_feature_8_reg_NLL 1.62241
+wandb:                 held_out_feature_9_MSE 2.36591
+wandb:             held_out_feature_9_reg_NLL 1.70406
+wandb:                          held_out_loss 647.0509
+wandb:                               lr-AdamW 0.00043
+wandb:                             task_AUROC 0.0
+wandb:                     task_avg_precision 0.0
+wandb:                              task_loss 577.20135
+wandb:                             train_loss 654.17285
+wandb:                    trainer/global_step 8
+wandb:                         tuning_TTE_MSE 57963.69531
+wandb:                        tuning_TTE_MSLE 12.45788
+wandb:                     tuning_TTE_reg_NLL 5.32635
+wandb:             tuning_event_label_cls_NLL 0.18397
+wandb:      tuning_event_label_macro_accuracy 0.92511
+wandb:      tuning_event_label_micro_accuracy 0.92511
+wandb:      tuning_event_label_weighted_AUROC 0.83025
+wandb:   tuning_event_label_weighted_accuracy 0.70851
+wandb:              tuning_event_type_cls_NLL 0.00786
+wandb:       tuning_event_type_macro_accuracy 0.0
+wandb:       tuning_event_type_micro_accuracy 0.0
+wandb:       tuning_event_type_weighted_AUROC 0.0
+wandb:    tuning_event_type_weighted_accuracy 0.0
+wandb:                   tuning_feature_0_MSE 1.60579
+wandb:               tuning_feature_0_reg_NLL 1.07033
+wandb:                  tuning_feature_10_MSE 2.54112
+wandb:              tuning_feature_10_reg_NLL 1.66872
+wandb:                  tuning_feature_11_MSE 3.95897
+wandb:              tuning_feature_11_reg_NLL 1.74428
+wandb:                  tuning_feature_12_MSE 2.56879
+wandb:              tuning_feature_12_reg_NLL 1.48522
+wandb:                  tuning_feature_13_MSE 2.99006
+wandb:              tuning_feature_13_reg_NLL 1.67381
+wandb:                  tuning_feature_14_MSE 3.27839
+wandb:              tuning_feature_14_reg_NLL 2.17129
+wandb:                  tuning_feature_15_MSE 1.64504
+wandb:              tuning_feature_15_reg_NLL 1.32777
+wandb:                  tuning_feature_16_MSE 1.57375
+wandb:              tuning_feature_16_reg_NLL 1.33026
+wandb:                  tuning_feature_17_MSE 1.52653
+wandb:              tuning_feature_17_reg_NLL 1.2864
+wandb:                  tuning_feature_18_MSE 2.87169
+wandb:              tuning_feature_18_reg_NLL 1.59461
+wandb:                  tuning_feature_19_MSE 1.44643
+wandb:              tuning_feature_19_reg_NLL 1.1918
+wandb:                   tuning_feature_1_MSE 1.07194
+wandb:               tuning_feature_1_reg_NLL 0.96506
+wandb:                  tuning_feature_20_MSE 1.3761
+wandb:              tuning_feature_20_reg_NLL 1.24072
+wandb:                  tuning_feature_21_MSE 1.35294
+wandb:              tuning_feature_21_reg_NLL 1.18268
+wandb:                  tuning_feature_22_MSE 2.0398
+wandb:              tuning_feature_22_reg_NLL 1.39808
+wandb:                  tuning_feature_23_MSE 2.5081
+wandb:              tuning_feature_23_reg_NLL 1.55369
+wandb:                  tuning_feature_24_MSE 2.20767
+wandb:              tuning_feature_24_reg_NLL 1.40313
+wandb:                   tuning_feature_2_MSE 2.70945
+wandb:               tuning_feature_2_reg_NLL 1.8403
+wandb:                   tuning_feature_3_MSE 3.99159
+wandb:               tuning_feature_3_reg_NLL 2.52549
+wandb:                   tuning_feature_4_MSE 3.2123
+wandb:               tuning_feature_4_reg_NLL 1.59052
+wandb:                   tuning_feature_5_MSE 3.84637
+wandb:               tuning_feature_5_reg_NLL 1.40227
+wandb:                   tuning_feature_6_MSE 1.74123
+wandb:               tuning_feature_6_reg_NLL 1.3844
+wandb:                   tuning_feature_7_MSE 1.89517
+wandb:               tuning_feature_7_reg_NLL 1.39477
+wandb:                   tuning_feature_8_MSE 1.63235
+wandb:               tuning_feature_8_reg_NLL 1.31495
+wandb:                   tuning_feature_9_MSE 1.8723
+wandb:               tuning_feature_9_reg_NLL 1.37263
+wandb:                            tuning_loss 646.84601
+wandb: 
+wandb: 🚀 View run task_df_eneryield_class_dist2_finetuning at: https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/runs/1nqg7hpp
+wandb: ️⚡ View job at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjYxMzM1NzA5Ng==/version_details/v73
+wandb: Synced 5 W&B file(s), 0 media file(s), 3 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./pretrain/eneryield2/finetuning/task_df_eneryield_class_dist2/wandb/run-20250417_192056-1nqg7hpp/logs
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+             Test metric                           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           held_out_TTE_MSE                       47029.81640625
+          held_out_TTE_MSLE                     11.661251068115234
+         held_out_TTE_reg_NLL                   12.801078796386719
+     held_out_event_label_cls_NLL              0.34443625807762146
+ held_out_event_label_macro_accuracy            0.8965887427330017
+ held_out_event_label_micro_accuracy            0.8965887427330017
+ held_out_event_label_weighted_AUROC            0.7002936005592346
+held_out_event_label_weighted_accuracy          0.7148727774620056
+     held_out_event_type_cls_NLL                0.1851205974817276
+  held_out_event_type_macro_accuracy                   0.0
+  held_out_event_type_micro_accuracy                   0.0
+  held_out_event_type_weighted_AUROC                   0.0
+held_out_event_type_weighted_accuracy                  0.0
+        held_out_feature_0_MSE                  2.235063314437866
+      held_out_feature_0_reg_NLL                1.4437949657440186
+       held_out_feature_10_MSE                  4.679214000701904
+     held_out_feature_10_reg_NLL                4.627066135406494
+       held_out_feature_11_MSE                  6.555840015411377
+     held_out_feature_11_reg_NLL                2.456989288330078
+       held_out_feature_12_MSE                  5.634213924407959
+     held_out_feature_12_reg_NLL                2.7836382389068604
+       held_out_feature_13_MSE                  4.625926494598389
+     held_out_feature_13_reg_NLL                2.3019330501556396
+       held_out_feature_14_MSE                  12.977768898010254
+     held_out_feature_14_reg_NLL                4.153497219085693
+       held_out_feature_15_MSE                  1.5600166320800781
+     held_out_feature_15_reg_NLL                1.4443233013153076
+       held_out_feature_16_MSE                  1.5520164966583252
+     held_out_feature_16_reg_NLL                1.4827035665512085
+       held_out_feature_17_MSE                  1.3933550119400024
+     held_out_feature_17_reg_NLL                1.4277315139770508
+       held_out_feature_18_MSE                  5.913339138031006
+     held_out_feature_18_reg_NLL                2.3613762855529785
+       held_out_feature_19_MSE                  1.7933048009872437
+     held_out_feature_19_reg_NLL                2.444115161895752
+        held_out_feature_1_MSE                  2.277578592300415
+      held_out_feature_1_reg_NLL                1.4579253196716309
+       held_out_feature_20_MSE                  1.6030678749084473
+     held_out_feature_20_reg_NLL                1.4592572450637817
+       held_out_feature_21_MSE                  2.0566771030426025
+     held_out_feature_21_reg_NLL                1.756097674369812
+       held_out_feature_22_MSE                  3.9088375568389893
+     held_out_feature_22_reg_NLL                2.1159110069274902
+       held_out_feature_23_MSE                   5.00735330581665
+     held_out_feature_23_reg_NLL                2.180913209915161
+       held_out_feature_24_MSE                  3.784135580062866
+     held_out_feature_24_reg_NLL                1.9904695749282837
+        held_out_feature_2_MSE                  11.026786804199219
+      held_out_feature_2_reg_NLL                3.0241358280181885
+        held_out_feature_3_MSE                  15.845962524414062
+      held_out_feature_3_reg_NLL                3.845858573913574
+        held_out_feature_4_MSE                  11.002509117126465
+      held_out_feature_4_reg_NLL                 2.76137375831604
+        held_out_feature_5_MSE                  3.272136926651001
+      held_out_feature_5_reg_NLL                2.0152735710144043
+        held_out_feature_6_MSE                  1.9922645092010498
+      held_out_feature_6_reg_NLL                1.7890326976776123
+        held_out_feature_7_MSE                  2.402604103088379
+      held_out_feature_7_reg_NLL                1.8690121173858643
+        held_out_feature_8_MSE                  2.1356518268585205
+      held_out_feature_8_reg_NLL                1.6224101781845093
+        held_out_feature_9_MSE                  2.3659121990203857
+      held_out_feature_9_reg_NLL                1.704056978225708
+            held_out_loss                       647.0509033203125
+              task_AUROC                               0.0
+          task_avg_precision                           0.0
+              task_loss                         577.2013549804688
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Saving final metrics...
+Running sweep with config: finetune_interruption_1_day2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Seed set to 1
+wandb: Currently logged in as: marcus-student-chalmers (marcus-student-chalmers-personal). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.19.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_1_day2/wandb/run-20250417_192156-xmkmeknn
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run task_df_eneryield_interruption_1_day2_finetuning
+wandb: ⭐️ View project at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2
+wandb: 🚀 View run at https://wandb.ai/marcus-student-chalmers-personal/Eneryield2/runs/xmkmeknn
+wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+WARNING: For a conditionally_independent model, measurements_per_dep_graph_level is not used; got []. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+[rank: 1] Seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+
+  | Name        | Type                               | Params | Mode 
+---------------------------------------------------------------------------
+0 | tte_metrics | ModuleDict                         | 0      | train
+1 | metrics     | ModuleDict                         | 0      | train
+2 | model       | CIPPTForGenerativeSequenceModeling | 1.5 M  | eval 
+---------------------------------------------------------------------------
+1.5 M     Trainable params
+0         Non-trainable params
+1.5 M     Total params
+6.149     Total estimated model params size (MB)
+92        Modules in train mode
+197       Modules in eval mode
+experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_1_day2', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.4058532627891442
+Overwriting input_dropout in config from 0.4494236115512016 to 0.4724096850432392
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.13141984282960484
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to True
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_17_04_2025 to /home/filip-marcus/results/eneryield2/interruption_1_day_baseline
+Overwriting task_specific_params in config from None to {'pooling_method': 'last', 'num_samples': None}
+Setting wandb project to Eneryield2
+Re-loading task data for task_df_eneryield_interruption_1_day2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_1_day2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2/tuning_0.parquet
+Saving config files...
+Writing to /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_1_day2/config.json
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning
+Loading data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/data_config.json
+reloaded_data_config PytorchDatasetConfig(save_dir=PosixPath('/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2'), max_seq_len=256, min_seq_len=2, seq_padding_side='right', subsequence_sampling_strategy='random', train_subset_size='FULL', train_subset_seed=1, task_df_name='task_df_eneryield_interruption_1_day2', do_include_subsequence_indices=False, do_include_subject_id=False, do_include_start_time_min=False)
+Overwriting save_dir in data_config from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2 to /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+Overwriting max_seq_len in data_config from 256 to 256
+Overwriting seq_padding_side in data_config from right to right
+Overwriting subsequence_sampling_strategy in data_config from random to to_end
+Overwriting train_subset_size in data_config from FULL to FULL
+Overwriting train_subset_seed in data_config from 1 to 1
+Loading config from /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/config.json
+Overwriting attention_dropout in config from 0.004563095202856138 to 0.4058532627891442
+Overwriting input_dropout in config from 0.4494236115512016 to 0.4724096850432392
+Overwriting resid_dropout in config from 0.4939188761966135 to 0.13141984282960484
+Overwriting is_cls_dist in config from False to False
+Overwriting is_event_classification in config from False to False
+Overwriting save_metrics in config from True to True
+Overwriting save_metrics_fp in config from /home/filip-marcus/results/eneryield2/pretrain_17_04_2025 to /home/filip-marcus/results/eneryield2/interruption_1_day_baseline
+Overwriting task_specific_params in config from None to {'pooling_method': 'last', 'num_samples': None}
+Setting wandb project to Eneryield2
+Re-loading task data for task_df_eneryield_interruption_1_day2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2/train_0.parquet
+Re-loading task data for task_df_eneryield_interruption_1_day2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2/tuning_0.parquet
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  1.59it/s]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  2.38it/s]                                                                           Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/10 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/10 [00:00<?, ?it/s] Epoch 0:  10%|█         | 1/10 [00:01<00:14,  0.63it/s]Epoch 0:  10%|█         | 1/10 [00:01<00:14,  0.63it/s, v_num=eknn]Epoch 0:  20%|██        | 2/10 [00:01<00:07,  1.05it/s, v_num=eknn]Epoch 0:  20%|██        | 2/10 [00:01<00:07,  1.05it/s, v_num=eknn]/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:43: UserWarning: No positive samples found in target, recall is undefined. Setting recall to one for all thresholds.
+  warnings.warn(*args, **kwargs)
+/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/torchmetrics/utilities/prints.py:43: UserWarning: No positive samples in targets, true positive value should be meaningless. Returning zero tensor in true positive score
+  warnings.warn(*args, **kwargs)
+Epoch 0:  30%|███       | 3/10 [00:02<00:05,  1.40it/s, v_num=eknn]Epoch 0:  30%|███       | 3/10 [00:02<00:05,  1.40it/s, v_num=eknn]Epoch 0:  40%|████      | 4/10 [00:02<00:03,  1.67it/s, v_num=eknn]Epoch 0:  40%|████      | 4/10 [00:02<00:03,  1.67it/s, v_num=eknn]Epoch 0:  50%|█████     | 5/10 [00:02<00:02,  1.89it/s, v_num=eknn]Epoch 0:  50%|█████     | 5/10 [00:02<00:02,  1.89it/s, v_num=eknn]Epoch 0:  60%|██████    | 6/10 [00:02<00:01,  2.06it/s, v_num=eknn]Epoch 0:  60%|██████    | 6/10 [00:02<00:01,  2.06it/s, v_num=eknn]Epoch 0:  70%|███████   | 7/10 [00:03<00:01,  2.22it/s, v_num=eknn]Epoch 0:  70%|███████   | 7/10 [00:03<00:01,  2.22it/s, v_num=eknn]Epoch 0:  80%|████████  | 8/10 [00:03<00:00,  2.35it/s, v_num=eknn]Epoch 0:  80%|████████  | 8/10 [00:03<00:00,  2.35it/s, v_num=eknn]Epoch 0:  90%|█████████ | 9/10 [00:03<00:00,  2.46it/s, v_num=eknn]Epoch 0:  90%|█████████ | 9/10 [00:03<00:00,  2.46it/s, v_num=eknn]Epoch 0: 100%|██████████| 10/10 [00:03<00:00,  2.57it/s, v_num=eknn]Epoch 0: 100%|██████████| 10/10 [00:03<00:00,  2.57it/s, v_num=eknn]
+Validation: |          | 0/? [00:00<?, ?it/s][A
+Validation:   0%|          | 0/2 [00:00<?, ?it/s][A
+Validation DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s][A
+Validation DataLoader 0:  50%|█████     | 1/2 [00:00<00:00,  4.46it/s][A
+Validation DataLoader 0: 100%|██████████| 2/2 [00:00<00:00,  4.57it/s][A
+                                                                      [AEpoch 0: 100%|██████████| 10/10 [00:05<00:00,  1.96it/s, v_num=eknn]Epoch 0: 100%|██████████| 10/10 [00:05<00:00,  1.95it/s, v_num=eknn]`Trainer.fit` stopped: `max_epochs=1` reached.
+Epoch 0: 100%|██████████| 10/10 [00:05<00:00,  1.92it/s, v_num=eknn]thread '<unnamed>' panicked at 'range end index 302 out of range for slice of length 301', /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/arrow2-0.17.4/src/offset.rs:284:22
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at 'range end index 302 out of range for slice of length 301', /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/arrow2-0.17.4/src/offset.rs:284:22
+Metrics saved!
+/home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_interruption_1_day2/finetune_weights
+WARNING: For a conditionally_independent model, do_full_block_in_seq_attention is not used; got False. Setting to None.
+WARNING: For a conditionally_independent model, do_full_block_in_dep_graph_attention is not used; got True. Setting to None.
+WARNING: For a conditionally_independent model, dep_graph_window_size is not used; got 2. Setting to None.
+Re-loading task data for task_df_eneryield_interruption_1_day2 from /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2:
+/home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2/DL_reps/for_task/task_df_eneryield_interruption_1_day2/held_out_0.parquet
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/filip-marcus/ESGPT_new/EventStreamGPT/scripts/finetune.py", line 48, in <module>
+[rank1]:     main()
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/main.py", line 94, in decorated_main
+[rank1]:     _run_hydra(
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+[rank1]:     _run_app(
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+[rank1]:     run_and_report(
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+[rank1]:     return func()
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+[rank1]:     lambda: hydra.run(
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 119, in run
+[rank1]:     ret = run_job(
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
+[rank1]:     ret.return_value = task_function(task_cfg)
+[rank1]:   File "/home/filip-marcus/ESGPT_new/EventStreamGPT/scripts/finetune.py", line 44, in main
+[rank1]:     return train(cfg)
+[rank1]:   File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/utils.py", line 378, in wrap
+[rank1]:     fn_return = task_func(*args, **kwargs)
+[rank1]:   File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/transformer/lightning_modules/fine_tuning_dev.py", line 398, in train
+[rank1]:     held_out_pyd = PytorchDataset(cfg.data_config, split="held_out")
+[rank1]:   File "/home/filip-marcus/ESGPT_new/EventStreamGPT/EventStream/data/pytorch_dataset.py", line 294, in __init__
+[rank1]:     self.cached_data = self.cached_data.collect()
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/polars/utils/deprecation.py", line 93, in wrapper
+[rank1]:     return function(*args, **kwargs)
+[rank1]:   File "/home/filip-marcus/ESGPT_new/esgpt-new-venv/lib/python3.10/site-packages/polars/lazyframe/frame.py", line 1695, in collect
+[rank1]:     return wrap_df(ldf.collect())
+[rank1]: pyo3_runtime.PanicException: range end index 302 out of range for slice of length 301
+[rank: 1] Child process with PID 1101244 terminated with code 1. Forcefully terminating all other processes to avoid zombies 🧟
+./sweep_script.sh: line 10: 1101151 Killed                  python "$SCRIPT_PATH" --config-path="$CONFIG_PATH" --config-name="$CONFIG_NAME"

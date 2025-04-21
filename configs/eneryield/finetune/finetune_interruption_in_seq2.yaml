@@ -1,0 +1,45 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: true
+seed: 1
+
+# Strategy:  (class dist)
+strategy: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/
+task_df_name: task_df_eneryield_interruption_in_seq2
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+config:
+  is_cls_dist: false
+  is_event_classification: false
+  save_metrics: true
+  save_metrics_fp: /home/filip-marcus/results/eneryield2/interruption_in_seq_baseline
+  attention_dropout: 0.33116964431102686
+  input_dropout:  0.440341029364912
+  resid_dropout: 0.05912026228735062
+  task_specific_params:
+    pooling_method: mean
+
+
+
+
+data_config:
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield2
+  max_seq_len: 256
+optimization_config:
+  init_lr: 0.011878202162671344
+  end_lr: 5.4241927166465075e-05
+  end_lr_frac_of_init_lr: 0.004566509849186331
+  max_epochs: 120
+  batch_size: 39
+  validation_batch_size: 32
+  lr_frac_warmup_steps: 0.00046983638571174624
+  lr_num_warmup_steps: 3
+  max_training_steps: 5600
+  lr_decay_power: 2.170201242397975
+  weight_decay: 0.4946748913901313
+  patience: null
+  gradient_accumulation: 1
+  gradient_clip_val: 1
+  num_dataloader_workers: 5

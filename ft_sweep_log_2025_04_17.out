@@ -1,0 +1,10 @@
+nohup: ignoring input
+Running sweep with config: FT_hp_sweep_inerruption_7_day
+Cannot find primary config 'FT_hp_sweep_inerruption_7_day'. Check that it's in your config search path.
+
+Config search path:
+	provider=hydra, path=pkg://hydra.conf
+	provider=main, path=file:///home/filip-marcus/ESGPT_new/EventStreamGPT/configs/eneryield
+	provider=schema, path=structured://
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

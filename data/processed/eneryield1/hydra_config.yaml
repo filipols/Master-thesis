@@ -1,0 +1,66 @@
+outlier_detector_config:
+  cls: stddev_cutoff
+  stddev_cutoff: 5.0
+normalizer_config:
+  cls: standard_scaler
+cohort_name: eneryield1
+save_dir: ./data/processed/eneryield1
+subject_id_col: sequence_id
+seed: 1
+split:
+- 0.8
+- 0.1
+do_overwrite: true
+DL_chunk_size: 20000
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: 2
+agg_by_time_scale: null
+raw_data_dir: /home/filip-marcus/preprocessed_data/eneryield/pretrain
+DL_chuck_size: null
+inputs:
+  subjects:
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/eneryield_subjects_1.csv
+  event:
+    input_df: /home/filip-marcus/preprocessed_data/eneryield/pretrain/eneryield_dataset_1.csv
+    ts_col: timestamp
+    ts_format: '%Y-%m-%d %H:%M:%S'
+    event_type: event
+measurements:
+  static:
+    single_label_classification:
+      subjects:
+      - dummy_static
+  dynamic:
+    multi_label_classification:
+      event:
+      - event_label
+    univariate_regression:
+      event:
+      - feature_0
+      - feature_1
+      - feature_2
+      - feature_3
+      - feature_4
+      - feature_5
+      - feature_6
+      - feature_7
+      - feature_8
+      - feature_9
+      - feature_10
+      - feature_11
+      - feature_12
+      - feature_13
+      - feature_14
+      - feature_15
+      - feature_16
+      - feature_17
+      - feature_18
+      - feature_19
+      - feature_20
+      - feature_21
+      - feature_22
+      - feature_23
+      - feature_24

@@ -1,0 +1,16 @@
+Finetune Run Log - fre 18 apr 2025 08:37:35 CEST
+Generated permutations: event_label2
+Permutation: event_label2
+Running config: event_label2
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
+Config event_label2: SUCCESS
+Running day run config: interruption_1_day2
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetune_weights
+Day Run Config interruption_1_day2: SUCCESS
+Running day run config: interruption_3_day2
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetuning/task_df_eneryield_interruption_1_day2
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetuning/task_df_eneryield_interruption_1_day2/finetune_weights
+Day Run Config interruption_3_day2: FAILED
+Skipping final config interruption_next_week2 due to earlier failure.

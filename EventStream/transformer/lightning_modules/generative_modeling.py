@@ -505,7 +505,7 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
                 self.save_dict["task_loss"].append(task_loss.item())
                 self.save_dict["task_auroc"].append(auroc_score)
                 self.save_dict["task_accuracy"].append(accuracy)
-                self.save_dict["task_mse"].append(mse.item())
+                self.save_dict["task_mse"].append(mse)
             
             self.save_dict["train_loss"].append(train_loss.item())    # train loss is the loss without the task loss. This part is the same regardless of the task        
             if event_label_preds != None:                                                                                        # this task loss is specific for the finetuning task

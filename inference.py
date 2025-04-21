@@ -188,11 +188,11 @@ def inference(cfg):
                                         output_hidden_states=True,
                                         return_dict=True)
             
-            mse.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=True)[0].losses.mse)
+            mse.append(model.output_layer(batch, encoded.last_hidden_state, is_generation=False)[0].losses.mse)
         print('-------------------------------------------------------------------')
         print('METRICS:')
         print('-------------------------------------------------------------------')
-        print(f'Mean MSE evaluated on HELD OUT set: {mse}')
+        print(f'Mean MSE evaluated on HELD OUT set: {np.mean(mse):.8f}')
         print('-------------------------------------------------------------------')
     elif cfg.task_type == "tti":
         # Metrics:

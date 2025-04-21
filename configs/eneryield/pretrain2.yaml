@@ -27,7 +27,7 @@ config:
   structured_event_processing_mode: conditionally_independent
   cohort_name: eneryield2
   save_metrics: true
-  save_metrics_fp: /home/filip-marcus/results/eneryield2/pretrain_10_04_2025
+  save_metrics_fp: /home/filip-marcus/results/eneryield2/pretrain_17_04_2025
   is_pretrain: true
 
 data_config:
