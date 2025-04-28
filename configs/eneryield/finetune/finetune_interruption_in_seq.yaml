@@ -5,7 +5,7 @@ defaults:
 do_overwrite: true
 seed: 1
 
-# Strategy:  (class dist)
+# Strategy: 
 load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/
 task_df_name: task_df_eneryield_interruption_in_seq1
 pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
@@ -13,29 +13,99 @@ config:
   is_cls_dist: false
   is_event_classification: false
   save_metrics: true
+  is_interruption_forecast: false
   save_metrics_fp: /home/filip-marcus/results/eneryield1/interruption_in_seq_baseline
-  attention_dropout: 0.13510777370673316
-  input_dropout: 0.06985439826697004
-  resid_dropout: 0.18472161732616824
+  attention_dropout: 0.18836215316415228
+  input_dropout: 0.12373500765510947
+  resid_dropout: 0.27840586989803184
   task_specific_params:
     pooling_method: mean
+
+
+# # Strategy:  (class dist --> event label --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1/finetuning/task_df_eneryield_event_label1
+# task_df_name: task_df_eneryield_interruption_in_seq1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1/finetuning/task_df_eneryield_event_label1/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/class_dist_event_label_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.18836215316415228
+#   input_dropout: 0.12373500765510947
+#   resid_dropout: 0.27840586989803184
+#   task_specific_params:
+#     pooling_method: mean
+
+
+# # Strategy:  (class dist --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1
+# task_df_name: task_df_eneryield_interruption_in_seq1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/class_dist_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.18836215316415228
+#   input_dropout: 0.12373500765510947
+#   resid_dropout: 0.27840586989803184
+#   task_specific_params:
+#     pooling_method: mean
+
+
+# # Strategy:  (event label --> class dist --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_class_dist1
+# task_df_name: task_df_eneryield_interruption_in_seq1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_class_dist1/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_class_dist_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.18836215316415228
+#   input_dropout: 0.12373500765510947
+#   resid_dropout: 0.27840586989803184
+#   task_specific_params:
+#     pooling_method: mean
+
+
+# # Strategy:  (event label --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1
+# task_df_name: task_df_eneryield_interruption_in_seq1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.18836215316415228
+#   input_dropout: 0.12373500765510947
+#   resid_dropout: 0.27840586989803184
+#   task_specific_params:
+#     pooling_method: mean
+
 
 
 data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield1
   max_seq_len: 256
 optimization_config:
-  init_lr: 0.0005387192471114002
-  end_lr: 2.524466419119271e-06
-  end_lr_frac_of_init_lr: 0.004686052025531666
-  max_epochs: 10
-  batch_size: 20
+  init_lr: 0.017378885431807413
+  end_lr: 3.216249912246152e-05
+  end_lr_frac_of_init_lr: 0.0018506652367704
+  max_epochs: 31
+  batch_size: 31
   validation_batch_size: 32
-  lr_frac_warmup_steps: 0.2670639865238901
-  lr_num_warmup_steps: 160
-  max_training_steps: 600
-  lr_decay_power: 0.9032979645205408
-  weight_decay: 0.2821793603431732
+  lr_frac_warmup_steps: 8.285765166262426e-05
+  lr_num_warmup_steps: 0
+  max_training_steps: 2000
+  lr_decay_power: 1.881080988443152
+  weight_decay: 0.3668850671465214
   patience: 15
   gradient_accumulation: 1
   gradient_clip_val: 1

@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Define the names of the configurations
-#names=("event_label2" "class_dist2" "interruption_in_seq2")
-names=("event_label2")
+names=("event_label" "class_dist" "interruption_in_seq")
+# names=("event_label2")
 # Define interruption x day runs
-# interruption_x_day_runs=("interruption_1_day2" "interruption_3_day2" "interruption_5_day2" "interruption_7_day2")
-interruption_x_day_runs=("interruption_1_day2" "interruption_3_day2")
+interruption_x_day_runs=("interruption_3_day" "interruption_5_day")
+#interruption_x_day_runs=("interruption_1_day2" "interruption_3_day2")
 # Define the additional config to run after each order
-final_config="interruption_next_week2"
+final_config="interruption_7_day"
 
 # Base directory for model and weights
-base_model_dir="$(pwd)/pretrain/eneryield2"
+base_model_dir="$(pwd)/pretrain/eneryield1"
 base_weights_fp="$base_model_dir/pretrained_weights"
 
 # Temporary file to store the updated config
-temp_config_dir="$(pwd)/configs/eneryield/temp_configs"
+temp_config_dir="$(pwd)/configs/eneryield/finetune/temp_configs"
 mkdir -p $temp_config_dir
 
 # Log file to track success and failure
@@ -65,7 +65,7 @@ echo "$permutations" | while read -r permutation; do
         fi
 
         # Update the config file with the current model and weights paths
-        original_config="$(pwd)/configs/eneryield/finetune_$config.yaml"
+        original_config="$(pwd)/configs/eneryield/finetune/finetune_$config.yaml"
         temp_config="$temp_config_dir/finetune_$config.yaml"
 
         # Set the "strategy" variable dynamically
@@ -85,7 +85,7 @@ echo "$permutations" | while read -r permutation; do
         echo "  current_weights_fp: $current_weights_fp" >> $log_file
 
         # Run the script with the updated config
-        python $(pwd)/scripts/finetune.py --config-path=$(pwd)/configs/eneryield/temp_configs --config-name=finetune_$config
+        python $(pwd)/scripts/finetune.py --config-path=$(pwd)/configs/eneryield/finetune/temp_configs --config-name=finetune_$config
         if [ $? -ne 0 ]; then
             echo "Error: finetune.py failed for config $config. Terminating this permutation."
             echo "Config $config: FAILED" >> $log_file
@@ -105,7 +105,7 @@ echo "$permutations" | while read -r permutation; do
     if $success; then
         for day_run in "${interruption_x_day_runs[@]}"; do
             echo "Running finetune.py with config: $day_run"
-            original_day_run_config="$(pwd)/configs/eneryield/finetune_$day_run.yaml"
+            original_day_run_config="$(pwd)/configs/eneryield/finetune/finetune_$day_run.yaml"
             temp_day_run_config="$temp_config_dir/finetune_$day_run.yaml"
 
             sed "s|load_from_model_dir:.*|load_from_model_dir: $current_model_dir|" $original_day_run_config > $temp_day_run_config
@@ -116,7 +116,7 @@ echo "$permutations" | while read -r permutation; do
             echo "  current_model_dir: $current_model_dir" >> $log_file
             echo "  current_weights_fp: $current_weights_fp" >> $log_file
 
-            python $(pwd)/scripts/finetune.py --config-path=$(pwd)/configs/eneryield/temp_configs --config-name=finetune_$day_run
+            python $(pwd)/scripts/finetune.py --config-path=$(pwd)/configs/eneryield/finetune/temp_configs --config-name=finetune_$day_run
             if [ $? -ne 0 ]; then
                 echo "Error: finetune.py failed for day run config $day_run."
                 echo "Day Run Config $day_run: FAILED" >> $log_file
@@ -137,7 +137,7 @@ echo "$permutations" | while read -r permutation; do
     # Run the final config after each permutation if all previous runs succeeded
     if $success; then
         echo "Running finetune.py with final config: $final_config"
-        original_final_config="$(pwd)/configs/eneryield/finetune_$final_config.yaml"
+        original_final_config="$(pwd)/configs/eneryield/finetune/finetune_$final_config.yaml"
         temp_final_config="$temp_config_dir/finetune_$final_config.yaml"
 
         sed "s|load_from_model_dir:.*|load_from_model_dir: $current_model_dir|" $original_final_config > $temp_final_config
@@ -148,7 +148,7 @@ echo "$permutations" | while read -r permutation; do
         echo "  current_model_dir: $current_model_dir" >> $log_file
         echo "  current_weights_fp: $current_weights_fp" >> $log_file
 
-        python $(pwd)/scripts/finetune.py --config-path=$(pwd)/configs/eneryield/temp_configs --config-name=finetune_$final_config
+        python $(pwd)/scripts/finetune.py --config-path=$(pwd)/configs/eneryield/finetune/temp_configs --config-name=finetune_$final_config
         if [ $? -ne 0 ]; then
             echo "Error: finetune.py failed for final config $final_config."
             echo "Final Config $final_config: FAILED" >> $log_file

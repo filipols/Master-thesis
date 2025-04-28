@@ -15,6 +15,7 @@ config:
   is_cls_dist: false
   is_event_classification: false
   save_metrics: false
+  is_interruption_forecast: true
   save_metrics_fp: /home/filip-marcus/results/eneryield1/interruption_3_day_baseline
 
 data_config:

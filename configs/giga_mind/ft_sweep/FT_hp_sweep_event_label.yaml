@@ -1,0 +1,71 @@
+defaults:
+  - parameters: finetuning
+  - _self_
+
+entity: marcus-student-chalmers-personal
+project: gigamind_ft_sweep
+program: finetune.py
+runcap: 100
+method: bayes
+name: event_label
+metric:
+  goal: minimize
+  name: task_loss
+early_terminate:
+  type: hyperband
+  min_iter: 1000
+# log_every_n_steps: 2
+
+finetuning:
+  wand_logger_kwargs:
+    name:
+      value: "event_label"
+
+
+parameters:
+  do_overwrite: 
+    value: true
+  config:
+    is_cls_dist: 
+      value: false
+    is_event_classification: 
+      value: true
+    is_interruption_forecast:
+      value: false
+    save_metrics_fp:
+      value: /home/filip-marcus/resutls/eneryield/test
+    save_metrics:
+      value: false
+  optimization_config:
+    num_dataloader_workers:
+      value: 5
+
+    patience:
+      value: 10
+    init_lr:
+      max: 1
+      min: 1e-8
+    weight_decay:
+      max: 0.01
+      min: 0.00000000001
+    max_epochs:
+      value: 200
+    batch_size:
+      max: 64
+      min: 8
+  task_df_name: 
+    value: task_df_giga_mind_event_label
+  load_from_model_dir: 
+    value: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/
+  seed: 
+    value: 1
+  pretrained_weights_fp: 
+    value: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/pretrained_weights
+
+  data_config:
+    save_dir: 
+      value: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind
+    seq_padding_side:
+      value: left
+    max_seq_len:
+      value: 256

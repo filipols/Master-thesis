@@ -12,7 +12,8 @@ __pycache__/
 *.ckpt
 *.json
 *.pkl
-
+*.out
+*.log
 # Distribution / packaging
 .Python
 build/
@@ -154,3 +155,6 @@ sample_data/processed/*
 outputs
 pretrain/
 
+ft_sweep_log_2025_04_20.out
+ft_sweep_log_2025_04_21_final.out
+ft_sweep_log_2025_04_21.out

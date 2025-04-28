@@ -3,39 +3,40 @@ defaults:
   - _self_
 
 config:
-  TTE_generation_layer_type: exponential
+  TTE_generation_layer_type: log_normal_mixture
   TTE_lognormal_generation_num_components: 9
-  attention_dropout: 0.004563095202856138
-  categorical_embedding_dim: 82
-  categorical_embedding_weight: 0.906786702016441
-  do_full_block_in_dep_graph_attention: false
-  do_full_block_in_seq_attention: false
+  attention_dropout: 0.06854499366458311
+  categorical_embedding_dim: 57
+  categorical_embedding_weight: 0.2169528035330608
+  do_full_block_in_dep_graph_attention: true
+  do_full_block_in_seq_attention: true
   do_normalize_by_measurement_index: false
   do_split_embeddings: false
-  do_use_learnable_sinusoidal_ATE: true
+  do_use_learnable_sinusoidal_ATE: false
   head_dim: 18
-  input_dropout: 0.4494236115512016
+  input_dropout: 0.01990318760657278
   intermediate_size: 128
   num_attention_heads: 10
   num_hidden_layers: 8
-  numerical_embedding_dim: 110
-  resid_dropout: 0.4939188761966135
+  numerical_embedding_dim: 98
+  resid_dropout: 0.4851158142053062
   seq_attention_types: global
-  seq_window_size: 62
+  seq_window_size: 6
   static_embedding_mode: drop
-  static_embedding_weight: 0.36222010226052526
+  static_embedding_weight: 0.7150957737745894
   structured_event_processing_mode: conditionally_independent
-  cohort_name: eneryield
+  cohort_name: giga_mind
   save_metrics: true
-  save_metrics_fp: /home/filip-marcus/results/eneryield/pretrain_10_04_2025
+  save_metrics_fp: /home/filip-marcus/results/giga_mind/pretrain_25_04_2025
   is_pretrain: true
 
 data_config:
   max_seq_len: 256
-  min_seq_len: 2
-  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
+  min_seq_len: 10
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind
   train_subset_seed: 1
   train_subset_size: FULL
+  seq_padding_side: left
 
 do_final_validation_on_metrics: true
 do_overwrite: true
@@ -55,21 +56,21 @@ wandb_logger_kwargs:
   do_log_graph: false
   log_model: false
   name: generative_event_stream_transformer
-  project: Eneryield
+  project: GigaMind
 
 optimization_config:
-  init_lr: 0.008
-  end_lr: null
-  end_lr_frac_of_init_lr: 0.0004
-  max_epochs: 115
-  batch_size: 32
+  init_lr: 7.184650270432113e-05
+  end_lr: 1.7652801398320948e-06
+  end_lr_frac_of_init_lr: 0.02457016101531027
+  max_epochs: 60
+  batch_size: 76
   validation_batch_size: 32
-  lr_frac_warmup_steps: 0.04643375085884701
-  lr_num_warmup_steps: 7
-  max_training_steps: 150
-  lr_decay_power: 1.5
-  weight_decay: 0.0003
-  patience: 30
+  lr_frac_warmup_steps: 0.2873772523208496
+  lr_num_warmup_steps: 25289
+  max_training_steps: 88000
+  lr_decay_power: 4.21456437496847
+  weight_decay: 0.3822450259430918
+  patience: null
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5

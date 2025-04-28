@@ -7,7 +7,7 @@ parameters:
     value: /home/filip-marcus/ESGPT_new/EventStreamGPT
   data_config:
     save_dir:
-      value: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield
+      value: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind
     max_seq_len: 
       value: 256
   config:
@@ -35,14 +35,14 @@ parameters:
     num_dataloader_workers:
       value: 5
     max_epochs:
-      value: 50
+      value: 200
     patience: 
-      value: 5
+      value: 10
     batch_size:
-      max: 64
-      min: 8
+      max: 128
+      min: 32
     weight_decay:
-      max: 0.01
+      max: 0.5
       min: 0.0000000001
   trainer_config:
     log_every_n_steps:
@@ -54,7 +54,7 @@ parameters:
     value: True 
 
 entity: "marcus-student-chalmers"
-project: "Hyperparameter_sweep_eneryield"
-run_cap: 30
+project: "Hyperparameter_sweep_gigamind"
+run_cap: 100
 
 

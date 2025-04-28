@@ -5,46 +5,64 @@ defaults:
 do_overwrite: true
 seed: 1
 
-# Strategy:  (class dist)
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/
-task_df_name: task_df_eneryield_class_dist1
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
-config:
-  is_cls_dist: true
-  is_event_classification: false
-  save_metrics: true
-  save_metrics_fp: /home/filip-marcus/results/eneryield1/class_dist_baseline
-  is_pretrain: false
-
-
-# # Strategy:  (event label) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/
-# task_df_name: task_df_eneryield_interruption_in_seq
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/pretrained_weights
+# # Strategy:  (class dist)
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/
+# task_df_name: task_df_eneryield_class_dist1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
 # config:
 #   is_cls_dist: true
 #   is_event_classification: false
 #   save_metrics: true
-#   save_metrics_fp: /home/filip-marcus/results/test/test2
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/class_dist_baseline
+#   is_pretrain: false
 
 
-# # Strategy:  (event label --> interruption in seq) 
-# strategy: true
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/finetuning/task_df_eneryield_event_label
-# task_df_name: task_df_eneryield_interruption_in_seq
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/finetuning/task_df_eneryield_event_label/finetune_weights
+# # Strategy:  (event label --> class dist) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1
+# task_df_name: task_df_eneryield_class_dist1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetune_weights
 # config:
-#   is_cls_dist: false
+#   is_cls_dist: true
 #   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_class_dist
+#   is_pretrain: false
 
-# # Strategy:  (event label --> interruption in seq --> interruptin next week) 
-# strategy: true
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/finetuning/task_df_eneryield_event_label/task_df_eneryield_interruption_in_seq
-# task_df_name: task_df_eneryield_interruption_next_week
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield/finetuning/task_df_eneryield_event_label/task_df_eneryield_interruption_in_seq/finetune_weights
+
+
+# # Strategy:  (event label --> interruption in sequence --> class dist) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_interruption_in_seq1
+# task_df_name: task_df_eneryield_class_dist1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_interruption_in_seq1/finetune_weights
 # config:
-#   is_cls_dist: false
+#   is_cls_dist: true
 #   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_interruption_in_seq_class_dist
+#   is_pretrain: false
+
+
+# # Strategy:  (interruption in seq --> class dist) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq1
+# task_df_name: task_df_eneryield_class_dist1
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq1/finetune_weights
+# config:
+#   is_cls_dist: true
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/eneryield1/interruption_in_seq_class_dist
+#   is_pretrain: false
+
+# Strategy:  (interruption in seq --> event label --> class dist) 
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq1/finetuning/task_df_eneryield_event_label1
+task_df_name: task_df_eneryield_class_dist1
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq1/finetuning/task_df_eneryield_event_label1/finetune_weights
+config:
+  is_cls_dist: true
+  is_event_classification: false
+  save_metrics: true
+  save_metrics_fp: /home/filip-marcus/results/eneryield1/interruption_in_seq_event_label_class_dist
+  is_pretrain: false
 
 
 data_config:

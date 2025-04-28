@@ -1,16 +1,58 @@
-Finetune Run Log - fre 18 apr 2025 08:37:35 CEST
-Generated permutations: event_label2
-Permutation: event_label2
-Running config: event_label2
-  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2
-  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/pretrained_weights
-Config event_label2: SUCCESS
-Running day run config: interruption_1_day2
-  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2
-  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetune_weights
-Day Run Config interruption_1_day2: SUCCESS
-Running day run config: interruption_3_day2
-  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetuning/task_df_eneryield_interruption_1_day2
-  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield2/finetuning/task_df_eneryield_event_label2/finetuning/task_df_eneryield_interruption_1_day2/finetune_weights
-Day Run Config interruption_3_day2: FAILED
-Skipping final config interruption_next_week2 due to earlier failure.
+Finetune Run Log - mån 21 apr 2025 21:07:34 CEST
+Generated permutations: class_dist event_label interruption_in_seq
+class_dist interruption_in_seq event_label
+event_label class_dist interruption_in_seq
+event_label interruption_in_seq class_dist
+interruption_in_seq class_dist event_label
+interruption_in_seq event_label class_dist
+Permutation: class_dist event_label interruption_in_seq
+Running config: class_dist
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
+Config class_dist: SUCCESS
+Running config: event_label
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist/finetune_weights
+Config event_label: FAILED
+Skipping final config interruption_7_day due to earlier failure.
+Permutation: class_dist interruption_in_seq event_label
+Skipping already completed config in order: class_dist
+Running config: interruption_in_seq
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist/finetune_weights
+Config interruption_in_seq: FAILED
+Skipping final config interruption_7_day due to earlier failure.
+Permutation: event_label class_dist interruption_in_seq
+Running config: event_label
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
+Config event_label: SUCCESS
+Running config: class_dist
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label/finetune_weights
+Config class_dist: FAILED
+Skipping final config interruption_7_day due to earlier failure.
+Permutation: event_label interruption_in_seq class_dist
+Skipping already completed config in order: event_label
+Running config: interruption_in_seq
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label/finetune_weights
+Config interruption_in_seq: FAILED
+Skipping final config interruption_7_day due to earlier failure.
+Permutation: interruption_in_seq class_dist event_label
+Running config: interruption_in_seq
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/pretrained_weights
+Config interruption_in_seq: SUCCESS
+Running config: class_dist
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq/finetune_weights
+Config class_dist: FAILED
+Skipping final config interruption_7_day due to earlier failure.
+Permutation: interruption_in_seq event_label class_dist
+Skipping already completed config in order: interruption_in_seq
+Running config: event_label
+  current_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq
+  current_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_interruption_in_seq/finetune_weights
+Config event_label: FAILED
+Skipping final config interruption_7_day due to earlier failure.
