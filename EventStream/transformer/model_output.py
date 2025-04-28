@@ -1322,6 +1322,8 @@ class GenerativeOutputLayerBase(torch.nn.Module):
         
         self.TaskEventCLassificationLayer = torch.nn.Linear(in_features = config.hidden_size, out_features = 1, dtype=torch.float32)
         self.TaskEventRegressionLayer = torch.nn.Linear(in_features = config.hidden_size, out_features = 1, dtype=torch.float32)
+        self.TaskInterruptionLayer1 = torch.nn.Linear(in_features = config.hidden_size, out_features = 1, dtype=torch.float32)
+        self.TaskInterruptionLayer2 = torch.nn.Linear(in_features = config.max_seq_len, out_features = 1, dtype=torch.float32)
         
         
         self.is_observed_criteria = torch.nn.BCEWithLogitsLoss(reduction="none")
@@ -1427,6 +1429,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
         elif self.config.is_event_classification:
             logits = self.TaskEventCLassificationLayer(encoded)
+         
             logits = logits / temperature
 
             probs = torch.sigmoid(logits).squeeze(-1)
@@ -1440,7 +1443,7 @@ class GenerativeOutputLayerBase(torch.nn.Module):
 
             # chattis
             # positive_weight=(1-0.0023) / 0.0023 # ~434
-            positive_weight = 600
+            positive_weight = 1 #600
             loss_fn = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([positive_weight]).to(logits.device))
 
             # loss_fn = torch.nn.BCEWithLogitsLoss()
@@ -1451,26 +1454,61 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             accuracy = correct / labels_.numel()
         
             average_precision = AveragePrecision(task='binary')                    
-            average_precision_score = average_precision(pred_task_labels_binary.float(), labels_.int())
+            average_precision_score = average_precision(probs.float(), labels_.int())
             auroc = BinaryAUROC()
-            auroc_score = auroc(pred_task_labels_binary,labels_.float())
+            auroc_score = auroc(probs,labels_.float())
 
             event_label_preds = pred_task_labels_binary
             event_label_labels = labels_
 
 
+        
+
+            # pooling in github
+        elif self.config.is_interruption_forecast: # interruption next week / X days
+            print("interruption next week")
+            logits = self.TaskInterruptionLayer1(encoded)
+            logits = logits / temperature
+            gelu = torch.nn.GELU()
+            logits = gelu(logits)
+            # print(logits.shape)
+            if logits.squeeze(-1).shape[-1] != 256:
+                logits = logits.squeeze(-1)
+                padding = torch.zeros(logits.shape[0], 256 - logits.shape[1]).to(logits.device)
+                logits = torch.cat((padding,logits), dim=1)
+            else:
+                logits = logits.squeeze(-1)
+            final_logits = self.TaskInterruptionLayer2(logits)
+            seq_prob = torch.sigmoid(final_logits).squeeze(-1)
+            
+            loss_fn = torch.nn.BCELoss()
+            taskLoss = loss_fn(seq_prob, labels.float()) * 2
+
+            pred_task_labels_binary = (seq_prob > 0.5).int() # 1 if interruption 0 otherwise
+            correct = (pred_task_labels_binary == labels.int()).sum().item()  # This returns the number of correct predictions
+            accuracy = correct / labels.numel()
+                        
+            average_precision = AveragePrecision(task='binary')                     # LOGGAS SOM task_AUROC!
+            average_precision_score = average_precision(seq_prob.float(), labels.int())
+
+            auroc = BinaryAUROC()
+            auroc_score = auroc(seq_prob,labels.int())
+
         elif (labels[0].dtype == torch.int64) or (labels[0].dtype == torch.int32):  # classification proxy task: either interruption in seq or interruption next week, depending on stream labels
+            print("interruption in seq")
 
             logits = self.TaskEventCLassificationLayer(encoded)
             logits = logits / temperature
-    
+
+            
+            
             probs = torch.sigmoid(logits).squeeze(-1)
             probs = torch.where(event_mask, probs, 0)   # lägg till på alla om detta funkar
 
             probs_wo_first = probs[:, 1:]  # exclude first token
             no_interruption_prob = torch.prod(1 - probs_wo_first, dim=1)
             seq_prob = (1 - no_interruption_prob) # Probability that at least on of the events in the sequence is of type "interruption"
-            weight_tensor = torch.where(labels == 1, torch.tensor([0.77/0.23]).to(logits.device), torch.tensor(1.0).to(logits.device)) # 0.77 = 1 - 0.23, 0.23 = fraction of interruptions in the dataset
+            
 
             loss_fn = torch.nn.BCELoss()
             taskLoss = loss_fn(seq_prob, labels.float()) * 2
@@ -1480,13 +1518,10 @@ class GenerativeOutputLayerBase(torch.nn.Module):
             accuracy = correct / labels.numel()
                         
             average_precision = AveragePrecision(task='binary')                     # LOGGAS SOM task_AUROC!
-            average_precision_score = average_precision(pred_task_labels_binary.float(), labels.int())
+            average_precision_score = average_precision(seq_prob.float(), labels.int())
 
             auroc = BinaryAUROC()
-            auroc_score = auroc(pred_task_labels_binary,labels.int())
-
-            # pooling in github
-
+            auroc_score = auroc(seq_prob,labels.int())
 
         elif labels[0].dtype == torch.float:    # regression proxy task: time-to-interruption
 
