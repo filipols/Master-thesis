@@ -1,0 +1,114 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: true
+seed: 1
+
+threshold: 0.1
+# Strategy:  (event label) DONE!
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind_final/
+task_df_name: task_df_giga_mind_event_label
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind_final/pretrained_weights
+config:
+  is_cls_dist: false
+  is_event_classification: true
+  save_metrics: false
+  is_interruption_forecast: true
+  save_metrics_fp: /home/filip-marcus/results/giga_mind_final/event_label_baseline_new
+  attention_dropout: 0.2470443413050289
+  input_dropout: 0.12613243483940467
+  resid_dropout: 0.2763477216670702
+  task_specific_params:
+    pooling_method: last
+
+  
+
+# # Strategy:  (class dist --> event label) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist
+# task_df_name: task_df_giga_mind_event_label
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: true
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_event_label
+#   is_pretrain: false
+#   attention_dropout: 0.2470443413050289
+#   input_dropout: 0.12613243483940467
+#   resid_dropout: 0.2763477216670702
+#   task_specific_params:
+#     pooling_method: last
+
+
+
+# # Strategy:  (class dist --> interruption in sequence --> event label) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_in_seq
+# task_df_name: task_df_giga_mind_event_label
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_in_seq/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: true
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_interruption_in_seq_event_label
+#   is_pretrain: false
+#   attention_dropout: 0.2470443413050289
+#   input_dropout: 0.12613243483940467
+#   resid_dropout: 0.2763477216670702
+#   task_specific_params:
+#     pooling_method: last
+
+
+
+# # Strategy:  (interruption in seq --> class dist --> event label) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_class_dist
+# task_df_name: task_df_giga_mind_event_label
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_class_dist/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: true
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_in_seq_class_dist_event_label
+#   is_pretrain: false
+#   attention_dropout: 0.2470443413050289
+#   input_dropout: 0.12613243483940467
+#   resid_dropout: 0.2763477216670702
+#   task_specific_params:
+#     pooling_method: last
+
+# Strategy:  (interruption in seq --> event label) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq
+# task_df_name: task_df_giga_mind_event_label
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: true
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_in_seq_event_label
+#   is_pretrain: false
+#   attention_dropout: 0.2470443413050289
+#   input_dropout: 0.12613243483940467
+#   resid_dropout: 0.2763477216670702
+#   task_specific_params:
+#     pooling_method: last
+
+data_config:
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind_final
+  seq_padding_side: left
+  max_seq_len: 256
+optimization_config:
+  init_lr: 0.00005
+  end_lr: 5e-08
+  end_lr_frac_of_init_lr: 0.001
+  max_epochs: 100
+  batch_size: 63
+  validation_batch_size: 32
+  lr_frac_warmup_steps: 1.1354054687489807e-06
+  lr_num_warmup_steps: 0
+  max_training_steps: 3400
+  lr_decay_power: 2.3357229960904577
+  weight_decay: 0.006816453222100035
+  patience: null
+  gradient_accumulation: 1
+  gradient_clip_val: 1
+  num_dataloader_workers: 5

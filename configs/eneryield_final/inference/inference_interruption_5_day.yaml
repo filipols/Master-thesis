@@ -1,0 +1,25 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: true
+seed: 1
+is_inference: true # Flag to indicate that this is an inference run
+task_type: interruption # Task type for the inference run - used to use the appropirate evaluation metrics
+threshold: 0.19
+
+# Strategy:  (class dist)
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield_final/finetuning/task_df_eneryield_interruption_5_day
+task_df_name: task_df_eneryield_interruption_5_day
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield_final/finetuning/task_df_eneryield_interruption_5_day/finetune_weights
+config:
+  is_cls_dist: false
+  is_event_classification: false
+  save_metrics: false
+  is_interruption_forecast: true
+  save_metrics_fp: /home/filip-marcus/results/eneryield_final/interruption_5_day_baseline
+
+data_config:
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield_final
+  max_seq_len: 256
+

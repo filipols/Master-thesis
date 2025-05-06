@@ -6,66 +6,70 @@ do_overwrite: true
 seed: 1
 is_inference: true # Flag to indicate that this is an inference run
 task_type: interruption # Task type for the inference run - used to use the appropirate evaluation metrics
-
+threshold: 0.1 # Threshold for the classification task
 # Strategy:  (class dist)
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_7_day
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_7_day
+# task_df_name: task_df_giga_mind_interruption_7_day
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: false
+#   is_interruption_forecast: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_7_day_baseline
+
+
+# # Strategy:  (class dist --> event label --> interruption in sequence --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day
+# task_df_name: task_df_giga_mind_interruption_7_day
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: false
+#   is_interruption_forecast: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_event_label_interruption_in_seq_interruption3_interruption_5_day_interruption_7_day
+
+
+# Strategy:  (class dist --> interruption in sequence --> event label --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day
 task_df_name: task_df_giga_mind_interruption_7_day
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
 config:
   is_cls_dist: false
   is_event_classification: false
   save_metrics: false
   is_interruption_forecast: true
-  save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_7_day_baseline
-
-
-# # Strategy:  (class dist --> event label --> interruption in sequence --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1
-# task_df_name: task_df_giga_mind_interruption_7_day1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1/finetune_weights
-# config:
-#   is_cls_dist: false
-#   is_event_classification: false
-#   save_metrics: false
-#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_event_label_interruption_in_seq_interruption3_interruption_5_day_interruption_7_day
-
-
-# # Strategy:  (class dist --> interruption in sequence --> event label --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1
-# task_df_name: task_df_giga_mind_interruption_7_day1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1/finetune_weights
-# config:
-#   is_cls_dist: false
-#   is_event_classification: false
-#   save_metrics: false
-#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_interruption_in_seq_event_label_interruption3_interruption5_interruption7
+  save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_interruption_in_seq_event_label_interruption3_interruption5_interruption7
 
 # # Strategy:  (event label --> class dist --> interruption in sequence --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1
-# task_df_name: task_df_giga_mind_interruption_7_day1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1/finetune_weights
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day
+# task_df_name: task_df_giga_mind_interruption_7_day
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
 # config:
 #   is_cls_dist: false
 #   is_event_classification: false
 #   save_metrics: false
+#   is_interruption_forecast: true
 #   save_metrics_fp: /home/filip-marcus/results/giga_mind/event_label_class_dist_interruption_in_seq_interruption3_interruption5_interruption7
 
 
 # # Strategy:  (event label --> interruption in sequence --> class dist --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1
-# task_df_name: task_df_giga_mind_interruption_7_day1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1/finetune_weights
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day
+# task_df_name: task_df_giga_mind_interruption_7_day
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
 # config:
 #   is_cls_dist: false
 #   is_event_classification: false
 #   save_metrics: false
+#   is_interruption_forecast: true
 #   save_metrics_fp: /home/filip-marcus/results/giga_mind/event_label_interruption_in_seq_class_dist_interruption3_interruption5_interruption7
 
 
 # # Strategy:  (interruption in seq --> class dist --> event label --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1
-# task_df_name: task_df_giga_mind_interruption_7_day1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1/finetune_weights
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day
+# task_df_name: task_df_giga_mind_interruption_7_day
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
 # config:
 #   is_cls_dist: false
 #   is_event_classification: false
@@ -73,9 +77,9 @@ config:
 #   save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_in_seq_class_dist_event_label_interruption3_interruption5_interruption7
 
 # # Strategy:  (interruption in seq --> event label --> class dist --> interruption 3 day --> interruption 5 day --> interruption 7 day) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1
-# task_df_name: task_df_giga_mind_interruption_7_day1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq1/finetuning/task_df_giga_mind_event_label1/finetuning/task_df_giga_mind_class_dist1/finetuning/task_df_giga_mind_interruption_3_day1/finetuning/task_df_giga_mind_interruption_5_day1/finetune_weights
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day
+# task_df_name: task_df_giga_mind_interruption_7_day
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_in_seq/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_interruption_3_day/finetuning/task_df_giga_mind_interruption_5_day/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
 # config:
 #   is_cls_dist: false
 #   is_event_classification: false

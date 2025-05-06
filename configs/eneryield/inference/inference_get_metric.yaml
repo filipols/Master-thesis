@@ -1,0 +1,20 @@
+config:
+  is_cls_dist: false
+  is_event_classification: false
+  is_interruption_forecast: true
+  save_metrics: false
+  save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_interruption_in_seq_class_dist_interruption3_interruption5_interruption7
+data_config:
+  max_seq_len: 256
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield1
+defaults:
+- finetune_config
+- _self_
+do_overwrite: true
+is_inference: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_interruption_in_seq1/finetuning/task_df_eneryield_class_dist1/finetuning/task_df_eneryield_interruption_3_day1/finetuning/task_df_eneryield_interruption_5_day1/finetuning/task_df_eneryield_interruption_7_day1
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_interruption_in_seq1/finetuning/task_df_eneryield_class_dist1/finetuning/task_df_eneryield_interruption_3_day1/finetuning/task_df_eneryield_interruption_5_day1/finetuning/task_df_eneryield_interruption_7_day1/finetune_weights
+seed: 1
+task_df_name: task_df_eneryield_interruption_7_day1
+task_type: interruption
+threshold: 0.9

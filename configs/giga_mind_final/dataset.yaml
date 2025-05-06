@@ -1,0 +1,63 @@
+defaults:
+  - dataset_base
+  - _self_
+
+do_overwrite: True
+
+cohort_name: "giga_mind_final"
+subject_id_col: "sequence_id"
+raw_data_dir: "/home/filip-marcus/preprocessed_data/gigamind/pretrain"
+save_dir: "./data/processed/${cohort_name}"
+
+DL_chuck_size: null
+
+inputs:
+  subjects:
+    input_df: "${raw_data_dir}/subjects.csv"
+  eneryield_event:
+    input_df: "${raw_data_dir}/eneryield.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "eneryield_event"
+  ecom_electronic:
+    input_df: "${raw_data_dir}/ecom1.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "ecom_electronic"
+  ecom_cosmetic:
+    input_df: "${raw_data_dir}/ecom2.csv"
+    ts_col: "timestamp"
+    ts_format: "%Y-%m-%d %H:%M:%S"
+    event_type: "ecom_cosmetic"
+  predictive_maintenance:
+    input_df: "${raw_data_dir}/pred.csv" # håll koll på stavning
+    ts_col: "date"
+    ts_format: "%m/%d/%Y"
+    event_type: "predictive_maintenance"
+
+    
+measurements:
+  static:
+    single_label_classification:
+      subjects: ["dummy_static"]
+  dynamic:
+    multi_label_classification:
+      eneryield_event: ["event_label"]
+      ecom_electronic: ["event_label"] 
+      ecom_cosmetic: ["event_label"] 
+      predictive_maintenance: ["failure"]
+    univariate_regression:
+      eneryield_event: ["feature_0","feature_1","feature_2","feature_3","feature_4","feature_5","feature_6","feature_7","feature_8","feature_9","feature_10","feature_11","feature_12","feature_13","feature_14","feature_15","feature_16","feature_17","feature_18","feature_19","feature_20","feature_21","feature_22","feature_23","feature_24"]
+      ecom_electronic: ["price"]
+      ecom_cosmetic: ["price"]
+      predictive_maintenance: ["metric1","metric2","metric3","metric4","metric5","metric6","metric7","metric8","metric9"]
+
+
+      
+    
+min_valid_vocab_element_observations: 2
+min_valid_column_observations: 2
+min_true_float_frequency: 0.1
+min_unique_numerical_observations: 2
+min_events_per_subject: null
+agg_by_time_scale: null

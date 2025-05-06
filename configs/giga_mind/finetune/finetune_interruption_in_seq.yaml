@@ -5,89 +5,89 @@ defaults:
 do_overwrite: true
 seed: 1
 
-# Strategy: 
-load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/
+# # Strategy: 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/
+# task_df_name: task_df_giga_mind_interruption_in_seq
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/pretrained_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   is_interruption_forecast: false
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_in_seq_baseline_new
+#   attention_dropout: 0.38949734643478434
+#   input_dropout: 0.3716604394858833
+#   resid_dropout: 0.3539164418342992
+#   task_specific_params:
+#     pooling_method: cls
+
+
+# # Strategy:  (class dist --> event label --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_event_label
+# task_df_name: task_df_giga_mind_interruption_in_seq
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetuning/task_df_giga_mind_event_label/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_event_label_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.38949734643478434
+#   input_dropout: 0.3716604394858833
+#   resid_dropout: 0.3539164418342992
+#   task_specific_params:
+#     pooling_method: cls
+
+
+# # Strategy:  (class dist --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist
+# task_df_name: task_df_giga_mind_interruption_in_seq
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_class_dist/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/class_dist_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.38949734643478434
+#   input_dropout: 0.3716604394858833
+#   resid_dropout: 0.3539164418342992
+#   task_specific_params:
+#     pooling_method: cls
+
+
+# # Strategy:  (event label --> class dist --> interruption in sequence) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_class_dist
+# task_df_name: task_df_giga_mind_interruption_in_seq
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetuning/task_df_giga_mind_class_dist/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind/event_label_class_dist_interruption_in_seq
+#   is_pretrain: false
+#   attention_dropout: 0.38949734643478434
+#   input_dropout: 0.3716604394858833
+#   resid_dropout: 0.3539164418342992
+#   task_specific_params:
+#     pooling_method: cls
+
+
+# Strategy:  (event label --> interruption in sequence) 
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label
 task_df_name: task_df_giga_mind_interruption_in_seq
-pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/pretrained_weights
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetune_weights
 config:
   is_cls_dist: false
   is_event_classification: false
   save_metrics: true
-  is_interruption_forecast: false
-  save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_in_seq_baseline
-  attention_dropout: 0.04939220905959235
-  input_dropout: 0.21416584862512789
-  resid_dropout: 0.1621042776746176
+  save_metrics_fp: /home/filip-marcus/results/giga_mind/event_label_interruption_in_seq
+  is_pretrain: false
+  attention_dropout: 0.38949734643478434
+  input_dropout: 0.3716604394858833
+  resid_dropout: 0.3539164418342992
   task_specific_params:
-    pooling_method: last
-
-
-# # Strategy:  (class dist --> event label --> interruption in sequence) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1/finetuning/task_df_eneryield_event_label1
-# task_df_name: task_df_eneryield_interruption_in_seq1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1/finetuning/task_df_eneryield_event_label1/finetune_weights
-# config:
-#   is_cls_dist: false
-#   is_event_classification: false
-#   save_metrics: true
-#   save_metrics_fp: /home/filip-marcus/results/eneryield1/class_dist_event_label_interruption_in_seq
-#   is_pretrain: false
-#   attention_dropout: 0.18836215316415228
-#   input_dropout: 0.12373500765510947
-#   resid_dropout: 0.27840586989803184
-#   task_specific_params:
-#     pooling_method: mean
-
-
-# # Strategy:  (class dist --> interruption in sequence) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1
-# task_df_name: task_df_eneryield_interruption_in_seq1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_class_dist1/finetune_weights
-# config:
-#   is_cls_dist: false
-#   is_event_classification: false
-#   save_metrics: true
-#   save_metrics_fp: /home/filip-marcus/results/eneryield1/class_dist_interruption_in_seq
-#   is_pretrain: false
-#   attention_dropout: 0.18836215316415228
-#   input_dropout: 0.12373500765510947
-#   resid_dropout: 0.27840586989803184
-#   task_specific_params:
-#     pooling_method: mean
-
-
-# # Strategy:  (event label --> class dist --> interruption in sequence) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_class_dist1
-# task_df_name: task_df_eneryield_interruption_in_seq1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetuning/task_df_eneryield_class_dist1/finetune_weights
-# config:
-#   is_cls_dist: false
-#   is_event_classification: false
-#   save_metrics: true
-#   save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_class_dist_interruption_in_seq
-#   is_pretrain: false
-#   attention_dropout: 0.18836215316415228
-#   input_dropout: 0.12373500765510947
-#   resid_dropout: 0.27840586989803184
-#   task_specific_params:
-#     pooling_method: mean
-
-
-# # Strategy:  (event label --> interruption in sequence) 
-# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1
-# task_df_name: task_df_eneryield_interruption_in_seq1
-# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield1/finetuning/task_df_eneryield_event_label1/finetune_weights
-# config:
-#   is_cls_dist: false
-#   is_event_classification: false
-#   save_metrics: true
-#   save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_interruption_in_seq
-#   is_pretrain: false
-#   attention_dropout: 0.18836215316415228
-#   input_dropout: 0.12373500765510947
-#   resid_dropout: 0.27840586989803184
-#   task_specific_params:
-#     pooling_method: mean
+    pooling_method: cls
 
 
 
@@ -95,19 +95,20 @@ data_config:
   save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind
   seq_padding_side: left
   max_seq_len: 256
+
 optimization_config:
-  init_lr: 0.01084806030181583
-  end_lr: 0.0002816622665664288
-  end_lr_frac_of_init_lr: 0.025964297646767505
-  max_epochs: 17
-  batch_size: 38
+  init_lr: 0.007594946892309613
+  end_lr: 1.3419771710805059e-05
+  end_lr_frac_of_init_lr: 0.0017669342394472129
+  max_epochs: 14
+  batch_size: 13
   validation_batch_size: 32
-  lr_frac_warmup_steps: 0.0019184515275425572
-  lr_num_warmup_steps: 11
-  max_training_steps: 5800
-  lr_decay_power: 3.8163422739632527
-  weight_decay: 0.011351149390072762
-  patience: 15
+  lr_frac_warmup_steps: 0.0020190714968606523
+  lr_num_warmup_steps: 10
+  max_training_steps: 4800
+  lr_decay_power: 2.490314894564632
+  weight_decay: 0.15586918542735004
+  patience: null
   gradient_accumulation: 1
   gradient_clip_val: 1
   num_dataloader_workers: 5

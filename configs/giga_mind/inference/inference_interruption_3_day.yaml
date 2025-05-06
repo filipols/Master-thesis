@@ -6,7 +6,7 @@ do_overwrite: true
 seed: 1
 is_inference: true # Flag to indicate that this is an inference run
 task_type: interruption # Task type for the inference run - used to use the appropirate evaluation metrics
-
+threshold: 0.11 # Threshold for the classification task
 # Strategy:  (class dist)
 load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_3_day
 task_df_name: task_df_giga_mind_interruption_3_day

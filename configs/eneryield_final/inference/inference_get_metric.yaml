@@ -1,0 +1,20 @@
+config:
+  is_cls_dist: false
+  is_event_classification: false
+  is_interruption_forecast: true
+  save_metrics: false
+  save_metrics_fp: /home/filip-marcus/results/eneryield1/event_label_interruption_in_seq_class_dist_interruption3_interruption5_interruption7
+data_config:
+  max_seq_len: 256
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/eneryield_final
+defaults:
+- finetune_config
+- _self_
+do_overwrite: true
+is_inference: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield_final/finetuning/task_df_eneryield_interruption_3_day
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/eneryield_final/finetuning/task_df_eneryield_interruption_3_day/finetune_weights
+seed: 1
+task_df_name: task_df_eneryield_interruption_3_day
+task_type: interruption
+threshold: 0.7

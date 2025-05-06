@@ -1,0 +1,19 @@
+config:
+  is_cls_dist: false
+  is_event_classification: false
+  save_metrics: false
+  save_metrics_fp: /home/filip-marcus/results/giga_mind/interruption_in_seq_class_dist_event_label_interruption3_interruption5_interruption7
+data_config:
+  max_seq_len: 256
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind
+defaults:
+- finetune_config
+- _self_
+do_overwrite: true
+is_inference: true
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_7_day
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_interruption_7_day/finetune_weights
+seed: 1
+task_df_name: task_df_giga_mind_interruption_7_day
+task_type: interruption
+threshold: 0.99

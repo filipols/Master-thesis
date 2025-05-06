@@ -1,0 +1,54 @@
+class_dist | - DONE
+class_dist | event_label | 
+class_dist | event_label | interruption_in_seq | 
+class_dist | event_label | interruption_in_seq | interruption_3_day | 
+class_dist | event_label | interruption_in_seq | interruption_3_day | interruption_5_day | 
+class_dist | event_label | interruption_in_seq | interruption_3_day | interruption_5_day | interruption_7_day | 
+
+F1: 0.3117 | RECALL: 0.8000 | AP: 0.4168 | PRECISION: 0.1935 | Threshold: 0.3 
+
+
+class_dist | 
+class_dist | interruption_in_seq | 
+class_dist | interruption_in_seq | event_label | 
+class_dist | interruption_in_seq | event_label | interruption_3_day | 
+class_dist | interruption_in_seq | event_label | interruption_3_day | interruption_5_day | 
+class_dist | interruption_in_seq | event_label | interruption_3_day | interruption_5_day | interruption_7_day | 
+
+F1: 0.3637 | RECALL: 0.8000 | AP: 0.2467 | PRECISION: 0.2353 | Threshold: 0.25
+
+event_label | 
+event_label | class_dist | 
+event_label | class_dist | interruption_in_seq | 
+event_label | class_dist | interruption_in_seq | interruption_3_day | 
+event_label | class_dist | interruption_in_seq | interruption_3_day | interruption_5_day | 
+event_label | class_dist | interruption_in_seq | interruption_3_day | interruption_5_day | interruption_7_day | 
+
+F1: 0.3429 | RECALL: 0.8000 | AP: 0.2001 | PRECISION: 0.2182 | Threshold: 0.2
+
+event_label | 
+event_label | interruption_in_seq | 
+event_label | interruption_in_seq | class_dist | 
+event_label | interruption_in_seq | class_dist | interruption_3_day | 
+event_label | interruption_in_seq | class_dist | interruption_3_day | interruption_5_day | 
+event_label | interruption_in_seq | class_dist | interruption_3_day | interruption_5_day | interruption_7_day | 
+
+F1: 0.3692 | RECALL: 0.8000 | AP: 0.3584 | PRECISION: 0.2400 | Threshold: 0.25
+
+interruption_in_seq | 
+interruption_in_seq | class_dist | 
+interruption_in_seq | class_dist | event_label | 
+interruption_in_seq | class_dist | event_label | interruption_3_day | 
+interruption_in_seq | class_dist | event_label | interruption_3_day | interruption_5_day | 
+interruption_in_seq | class_dist | event_label | interruption_3_day | interruption_5_day | interruption_7_day | 
+
+F1: 0.2857 | RECALL: 0.8667 | AP: 0.1968 | PRECISION: 0.1711 | Threshold: 0.16
+
+interruption_in_seq | 
+interruption_in_seq | event_label | 
+interruption_in_seq | event_label | class_dist | 
+interruption_in_seq | event_label | class_dist | interruption_3_day | 
+interruption_in_seq | event_label | class_dist | interruption_3_day | interruption_5_day | 
+interruption_in_seq | event_label | class_dist | interruption_3_day | interruption_5_day | interruption_7_day | 
+
+F1: 0.2895 | RECALL: 0.7333 | AP: 0.3069 | PRECISION: 0.1800 | Threshold: 0.27

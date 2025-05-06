@@ -759,7 +759,7 @@ class DatasetBase(
         if n_held_out > 0:
             held_out_subjects = subjects[-n_held_out:]
             remaining_subjects = subjects[:-n_held_out]
-            held_out_subjects = held_out_subjects[7:] # Remove the first 7 subjects to avoid data leakage
+            
         else:
             held_out_subjects = []
             remaining_subjects = subjects
@@ -843,7 +843,7 @@ class DatasetBase(
         3. Next, fit all pre-processing parameters over the observed measurements.
         4. Finally, transform all data via the fit pre-processing parameters.
         """
-        self._filter_subjects()
+        # self._filter_subjects()
         self._add_time_dependent_measurements()
         self.fit_measurements()
         self.transform_measurements()

@@ -4,7 +4,7 @@ CONFIG_PATH="$(pwd)/configs/eneryield/ft_sweep"
 SCRIPT_PATH="$(pwd)/scripts/launch_finetuning_wandb_hp_sweep.py"
 
 # List of config names (suffixes)
-names=("interruption_1_day")
+names=("interruption_in_seq" "interruption_3_day" "interruption_5_day" "interruption_7_day")
 
 for name in "${names[@]}"; do
     CONFIG_NAME="FT_hp_sweep_$name"

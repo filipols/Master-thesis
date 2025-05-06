@@ -247,7 +247,7 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
 
         length_constraint = pl.col("dynamic_indices").list.lengths() >= config.min_seq_len
         self.cached_data = self.cached_data.filter(length_constraint)
-
+       
         if "time_delta" not in self.cached_data.columns:
             self.cached_data = self.cached_data.with_columns(
                 (pl.col("start_time") + pl.duration(minutes=pl.col("time").list.first())).alias("start_time"),
@@ -260,6 +260,7 @@ class PytorchDataset(SaveableMixin, SeedableMixin, TimeableMixin, torch.utils.da
                 )
                 .alias("time_delta"),
             ).drop("time")
+        
         stats = (
             self.cached_data.select(pl.col("time_delta").explode().drop_nulls().alias("inter_event_time"))
             .select(

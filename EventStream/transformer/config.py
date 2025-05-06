@@ -540,6 +540,7 @@ class StructuredTransformerConfig(PretrainedConfig):
         is_event_classification: bool = False,
         # For interruption forcast
         is_interruption_forecast: bool = False,
+    
         **kwargs,
     ):
         self.do_use_learnable_sinusoidal_ATE = do_use_learnable_sinusoidal_ATE
@@ -826,6 +827,7 @@ class StructuredTransformerConfig(PretrainedConfig):
         self.save_metrics_fp = save_metrics_fp
         self.is_pretrain = is_pretrain
         self.is_interruption_forecast = is_interruption_forecast
+        
 
         assert not kwargs.get("is_encoder_decoder", False), "Can't be used in encoder/decoder mode!"
         kwargs["is_encoder_decoder"] = False

@@ -4,7 +4,7 @@ defaults:
 
 do_overwrite: True
 
-cohort_name: "eneryield1"
+cohort_name: "eneryield1_test"
 subject_id_col: "sequence_id"
 raw_data_dir: "/home/filip-marcus/preprocessed_data/eneryield/pretrain"
 save_dir: "./data/processed/${cohort_name}"

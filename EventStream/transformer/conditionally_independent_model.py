@@ -87,6 +87,8 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
 
         event_label_preds = None
         event_label_labels = None
+        interruption_preds = None
+        interruption_labels = None
         # encoded is of shape: (batch size, sequence length, config.hidden_size)
         bsz, seq_len, _ = encoded.shape
         whole_event_encoded = encoded
@@ -129,7 +131,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         )
 
         if batch.stream_labels:
-            task_loss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels, average_precision_score= self.get_task_outputs(
+            task_loss, accuracy, auroc_score, mse, f1_score, event_label_preds, event_label_labels, interruption_preds, interruption_labels, average_precision_score= self.get_task_outputs(
                 batch,
                 for_event_contents_prediction,
                 classification_out = classification_out,
@@ -174,7 +176,7 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         else:
             train_loss = sum(classification_losses_by_measurement.values()) + sum(regression_loss_values.values()) - TTE_LL_overall
                                                                
-        
+        # print("TTE_LL_overall: ", TTE_LL_overall)
         return (
             GenerativeSequenceModelOutput(
             **{
@@ -219,6 +221,8 @@ class ConditionallyIndependentGenerativeOutputLayer(GenerativeOutputLayerBase):
         task_loss,
         event_label_preds,
         event_label_labels,
+        interruption_preds,
+        interruption_labels,
         )
 
 

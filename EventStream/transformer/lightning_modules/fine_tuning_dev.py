@@ -56,7 +56,7 @@ class FinetuneConfig:
     pretrained_weights_fp: Path | str | None = "${load_from_model_dir}/pretrained_weights"
     is_inference: bool = False
     task_type: str | None = None
-
+    threshold: float | None = 0.5
     experiment_dir: str | Path | None = "${load_from_model_dir}/finetuning"
     
     save_dir: str | None = (
@@ -302,6 +302,7 @@ def train(cfg: FinetuneConfig):
         model_params["pretrained_weights_fp"] = cfg.pretrained_weights_fp
 
     LM = ESTForGenerativeSequenceModelingLM(**model_params)
+    print(LM.device)
 
     # ####### UNCOMMENT TO FREEZE WEIGHTS #########
     # for name, layer in LM.model.named_children():

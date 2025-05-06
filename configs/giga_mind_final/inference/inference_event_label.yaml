@@ -1,0 +1,55 @@
+defaults:
+  - finetune_config
+  - _self_
+
+do_overwrite: true
+seed: 1
+is_inference: true # Flag to indicate that this is an inference run
+task_type: event_label # Task type for the inference run - used to use the appropirate evaluation metrics
+threshold: 0.49 # Threshold for the event label classification task
+data_config:
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind_final
+  do_include_subject_id: true
+  max_seq_len: 256
+
+# Strategy:  (event label) DONE!
+load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind_final/finetuning/task_df_giga_mind_event_label
+task_df_name: task_df_giga_mind_event_label # task to be evaluated
+pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind_final/finetuning/task_df_giga_mind_event_label/finetune_weights
+config:
+  is_cls_dist: false
+  is_event_classification: true
+  save_metrics: false
+  is_interruption_forecast: false
+  save_metrics_fp: /home/filip-marcus/results/giga_mind/event_label_baseline
+
+
+# # Strategy:  (event label) 
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/
+# task_df_name: task_df_giga_mind_interruption_in_seq
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/pretrained_weights
+# config:
+#   is_cls_dist: true
+#   is_event_classification: false
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/test/test2
+
+
+# # Strategy:  (event label --> interruption in seq) 
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label
+# task_df_name: task_df_giga_mind_interruption_in_seq
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+
+# # Strategy:  (event label --> interruption in seq --> interruptin next week) 
+# strategy: true
+# load_from_model_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/task_df_giga_mind_interruption_in_seq
+# task_df_name: task_df_giga_mind_interruption_next_week
+# pretrained_weights_fp: /home/filip-marcus/ESGPT_new/EventStreamGPT/pretrain/giga_mind/finetuning/task_df_giga_mind_event_label/task_df_giga_mind_interruption_in_seq/finetune_weights
+# config:
+#   is_cls_dist: false
+#   is_event_classification: false
+

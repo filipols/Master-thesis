@@ -1,0 +1,120 @@
+defaults:
+  - pretrain_config
+  - _self_
+
+config:
+  TTE_generation_layer_type: log_normal_mixture
+  TTE_lognormal_generation_num_components: 9
+  attention_dropout: 0.06854499366458311
+  categorical_embedding_dim: 57
+  categorical_embedding_weight: 0.2169528035330608
+  do_full_block_in_dep_graph_attention: true
+  do_full_block_in_seq_attention: true
+  do_normalize_by_measurement_index: false
+  do_split_embeddings: false
+  do_use_learnable_sinusoidal_ATE: false
+  head_dim: 18
+  input_dropout: 0.01990318760657278
+  intermediate_size: 128
+  num_attention_heads: 10
+  num_hidden_layers: 8
+  numerical_embedding_dim: 98
+  resid_dropout: 0.4851158142053062
+  seq_attention_types: global
+  seq_window_size: 6
+  static_embedding_mode: drop
+  static_embedding_weight: 0.7150957737745894
+  structured_event_processing_mode: conditionally_independent
+  cohort_name: giga_mind_final_old
+  save_metrics: true
+  save_metrics_fp: /home/filip-marcus/results/giga_mind/pretrain_06_05_2025
+  is_pretrain: true
+
+# config:
+#   TTE_generation_layer_type: log_normal_mixture
+#   TTE_lognormal_generation_num_components: 5
+#   attention_dropout: 0.12599928206461525
+#   categorical_embedding_dim: 90
+#   categorical_embedding_weight: 0.005054313698315549
+#   do_full_block_in_dep_graph_attention: false
+#   do_full_block_in_seq_attention: true
+#   do_normalize_by_measurement_index: false
+#   do_split_embeddings: false
+#   do_use_learnable_sinusoidal_ATE: true
+#   head_dim: 18
+#   input_dropout: 0.27138221851398375
+#   intermediate_size: 128
+#   num_attention_heads: 10
+#   num_hidden_layers: 8
+#   numerical_embedding_dim: 108
+#   resid_dropout: 0.0028407425023093125
+#   seq_attention_types: global
+#   seq_window_size: 36
+#   static_embedding_mode: drop
+#   static_embedding_weight: 0.7477349114528025
+#   structured_event_processing_mode: conditionally_independent
+#   cohort_name: giga_mind_final
+#   save_metrics: true
+#   save_metrics_fp: /home/filip-marcus/results/giga_mind_final/pretrain_05_05_2025
+#   is_pretrain: true
+
+data_config:
+  max_seq_len: 256
+  min_seq_len: 10
+  save_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT/data/processed/giga_mind_final
+  train_subset_seed: 1
+  train_subset_size: FULL
+  seq_padding_side: LEFT
+
+do_final_validation_on_metrics: true
+do_overwrite: true
+experiment_dir: /home/filip-marcus/ESGPT_new/EventStreamGPT
+
+final_validation_metrics_config:
+  do_skip_all_metrics: false
+  n_auc_thresholds: 25
+
+pretraining_metrics_config:
+  do_skip_all_metrics: false
+
+trainer_config:
+  detect_anomaly: false
+  log_every_n_steps: 20
+wandb_logger_kwargs:  
+  do_log_graph: false
+  log_model: false
+  name: generative_event_stream_transformer
+  project: GigaMind_final_old
+
+optimization_config:
+  init_lr: 7.184650270432113e-05
+  end_lr: 1.7652801398320948e-06
+  end_lr_frac_of_init_lr: 0.02457016101531027
+  max_epochs: 60
+  batch_size: 76
+  validation_batch_size: 32
+  lr_frac_warmup_steps: 0.2873772523208496
+  lr_num_warmup_steps: 25289
+  max_training_steps: 88000
+  lr_decay_power: 4.21456437496847
+  weight_decay: 0.3822450259430918
+  patience: null
+  gradient_accumulation: 1
+  gradient_clip_val: 1
+  num_dataloader_workers: 5
+  # init_lr: 5.111369098459686e-06
+  # end_lr: 3.845186538646072e-06
+  # end_lr_frac_of_init_lr: 0.7522811334060813
+  # max_epochs: 200
+  # batch_size: 54
+  # validation_batch_size: 32
+  # lr_frac_warmup_steps: 9.14445040616948e-06
+  # lr_num_warmup_steps: 1
+  # max_training_steps: 106600
+  # lr_decay_power: 4.2945979420362885
+  # weight_decay: 0.4144741744756123
+  # patience: 10
+  # gradient_accumulation: 1
+  # gradient_clip_val: 1
+  # num_dataloader_workers: 5
+

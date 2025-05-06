@@ -487,13 +487,15 @@ class ESTForGenerativeSequenceModelingLM(L.LightningModule):
 
         Skips logging all AUROC, AUPRC, and per_class metric to save compute.
         """
-        
+     
         out_tuple = self.model(batch)
         out = out_tuple[0]
         train_loss = out_tuple[1]
         task_loss = out_tuple[2]
         event_label_preds = out_tuple[3]
         event_label_labels  = out_tuple[4]
+        interruption_preds = out_tuple[5]
+        interruption_labels = out_tuple[6]
         average_precision = out["losses"].average_precision
         task_losses = out["losses"].task_loss
         auroc_score = out["losses"].task_AUROC
