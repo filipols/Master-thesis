@@ -4,7 +4,7 @@ This fork was created as part of my Master's thesis on exploring foundation mode
 
 The original repository provided a strong data pipeline for processing data of the "event sequence" modality. We built upon this work to explore new model and training approaches for power grid fault prediction.
 
-📄 Full thesis PDF available [here](thesis/Thesis_Final.pdf).
+📄 Full thesis PDF available [here](Thesis/Master_s_thesis.pdf).
 
 ## Thesis Abstract
 
