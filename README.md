@@ -12,9 +12,6 @@ Interruptions in electric power systems cause significant disruptions and econom
 This thesis proposes a foundation model approach to fault prediction, in which a transformer-based model is pretrained on large-scale event sequence datasets from diverse domains. We then fine-tune the model on downstream fault prediction tasks in a continual learning manner, using historical fault data segmented into 3-day sequences. While an equivalent specialized fault model outperforms this smaller foundation model by achieving 21.8 \% higher average precision, fine-tuning on multiple proxy tasks - common in foundation model training - significantly improved fault prediction performance of both models. These results suggest that while foundation models for event sequences are still emerging, the idea of proxy task fine-tuning is already beneficial to existing models. Notably, the foundation model exhibited less forgetting and higher forward transfer than the specialized model, indicating superior retention of knowledge and ability to adapt to new tasks. Scaling up foundation models remains a promising path towards reliable and scalable fault prediction systems for the power grid.
 
 
-📄 Full thesis PDF available [here](thesis/Thesis_Final.pdf).
-
-
 # Event Stream GPT
 
 [![python](https://img.shields.io/badge/-Python_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
